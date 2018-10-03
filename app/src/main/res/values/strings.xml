@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Vertretungsplan</string>
+    <string name="title_myPlan">Mein Plan</string>
+    <string name="title_plan">Vertretungsplan</string>
+    <string name="title_timetable">Stundenplan</string>
+    <string name="title_activity_add_lesson">Stunde hinzufügen</string>
+    <string name="title_activity_settings">Einstellungen</string>
+
+    <string name="timetable_monday">Mo.</string>
+    <string name="timetable_tuesday">Di.</string>
+    <string name="timetable_wednesday">Mi.</string>
+    <string name="timetable_thursday">Do.</string>
+    <string name="timetable_friday">Fr.</string>
+
+    <string name="error_message_no_plan">Heute fällt für dich nichts aus 😞</string>
+    <string name="error_message_wrong_day">Der Vertretungsplan ist noch nicht aktualisiert.</string>
+    <string name="error_message_no_connection">Schau mal nach ob du das Internet gelöscht hast.</string>
+    <string name="error_message_universal">Upsala</string>
+
+    <string name="add_lesson_subject">Fach</string>
+    <string name="add_lesson_teacher">Lehrer(Kürzel)</string>
+    <string name="add_lesson_room">Raum</string>
+
+    <string name="action_back">zurück</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_deleteTimetable">Lösch Stundenplan</string>
+    <string name="action_deleteLesson">Lösch Stunde</string>
+
+    <string name="dialog_deleteLesson_message">Willst du diese Stunde löschen?</string>
+    <string name="dialog_deleteTimetable_message">Willst du den Stundenplan löschen?</string>
+    <string name="cancel">abbrechen</string>
+    <string name="ok">jop</string>
+    <string name="error">ERROR</string>
+
+    <string name="tab_text_myPlan">Mein Plan</string>
+    <string name="tab_text_Plan">Vertretungsplan</string>
+
+    <string name="channel_name">Benarichtigungen</string>
+    <string name="channel_description">Benarichtigungen der App</string>
+    <string name="standard_channel">standard</string>
+
+    <!-- Strings related to Settings -->
+    <string name="grade_title">Stufe</string>
+    <string name="grade_summery">Von dieser Stufe wird der Vertretungsplan Angezeigt</string>
+    <string-array name="grade_values">
+        <item>EF</item>
+        <item>Q1</item>
+        <item>Q2</item>
+    </string-array>
+    <string-array name="grade_entries">
+        <item>EF</item>
+        <item>Q1</item>
+        <item>Q2</item>
+    </string-array>
+    <string name="grade_default_value">Q1</string>
+
+    <string name="auto_time_title">Nächster Tag</string>
+    <string name="auto_time_summary">Uhrzeit automatisch bestimmen</string>
+
+    <string name="sort_plan_title">Plan sotieren</string>
+    <string-array name="sort_plan_entries">
+        <item>1,1,1,2,2,2(nach Stunde)</item>
+        <item>1,2,1,2,1,2(nach Doppelstunde)</item>
+    </string-array>
+    <string-array name="sort_plan_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string name="sort_plan_default_value">0</string>
+
+</resources>

@@ -1,0 +1,21 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="grade"
+        android:title="@string/grade_title"
+        android:summary="%s"
+        android:dialogTitle="@string/grade_title"
+        android:entries="@array/grade_entries"
+        android:entryValues="@array/grade_values"
+        android:defaultValue="@string/grade_default_value"/>
+
+    <ListPreference
+        android:key="sort_plan"
+        android:title="@string/sort_plan_title"
+        android:summary="%s"
+        android:dialogTitle="@string/sort_plan_title"
+        android:entries="@array/sort_plan_entries"
+        android:entryValues="@array/sort_plan_values"
+        android:defaultValue="@string/sort_plan_default_value"/>
+
+</PreferenceScreen>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.thebluealliance:spectrum-0.7.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spectrum-0.7.1.aar/01a51a296774799872fbe676192a6ecc/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spectrum-0.7.1.aar/01a51a296774799872fbe676192a6ecc/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.thebluealliance/spectrum/0.7.1/6d60cd135afb1f7bf6d1f507509fac07c9655d0c/spectrum-0.7.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
