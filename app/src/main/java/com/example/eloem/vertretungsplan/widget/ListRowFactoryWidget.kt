@@ -23,12 +23,12 @@ class ListRowFactoryWidget(context: Context): RemoteViewsService.RemoteViewsFact
     }
     
     override fun getCount(): Int {
-        if (plan.getError(isMPlan) != Vertretungsplan.ERROR_NO){ //wenn fehler
+        if (plan.generalPlan.error != Vertretungsplan.ERROR_NO){ //wenn fehler
             return 1
         }else if (isMPlan){ // wenn mein Plan und kein Fehler
-            return plan.custLenght()
+            return plan.customPlan.plan.size
         }
-        return plan.length() //normaler Plan und kein Fehler
+        return plan.generalPlan.plan.size //normaler Plan und kein Fehler
     }
     
     override fun getLoadingView(): RemoteViews? {
@@ -40,10 +40,10 @@ class ListRowFactoryWidget(context: Context): RemoteViewsService.RemoteViewsFact
     }
     
     override fun getViewAt(pos: Int): RemoteViews {
-        if (pos == 0 && plan.getError(isMPlan) != Vertretungsplan.ERROR_NO){
+        if (pos == 0 && plan.generalPlan.error != Vertretungsplan.ERROR_NO){
             val resources = ctxt.resources
             val messageRow = RemoteViews(ctxt.packageName, R.layout.widget_row_message)
-            when(plan.getError(isMPlan)){
+            when(plan.generalPlan.error){
                 Vertretungsplan.ERROR_NO_PLAN -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_no_plan))
                 Vertretungsplan.ERROR_WRONG_DAY -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_wrong_day))
                 Vertretungsplan.ERROR_CONNECTION -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_no_connection))
@@ -54,9 +54,9 @@ class ListRowFactoryWidget(context: Context): RemoteViewsService.RemoteViewsFact
         val row = RemoteViews(ctxt.packageName, R.layout.widget_row)
         val verPlanRow: Vertretungsplan.Row
         if(isMPlan){
-            verPlanRow = plan.getCustRow(pos)
+            verPlanRow = plan.customPlan.plan[pos]
         }else{
-            verPlanRow = plan.getRow(pos)
+            verPlanRow = plan.generalPlan.plan[pos]
         }
         setText(row, R.id.lessonTV, verPlanRow.lesson.toString())
         setText(row, R.id.teacherTV, verPlanRow.teacher)

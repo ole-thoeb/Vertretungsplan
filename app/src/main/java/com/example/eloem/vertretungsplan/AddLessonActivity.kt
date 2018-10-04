@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import com.example.eloem.vertretungsplan.helperClasses.Timetable
+import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.*
 import kotlinx.android.synthetic.main.activity_add_lesson.*
 import java.util.*
@@ -48,8 +49,8 @@ class AddLessonActivity : AppCompatActivity() {
         //setup autocomplete text view
         val distinctLessons = timetable.distinctLessons()
         val autoList = ArrayList<String>()
-        for (i in distinctLessons){
-            autoList.add(i.pSubject)
+        distinctLessons.forEach {
+            autoList.add(it.subject)
         }
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, autoList)
         subjectAuto.setAdapter(adapter)
@@ -62,8 +63,8 @@ class AddLessonActivity : AppCompatActivity() {
             val selected = subjectAuto.text.toString()
             for ((i, subject) in autoList.withIndex()){
                 if (subject == selected){
-                    teacher.setText(distinctLessons[i].pTeacher)
-                    color = Color.parseColor(distinctLessons[i].pColor)
+                    teacher.setText(distinctLessons[i].teacher)
+                    color = Color.parseColor(distinctLessons[i].color)
                     supportActionBar?.setBackgroundDrawable(ColorDrawable(color))
                     break
                 }
@@ -85,16 +86,19 @@ class AddLessonActivity : AppCompatActivity() {
         }
         
         //fill textviews
-        subjectAuto.setText(timetable.getSubject(day, lesson))
-        room.setText(timetable.getRoom(day, lesson))
-        teacher.setText(timetable.getTeacher(day, lesson))
+        subjectAuto.setText(timetable[day][lesson].subject)
+        room.setText(timetable[day][lesson].room)
+        teacher.setText(timetable[day][lesson].teacher)
         //set color
-        color = Color.parseColor(timetable.getColor(day, lesson))
+        color = Color.parseColor(timetable[day][lesson].color)
         setToolbarColor(color)
         
         fabConfirm.setOnClickListener {
-            timetable.changeContent(day = day, lesson = lesson, subject = subjectAuto.text.toString(),
-                    room = room.text.toString(), teacher = teacher.text.toString().toUpperCase(), color = colorIntToString(color))
+            val l = Timetable.Lesson(subject = subjectAuto.text.toString(),
+                    room = room.text.toString(),
+                    teacher = teacher.text.toString().toUpperCase(),
+                    color = colorIntToString(color))
+            timetable[day][lesson] = l
             writeTimetable(timetable, this)
             NavUtils.navigateUpFromSameTask(this)
         }
@@ -109,15 +113,16 @@ class AddLessonActivity : AppCompatActivity() {
                 //build dialog
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage(R.string.dialog_deleteLesson_message)
-                        .setPositiveButton(R.string.ok, DialogInterface.OnClickListener(){ dialog, id ->
+                        .setPositiveButton(R.string.ok){ _, _ ->
                             //delete lesson
-                            timetable.changeContent(day, lesson)
+                            timetable[day][lesson] = Timetable.Lesson()
                             writeTimetable(timetable, this)
                             NavUtils.navigateUpFromSameTask(this)
-                        })
-                        .setNegativeButton(R.string.cancel, DialogInterface.OnClickListener(){ dialog, id ->
+                        }
+                        .setNegativeButton(R.string.cancel){ _, _ ->
                             //do nothing
-                        }).show()
+                        }
+                        .show()
             }
         
             else -> super.onOptionsItemSelected(item)
@@ -134,7 +139,7 @@ class AddLessonActivity : AppCompatActivity() {
     private fun setToolbarColor(newColor: Int){
         if(newColor != Color.parseColor("#FFFAFAFA")){ //wenn nicht weiß/ keine farbe gewählt
             supportActionBar?.setBackgroundDrawable(ColorDrawable(newColor))
-            if (android.os.Build.VERSION.SDK_INT > 21) window.statusBarColor = differentshade(newColor, -0.15f)
+            window.statusBarColor = differentshade(newColor, -0.15f)
         }
     }
     

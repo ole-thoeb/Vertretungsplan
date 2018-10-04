@@ -1,7 +1,6 @@
 package com.example.eloem.vertretungsplan
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -46,15 +45,15 @@ class TimetableActivity : AppCompatActivity() {
         R.id.deleteTimetable -> {
             val builder = AlertDialog.Builder(this)
             builder.setMessage(R.string.dialog_deleteTimetable_message)
-                    .setPositiveButton(R.string.ok, DialogInterface.OnClickListener(){ dialog, id ->
+                    .setPositiveButton(R.string.ok){ _, _ ->
                         writeTimetable(Timetable(4, 10), this)
                         //refresh activity
                         finish()
                         startActivity(intent)
-                    })
-                    .setNegativeButton(R.string.cancel, DialogInterface.OnClickListener(){ dialog, id ->
+                    }
+                    .setNegativeButton(R.string.cancel){ _, _ ->
                         //do nothing
-                    }).show()
+                    }.show()
             true
         }
         R.id.home -> {
@@ -85,10 +84,10 @@ class TimetableActivity : AppCompatActivity() {
             for(j in 0..4){
                 //textfeld configurieren
                 val tvSubject = TextView(this)
-                tvSubject.text = timetable.getSubject(j, i)
+                tvSubject.text = timetable[j][i].subject
                 tvSubject.textSize = 15f
-                tvSubject.setBackgroundColor(Color.parseColor(timetable.getColor(j, i)))
-                if (isDarkColor(timetable.getColor(j, i))) tvSubject.setTextColor(Color.WHITE)
+                tvSubject.setBackgroundColor(Color.parseColor(timetable[j][i].color))
+                if (isDarkColor(timetable[j][i].color)) tvSubject.setTextColor(Color.WHITE)
                 else tvSubject.setTextColor(Color.BLACK)
                 tvSubject.gravity = Gravity.CENTER
                 tvSubject.minimumHeight = dp45

@@ -8,6 +8,24 @@ import android.view.inputmethod.InputMethodManager
 import java.util.*
 import java.time.DayOfWeek
 
+fun normaliseDateString(date: String):String{
+    var day = date.removeRange(date.indexOf('.'), date.length)
+    if(day.length != 2) day = "0$day"
+    var month = date.removeRange(0, date.indexOf('.') + 1)
+    month = month.removeRange(month.indexOf('.'), month.length)
+    if(month.length != 2) month = "0$month"
+    val year = date.removeRange(0, date.indexOf('.', 3) + 1)
+    return "$day.$month.$year"
+}
+
+fun normaliseTimeString(time : String): String{
+    var hour = time.removeRange(time.indexOf(':'), time.length)
+    if (hour.length != 2) hour = "0$hour"
+    var minutes = time.removeRange(0, time.indexOf(':') + 1)
+    if (minutes.length != 2) minutes = "0$minutes"
+    return "$hour:$minutes"
+}
+
 fun dpToPx(dp: Float, context: Context?): Int{
     return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context?.resources?.displayMetrics))
 }

@@ -1,23 +1,18 @@
 package com.example.eloem.vertretungsplan.helperClasses
 
+import org.jetbrains.anko.collections.forEachReversedByIndex
+import org.jetbrains.anko.collections.forEachReversedWithIndex
 import kotlin.collections.ArrayList
 
-class Timetable(days: Int, lessons: Int) {
+class Timetable(private val days: Int, private val lessons: Int) {
     
-    data class Lesson(var pSubject: String, var pTeacher: String, var pRoom: String, var pColor: String)
+    data class Lesson(val subject: String = "", val teacher: String = "", val room: String = "",
+                      val color: String = "#FFFAFAFA")
     
     val table: ArrayList<ArrayList<Lesson>> = ArrayList<ArrayList<Lesson>>()
     
     init {
-        for (i in 0..days) {
-            val day = ArrayList<Lesson>()
-            for (j in 0..lessons) {
-                day.add(j, Lesson("", "", "", "#FFFAFAFA"))
-            }
-            this.table.add(i, day)
-        }
-        
-       
+        clear()
         /*this.endOfLessons.add(Date(0, 0, 0, 8, 40))
         this.endOfLessons.add(Date(0, 0, 0, 9, 30))
         this.endOfLessons.add(Date(0, 0, 0, 10, 35))
@@ -38,33 +33,13 @@ class Timetable(days: Int, lessons: Int) {
         
         for (i in this.table) {
             for (j in i) {
-                if (j.pSubject !in alreadyInList){
+                if (j.subject !in alreadyInList){
                     list.add(j)
-                    alreadyInList.add(j.pSubject)
+                    alreadyInList.add(j.subject)
                 }
             }
         }
         return list
-    }
-    
-    fun changeContent(day: Int, lesson: Int, subject: String = "", teacher: String = "", room: String = "", color: String = "#FFFAFAFA"){
-        this.table[day][lesson] = Lesson(subject, teacher, room, color)
-    }
-    
-    fun getSubject(day: Int, lesson: Int): String{
-        return this.table[day][lesson].pSubject
-    }
-    
-    fun getTeacher(day: Int, lesson: Int): String{
-        return this.table[day][lesson].pTeacher
-    }
-    
-    fun getRoom(day: Int, lesson: Int): String{
-        return this.table[day][lesson].pRoom
-    }
-    
-    fun getColor(day: Int, lesson: Int): String{
-        return this.table[day][lesson].pColor
     }
     
     fun endOfDay(day: Int): JustTime{
@@ -80,11 +55,23 @@ class Timetable(days: Int, lessons: Int) {
                 JustTime(16, 40),
                 JustTime(17, 30))
         
-        for((i, s) in this.table[day].withIndex().reversed()){
-            if(s.pSubject != ""){
+        table[day].forEachReversedWithIndex { i, lesson ->
+            if(lesson.subject != ""){
                 return endOfLessons[i]
             }
         }
         return endOfLessons[0]
     }
+    
+    fun clear(){
+        table.clear()
+        for (i in 0..days) {
+            val day = ArrayList<Lesson>()
+            for (j in 0..lessons) {
+                day.add(j, Lesson())
+            }
+            table.add(i, day)
+        }
+    }
+    operator fun get(day: Int) = table[day]
 }

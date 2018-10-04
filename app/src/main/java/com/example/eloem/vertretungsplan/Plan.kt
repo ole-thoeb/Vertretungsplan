@@ -19,10 +19,7 @@ import kotlinx.android.synthetic.main.fragment_plan.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-class Plan : Fragment() {
-    
-    private var isMyPlan: Boolean = false
-    
+abstract class Plan : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         
@@ -32,49 +29,16 @@ class Plan : Fragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-    
-        isMyPlan = arguments!!.getBoolean(IS_MY_PLAN)
         
         progressBar.visibility = ProgressBar.VISIBLE
-        request()
-    
-        swiperefresh.setOnRefreshListener {
-            swiperefresh.isRefreshing = true
-            request(true)
-        }
+        //request()
     }
     
-    fun fillContent(verPlan: Vertretungsplan, needToUpdate: Boolean){
-        val mainActivity = (activity as MainActivity)
-        if(needToUpdate) mainActivity.updateOtherChild(isMyPlan) //update anderen tab
-        mainActivity.setUpToolbarText()
-        
-        if(verPlan.getError(isMyPlan) == Vertretungsplan.ERROR_NO){
-            errorTV.visibility = TextView.GONE
-            setUpAdapter(verPlan)
-        }else{
-            when(verPlan.getError(isMyPlan)){
-                Vertretungsplan.ERROR_NO_PLAN -> errorTV.text = resources.getString(R.string.error_message_no_plan)
-                Vertretungsplan.ERROR_WRONG_DAY -> errorTV.text = resources.getString(R.string.error_message_wrong_day)
-                Vertretungsplan.ERROR_CONNECTION -> errorTV.text = resources.getString(R.string.error_message_no_connection)
-                else -> errorTV.text = resources.getString(R.string.error_message_universal)
-            }
-            
-            setUpAdapter(verPlan)
-            errorTV.visibility = TextView.VISIBLE
-        }
+    abstract fun fillContent(verPlan: Vertretungsplan)
     
-        progressBar.visibility = ProgressBar.GONE
-        swiperefresh.isRefreshing = false
-    }
-    
-    private fun setUpAdapter(plan: Vertretungsplan){
+    fun setUpAdapter(plan: Vertretungsplan.Plan){
         val viewManager = LinearLayoutManager(context)
-        val viewAdapter = if(isMyPlan){
-            MyAdapter(plan.getCustPlan())
-        }else{
-            MyAdapter(plan.getPlan())
-        }
+        val viewAdapter = MyAdapter(plan)
     
         list.apply {
             layoutManager = viewManager
@@ -82,43 +46,8 @@ class Plan : Fragment() {
         }
     }
     
-    private fun request(needToUpdate: Boolean = false){
-        if (planIsUpToDate(context) && !needToUpdate){
-            val verPlan = readVertretungsplan(context)
-            fillContent(verPlan, needToUpdate)
-        }else{
-            val queue = Volley.newRequestQueue(context)
-    
-            val url = getUrl(readGrade(context))
-    
-            val stringRequest = StringRequest(Request.Method.GET, url,
-                    Response.Listener<String> { response ->
-                        doAsync {
-                            val verPlan = parseHtml(context, response)
-                            uiThread {
-                                it.fillContent(verPlan, needToUpdate)
-                            }
-                        }
-                    },
-                    Response.ErrorListener { _ ->
-                        val verPlan = Vertretungsplan()
-                        verPlan.setError(Vertretungsplan.ERROR_CONNECTION)
-                        writeVertretungsplan(verPlan, context)
-                        fillContent(verPlan, needToUpdate)
-                    })
-    
-            queue.add(stringRequest)
-        }
-    }
-    
-    class MyAdapter(values: ArrayList<Vertretungsplan.Row>): RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+    class MyAdapter(val values: Vertretungsplan.Plan): RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         
-        val values: ArrayList<Vertretungsplan.Row>
-        
-        init {
-            this.values = values
-        }
-    
         class ViewHolder(layout: View): RecyclerView.ViewHolder(layout){
             val lesson: TextView = layout.findViewById(R.id.lessonTV)
             val teacher: TextView = layout.findViewById(R.id.teacherTV)
@@ -134,7 +63,7 @@ class Plan : Fragment() {
         }
     
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val row = values[position]
+            val row = values.plan[position]
             holder.lesson.text = row.lesson.toString()
             holder.teacher.text = row.teacher
             holder.verTeacher.text = row.verTeacher
@@ -144,19 +73,40 @@ class Plan : Fragment() {
         }
     
         override fun getItemCount(): Int {
-            return values.size
+            return values.plan.size
         }
     }
-    
-    companion object {
-        private const val IS_MY_PLAN = "my_plan"
-        
-        fun newInstance(isMyPlan: Boolean): Fragment {
-            val fragment = Plan()
-            val args = Bundle()
-            args.putBoolean(IS_MY_PLAN, isMyPlan)
-            fragment.arguments = args
-            return fragment
+}
+
+class GeneralPlan: Plan(){
+    override fun fillContent(verPlan: Vertretungsplan) {
+        if(verPlan.generalPlan.error == Vertretungsplan.ERROR_NO) {
+            errorTV.visibility = TextView.GONE
+        }else{
+            errorTV.text = resources.getString(R.string.error_message_no_connection)
+            errorTV.visibility = TextView.VISIBLE
         }
+
+        progressBar.visibility = ProgressBar.GONE
+        setUpAdapter(verPlan.generalPlan)
+    }
+}
+
+class MyPlan: Plan(){
+    override fun fillContent(verPlan: Vertretungsplan) {
+        if(verPlan.customPlan.error == Vertretungsplan.ERROR_NO) {
+            errorTV.visibility = TextView.GONE
+        }else{
+            when(verPlan.customPlan.error){
+                Vertretungsplan.ERROR_NO_PLAN -> errorTV.text = resources.getString(R.string.error_message_no_plan)
+                Vertretungsplan.ERROR_WRONG_DAY -> errorTV.text = resources.getString(R.string.error_message_wrong_day)
+                Vertretungsplan.ERROR_CONNECTION -> errorTV.text = resources.getString(R.string.error_message_no_connection)
+                else -> errorTV.text = resources.getString(R.string.error_message_universal)
+            }
+            errorTV.visibility = TextView.VISIBLE
+        }
+        
+        progressBar.visibility = ProgressBar.GONE
+        setUpAdapter(verPlan.customPlan)
     }
 }

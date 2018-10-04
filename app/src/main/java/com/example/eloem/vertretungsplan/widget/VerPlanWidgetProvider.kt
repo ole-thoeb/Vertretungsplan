@@ -21,7 +21,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
     
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray) {
         //plan neu abrufen
-
+/*
         val queue = Volley.newRequestQueue(context)
 
         val url = getUrl(readGrade(context))
@@ -42,6 +42,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
                 })
 
         queue.add(stringRequest)
+        */
     }
     
     private fun updateRest(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray){
@@ -131,6 +132,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
         appWidgetManager.updateAppWidget(appWidgetIds, views)
         
         //plan neu abrufen
+        /*
         val queue = Volley.newRequestQueue(context)
     
         val url = getUrl(readGrade(context))
@@ -157,6 +159,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
                 })
     
         queue.add(stringRequest)
+        */
     }
     
     companion object {
