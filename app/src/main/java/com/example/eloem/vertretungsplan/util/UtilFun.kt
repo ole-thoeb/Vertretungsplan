@@ -110,5 +110,6 @@ fun currentWeekday(): Int{
     var weekDay = cal.get(Calendar.DAY_OF_WEEK)
     weekDay -= 2
     if (weekDay < 0) weekDay = 6
-    return weekDay
+    //return weekDay
+    return 3
 }

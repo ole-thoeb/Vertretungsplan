@@ -34,8 +34,8 @@ data class Vertretungsplan(val generalPlan: Plan = Plan(), val customPlan: Plan 
         }
     
         customPlan.error = ERROR_NO_PLAN
-        customPlan.plan.forEach { row ->
-            if (row.teacher == timetable[verDay][row.lesson].teacher){
+        generalPlan.plan.forEach { row ->
+            if (row.teacher == timetable[verDay][row.lesson -1].teacher){
                 customPlan.error = ERROR_NO
                 customPlan.plan.add(row)
             }

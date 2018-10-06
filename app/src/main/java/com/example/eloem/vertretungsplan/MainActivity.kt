@@ -13,7 +13,6 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.eloem.vertretungsplan.helperClasses.JustTime
 import com.example.eloem.vertretungsplan.helperClasses.Timetable
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.*
@@ -122,13 +121,20 @@ class MainActivity : AppCompatActivity() {
             true
         }
         R.id.metaData -> {
-            val verPlan = readVertretungsplan(this)
-            val builder = AlertDialog.Builder(this)
-            val custView = layoutInflater.inflate(R.layout.dialog_meta_data, null)
-            custView.infoRefreshedTV.text = dateFromMillis(verPlan.updateTime).toStringWithTime()
-            custView.infoFetchedTV.text = dateFromMillis(readVerPlanTime(this)).toStringWithTime()
-            builder.setView(custView)
-            builder.show()
+            AlertDialog.Builder(this).apply {
+                
+                setView(layoutInflater.inflate(R.layout.dialog_meta_data, null).apply {
+                    
+                    infoRefreshedTV.text = dateFromMillis(
+                            readVertretungsplan(this@MainActivity).updateTime)
+                            .toStringWithTime()
+                    
+                    infoFetchedTV.text = dateFromMillis(
+                            readVerPlanTime(this@MainActivity))
+                            .toStringWithTime()
+                })
+            }.show()
+            
             true
         }
         else -> super.onOptionsItemSelected(item)
