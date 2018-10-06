@@ -18,8 +18,11 @@
             android:id="@+id/table"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:stretchColumns="1, 2, 3, 4, 5">
-            <TableRow>
+            android:orientation="vertical">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -28,38 +31,23 @@
                     android:text=""/>
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
+                    style="@style/DayTimetableTV"
                     android:text="@string/timetable_monday"/>
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
+                    style="@style/DayTimetableTV"
                     android:text="@string/timetable_tuesday"/>
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
+                    style="@style/DayTimetableTV"
                     android:text="@string/timetable_wednesday"/>
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
-                    android:text="@string/timetable_thursday"/>
+                    style="@style/DayTimetableTV"
+                    android:text="@string/timetable_thursday" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
+                    style="@style/DayTimetableTV"
                     android:text="@string/timetable_friday"/>
             </TableRow>
 

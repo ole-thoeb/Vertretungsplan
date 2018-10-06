@@ -14,10 +14,9 @@ fun getUrl(grade: String) = when(grade){
 
 fun planIsUpToDate(context: Context?): Boolean{
     val lastTime = readVerPlanTime(context)
-    val cal = Calendar.getInstance()
-    val currentTime = cal.time
+    val currentTime = System.currentTimeMillis()
     
-    return addMinutesToDate(5, lastTime) > currentTime
+    return lastTime + 5 * 60 * 1000 > currentTime
 }
 
 fun extractVerPlan(htmlString: String): Vertretungsplan.Plan{

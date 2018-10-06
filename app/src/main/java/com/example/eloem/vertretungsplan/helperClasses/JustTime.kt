@@ -26,6 +26,8 @@ class JustTime {
         this.minute = splitTime[1].toInt()
     }
     
+    constructor(millis: Long): this(Calendar.getInstance().apply{timeInMillis = millis}.time)
+    
     fun isLaterThen(time2: JustTime): Boolean{
         val thisTime = (this.hour * 60) + this.minute
         val otherTime = (time2.hour * 60) + time2.minute

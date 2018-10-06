@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.*
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.SparseArray
 import android.view.*
@@ -19,7 +20,6 @@ import com.example.eloem.vertretungsplan.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     
@@ -44,8 +44,20 @@ class MainActivity : AppCompatActivity() {
     
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
+    
+        container.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+                swiperefresh.isEnabled = state == ViewPager.SCROLL_STATE_IDLE
+            }
+    
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+    
+            override fun onPageSelected(position: Int) {
+            }
+        })
         
-        request(true)
+        mSectionsPagerAdapter?.onFinish = {request()}
     }
     
     private fun request(forceUpdate: Boolean = false){
@@ -63,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                             val verPlan = Vertretungsplan.newInstance(response,
                                     readTimetable(this@MainActivity))
                             writeVertretungsplan(verPlan, this@MainActivity)
-                            writeVerPlanTime(Calendar.getInstance().time, this@MainActivity)
+                            writeVerPlanTime(System.currentTimeMillis(), this@MainActivity)
                             uiThread {
                                 it.updateChildes(verPlan)
                             }
@@ -76,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                     })
             
             queue.add(stringRequest)
+            println("Fetching from Internet")
         }
     }
     
@@ -111,19 +124,23 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun updateChildes(plan: Vertretungsplan){
-        (mSectionsPagerAdapter?.getFragmentAt(0)as MyPlan).fillContent(plan)
-        (mSectionsPagerAdapter?.getFragmentAt(1)as GeneralPlan).fillContent(plan)
+        (mSectionsPagerAdapter?.getFragmentAt(0) as MyPlan?)?.fillContent(plan)
+        (mSectionsPagerAdapter?.getFragmentAt(1) as GeneralPlan?)?.fillContent(plan)
         setUpToolbarText(plan)
         swiperefresh.isRefreshing = false
     }
     
     private fun setUpToolbarText(plan: Vertretungsplan){
         val timeRefreshed = readVerPlanTime(this)
-        toolbar?.title = "${plan.updateTime} ↻ ${JustTime(timeRefreshed)} \u21A7"
+        toolbar?.title = resources.getString(R.string.actionbar_time_info,
+                JustTime(plan.updateTime).toString(), JustTime(timeRefreshed).toString())
     }
     
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         private val registeredFragments = SparseArray<Fragment>()
+        
+        var finished = false
+        var onFinish = {_: Int ->}
     
         override fun getItem(position: Int): Fragment = when(position){
             0 -> MyPlan()
@@ -148,5 +165,11 @@ class MainActivity : AppCompatActivity() {
         }
     
         fun getFragmentAt(position: Int): Fragment? = registeredFragments[position]
+    
+        override fun finishUpdate(container: ViewGroup) {
+            super.finishUpdate(container)
+            finished = true
+            onFinish(registeredFragments.size())
+        }
     }
 }

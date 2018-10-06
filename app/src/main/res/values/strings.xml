@@ -26,6 +26,8 @@
     <string name="action_deleteTimetable">Lösch Stundenplan</string>
     <string name="action_deleteLesson">Lösch Stunde</string>
 
+    <string name="actionbar_time_info">%1s <b>↻</b> %2s <b>↧</b></string>
+
     <string name="dialog_deleteLesson_message">Willst du diese Stunde löschen?</string>
     <string name="dialog_deleteTimetable_message">Willst du den Stundenplan löschen?</string>
     <string name="cancel">abbrechen</string>

@@ -5,6 +5,7 @@ import android.preference.PreferenceManager
 import com.example.eloem.vertretungsplan.helperClasses.Timetable
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.google.gson.Gson
+import java.lang.Exception
 import java.util.*
 
 const val VERTRETUNGSPLAN_ID = "com.example.eloem.vertretungsplan.vertretungsplan"
@@ -26,24 +27,18 @@ fun readVertretungsplan(context: Context?): Vertretungsplan {
 
 const val VERTRETUNGSPLAN_TIME_ID = "com.example.eloem.vertretungsplan.vertretungsplan_time"
 
-fun writeVerPlanTime(time: Date, context: Context?){
+fun writeVerPlanTime(time: Long, context: Context?){
     val preference = PreferenceManager.getDefaultSharedPreferences(context).edit()
-    val gson = Gson()
-    val json = gson.toJson(time)
-    preference.putString(VERTRETUNGSPLAN_TIME_ID, json)
+    preference.putLong(VERTRETUNGSPLAN_TIME_ID, time)
     preference.apply()
 }
 
-fun readVerPlanTime(context: Context?): Date{
+fun readVerPlanTime(context: Context?): Long{
     val preference = PreferenceManager.getDefaultSharedPreferences(context)
-    val gson = Gson()
-    try {
-        val json = preference.getString(VERTRETUNGSPLAN_TIME_ID, "")
-        return gson.fromJson(json, Date::class.java)
-    }catch (e:java.lang.IllegalStateException){
-        val cal = Calendar.getInstance()
-        val currentTime = cal.time
-        return subMinutesToDate(10, currentTime)
+    return try {
+        preference.getLong(VERTRETUNGSPLAN_TIME_ID, 0)
+    }catch (e: Exception){
+        0
     }
 }
 
