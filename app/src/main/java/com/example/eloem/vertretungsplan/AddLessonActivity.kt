@@ -1,7 +1,6 @@
 package com.example.eloem.vertretungsplan
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +12,6 @@ import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import com.example.eloem.vertretungsplan.helperClasses.Timetable
-import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.*
 import kotlinx.android.synthetic.main.activity_add_lesson.*
 import java.util.*
@@ -61,19 +59,16 @@ class AddLessonActivity : AppCompatActivity() {
             
             //vervollständigung der anderen felder
             val selected = subjectAuto.text.toString()
-            for ((i, subject) in autoList.withIndex()){
-                if (subject == selected){
-                    teacher.setText(distinctLessons[i].teacher)
-                    color = Color.parseColor(distinctLessons[i].color)
-                    supportActionBar?.setBackgroundDrawable(ColorDrawable(color))
-                    break
-                }
-            }
+            val selectedLesson = distinctLessons.find { it.subject == selected}
+            teacher.setText(selectedLesson?.teacher)
+            color = Color.parseColor(selectedLesson?.color)
+            setToolbarColor(color)
         }
         //schließt soft keyboard, wenn enter gedrückt wird
         subjectAuto.setOnEditorActionListener { textView, i, keyEvent ->
             if ((keyEvent != null && (keyEvent.keyCode == KeyEvent.KEYCODE_ENTER)) || (i == EditorInfo.IME_ACTION_DONE)){
                 textView.hideKeyboard()
+                return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
         }
