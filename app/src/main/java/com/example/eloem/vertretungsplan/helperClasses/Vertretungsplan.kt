@@ -59,7 +59,7 @@ data class Vertretungsplan(val generalPlan: Plan = Plan(), val customPlan: Plan 
             return vPlan
         }
         
-        fun noConectionPlan(): Vertretungsplan{
+        fun noConnectionPlan(): Vertretungsplan{
             val vPlan = Vertretungsplan()
             vPlan.generalPlan.error = ERROR_CONNECTION
             vPlan.customPlan.error = ERROR_CONNECTION

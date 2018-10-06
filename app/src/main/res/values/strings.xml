@@ -25,6 +25,7 @@
     <string name="action_settings">Einstellungen</string>
     <string name="action_deleteTimetable">Lösch Stundenplan</string>
     <string name="action_deleteLesson">Lösch Stunde</string>
+    <string name="action_metaData">Metadaten</string>
 
     <string name="actionbar_time_info">%1s <b>↻</b> %2s <b>↧</b></string>
 
@@ -33,6 +34,9 @@
     <string name="cancel">abbrechen</string>
     <string name="ok">jop</string>
     <string name="error">ERROR</string>
+
+    <string name="dialog_metaData_fetched">Abgerufen</string>
+    <string name="dialog_metaData_refreshed">Aktualisiert</string>
 
     <string name="tab_text_myPlan">Mein Plan</string>
     <string name="tab_text_Plan">Vertretungsplan</string>

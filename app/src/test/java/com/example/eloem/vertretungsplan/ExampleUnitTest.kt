@@ -2,6 +2,8 @@ package com.example.eloem.vertretungsplan
 
 import com.example.eloem.vertretungsplan.util.normaliseDateString
 import com.example.eloem.vertretungsplan.util.normaliseTimeString
+import com.example.eloem.vertretungsplan.util.toStringWithJustTime
+import com.example.eloem.vertretungsplan.util.toStringWithTime
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -31,5 +33,11 @@ class ExampleUnitTest {
         println(f.parse("04.05.2018").time)
         val s = SimpleDateFormat("HH:mm")
         println(s.parse("07:41").time)
+    }
+    @Test
+    fun dateToString(){
+        val d = "14:07"
+        val sdf = SimpleDateFormat("HH:mm")
+        println(sdf.parse(d).toStringWithJustTime())
     }
 }

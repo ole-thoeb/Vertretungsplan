@@ -18,6 +18,7 @@ import com.example.eloem.vertretungsplan.helperClasses.Timetable
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_meta_data.view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     },
                     Response.ErrorListener { _ ->
-                        val verPlan = Vertretungsplan.noConectionPlan()
+                        val verPlan = Vertretungsplan.noConnectionPlan()
                         writeVertretungsplan(verPlan, this)
                         updateChildes(verPlan)
                     })
@@ -120,6 +121,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             true
         }
+        R.id.metaData -> {
+            val verPlan = readVertretungsplan(this)
+            val builder = AlertDialog.Builder(this)
+            val custView = layoutInflater.inflate(R.layout.dialog_meta_data, null)
+            custView.infoRefreshedTV.text = dateFromMillis(verPlan.updateTime).toStringWithTime()
+            custView.infoFetchedTV.text = dateFromMillis(readVerPlanTime(this)).toStringWithTime()
+            builder.setView(custView)
+            builder.show()
+            true
+        }
         else -> super.onOptionsItemSelected(item)
     }
     
@@ -133,13 +144,13 @@ class MainActivity : AppCompatActivity() {
     private fun setUpToolbarText(plan: Vertretungsplan){
         val timeRefreshed = readVerPlanTime(this)
         toolbar?.title = resources.getString(R.string.actionbar_time_info,
-                JustTime(plan.updateTime).toString(), JustTime(timeRefreshed).toString())
+                dateFromMillis(plan.updateTime).toStringWithJustTime(),
+                dateFromMillis(timeRefreshed).toStringWithJustTime())
     }
     
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         private val registeredFragments = SparseArray<Fragment>()
         
-        var finished = false
         var onFinish = {_: Int ->}
     
         override fun getItem(position: Int): Fragment = when(position){
@@ -168,7 +179,6 @@ class MainActivity : AppCompatActivity() {
     
         override fun finishUpdate(container: ViewGroup) {
             super.finishUpdate(container)
-            finished = true
             onFinish(registeredFragments.size())
         }
     }

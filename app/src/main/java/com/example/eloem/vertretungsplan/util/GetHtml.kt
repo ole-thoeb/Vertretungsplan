@@ -71,14 +71,25 @@ fun extractUpdateTime(htmlString: String): Long{
     var date = mHtml.removeRange(mHtml.indexOf(" "), mHtml.length)
     
     date = normaliseDateString(date)
-    val sdf = SimpleDateFormat("DD.MM.YYYY")
-    val d = sdf.parse(date)
-    
+    time = normaliseTimeString(time)
+    val normalisedString = "$date $time"
+    val sdf = SimpleDateFormat("dd.MM.yyyy HH:mm")
+    val dateObj = sdf.parse(normalisedString)
+    return dateObj.time
+    /*
     val sdf2 = SimpleDateFormat("HH:mm")
     time = normaliseTimeString(time)
     val t = sdf2.parse(time)
     
-    return d.time + t.time
+    val cal1 = Calendar.getInstance()
+    cal1.time = d
+    
+    val cal2 = Calendar.getInstance()
+    cal1.time = t
+    
+    cal1.add(Calendar.HOUR, cal2.get(Calendar.HOUR))
+    cal1.add(Calendar.MINUTE, cal2.get(Calendar.MINUTE))
+    */
 }
 
 fun extractDay(htmlString: String): Int{

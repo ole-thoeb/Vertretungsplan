@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import java.text.SimpleDateFormat
 import java.util.*
 import java.time.DayOfWeek
 
@@ -26,8 +27,21 @@ fun normaliseTimeString(time : String): String{
     return "$hour:$minutes"
 }
 
-fun dpToPx(dp: Float, context: Context?): Int{
-    return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context?.resources?.displayMetrics))
+fun dateFromMillis(millis: Long): Date{
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = millis
+    return cal.time
+}
+
+
+fun Date.toStringWithTime(): String{
+    val sdf= SimpleDateFormat("dd.MM.yyyy HH:mm")
+    return sdf.format(this)
+}
+
+fun Date.toStringWithJustTime(): String{
+    val sdf= SimpleDateFormat("HH:mm")
+    return sdf.format(this)
 }
 
 fun View.hideKeyboard() {
