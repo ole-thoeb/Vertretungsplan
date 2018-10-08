@@ -82,6 +82,18 @@ fun newNotificationId(context: Context?): Int{
     return id
 }
 
+const val PLAN_ID_ID = "planId"
+
+fun newPlanId(context: Context?): Int{
+    val preference = PreferenceManager.getDefaultSharedPreferences(context)
+    val id = preference.getInt(NOTIFICATION_ID_ID, 0) + 1
+    
+    preference.edit()
+            .putInt(NOTIFICATION_ID_ID, id)
+            .apply()
+    return id
+}
+
 /** Zum lesen von Einstellugnen**/
 fun readGrade(context: Context?): String{
     val preference = PreferenceManager.getDefaultSharedPreferences(context)

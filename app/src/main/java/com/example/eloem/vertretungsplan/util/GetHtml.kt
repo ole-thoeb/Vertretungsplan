@@ -19,8 +19,8 @@ fun planIsUpToDate(context: Context?): Boolean{
     return lastTime + 5 * 60 * 1000 > currentTime
 }
 
-fun extractVerPlan(htmlString: String): Vertretungsplan.Plan{
-    val plan = Vertretungsplan.Plan()
+fun extractVerPlan(htmlString: String, context: Context?): Vertretungsplan.Plan{
+    val plan = Vertretungsplan.Plan(newPlanId(context))
     var mHtml = htmlString
     //umbrüche entfernen
     mHtml = mHtml.replace("\r\n", "", true)

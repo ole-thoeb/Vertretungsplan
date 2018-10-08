@@ -16,11 +16,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d3b1646-5c15-44a7-b3af-0b873af9ff68" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_commons_0_10_5_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_sqlite_0_10_5_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/MyDatabaseOpenHelper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/DatabaseUtil.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/TableNames.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_android_27.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_android_28.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_common_0_10_1_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_commons_0_10_1_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/GetHtml.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/GetHtml.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -56,43 +70,83 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PrefUtil.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-961">
-              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="UtilFun.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="583">
-              <caret line="113" column="12" selection-start-line="113" selection-start-column="12" selection-end-line="113" selection-end-column="12" />
+            <state relative-caret-position="336">
+              <caret line="94" column="26" lean-forward="true" selection-start-line="94" selection-start-column="26" selection-end-line="94" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <file leaf-file-name="PrefUtil.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="38" column="57" selection-start-line="38" selection-start-column="57" selection-end-line="38" selection-end-column="57" />
+            <state relative-caret-position="483">
+              <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Vertretungsplan.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Vertretungsplan.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="190">
-              <caret line="37" column="62" selection-start-line="37" selection-start-column="62" selection-end-line="37" selection-end-column="62" />
+              <caret line="10" column="59" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="10" selection-end-column="59" />
+              <folding>
+                <element signature="e#57#135#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatabaseUtil.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/DatabaseUtil.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="109" column="1" lean-forward="true" selection-start-line="109" selection-start-column="1" selection-end-line="109" selection-end-column="1" />
+              <folding>
+                <element signature="e#48#275#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TableNames.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/TableNames.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" column="45" lean-forward="true" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetHtml.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/GetHtml.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="89">
+              <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyDatabaseOpenHelper.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/MyDatabaseOpenHelper.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="18" column="4" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -2448,7 +2502,6 @@
       <list>
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/Plan.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/JustTime.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/TimetableActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_timetable.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/timetable_row.xml" />
@@ -2458,11 +2511,17 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_meta_data.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/GetHtml.kt" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/example/eloem/vertretungsplan/ExampleUnitTest.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/MainActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/TableNames.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/MyDatabaseOpenHelper.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/GetHtml.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/DatabaseUtil.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt" />
       </list>
     </option>
   </component>
@@ -2497,6 +2556,13 @@
             </path>
             <path>
               <item name="Vertretungsplan" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="vertretungsplan" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Vertretungsplan" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
@@ -2517,6 +2583,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Dart_Counter" />
     <property name="settings.editor.selected.configurable" value="project.propDebugger" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Eloem\StudioProjects\Vertretungsplan\app\src\main\java\com\example\eloem\vertretungsplan\helperClasses" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -2553,10 +2624,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-      <method>
-        <option name="Make" enabled="false" />
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
     </configuration>
     <configuration name="ExampleUnitTest.dateToString" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="app" />
@@ -2580,10 +2647,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-      <method>
-        <option name="Make" enabled="false" />
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -2763,7 +2826,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538850387942</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fixed algo to determine custom plan">
+      <created>1538851483006</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1538851483006</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2792,9 +2862,9 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32905984" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Structure" order="1" sideWeight="0.5014245" side_tool="true" weight="0.22684564" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" weight="0.3295302" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3988604" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3988604" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
@@ -2804,7 +2874,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Captures" order="2" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22684564" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4985755" visible="true" weight="0.22684564" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -2826,7 +2896,8 @@
     <MESSAGE value="redid code for timetable activity. all done in xml now" />
     <MESSAGE value="Changed layouts in addLesson activity. fab now comes up with the softkeyboard and the rest is now able to scroll." />
     <MESSAGE value="added an option to display the metadata of the current verPlan and redone all the time and date displaying" />
-    <option name="LAST_COMMIT_MESSAGE" value="added an option to display the metadata of the current verPlan and redone all the time and date displaying" />
+    <MESSAGE value="fixed algo to determine custom plan" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed algo to determine custom plan" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2834,17 +2905,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1900">
-          <caret line="120" column="33" selection-start-line="120" selection-start-column="33" selection-end-line="120" selection-end-column="33" />
-          <folding>
-            <element signature="e#43#941#0" expanded="true" />
-            <element signature="e#5808#5999#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
@@ -2880,6 +2940,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="950">
           <caret line="53" column="32" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
+          <folding>
+            <element signature="e#57#135#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3164,20 +3227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-961">
-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/GetHtml.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/MainActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="511">
@@ -3189,17 +3238,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="113" column="12" selection-start-line="113" selection-start-column="12" selection-end-line="113" selection-end-column="12" />
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/MyDatabaseOpenHelper.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="18" column="4" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/TableNames.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="45" lean-forward="true" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/GetHtml.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="37" column="62" selection-start-line="37" selection-start-column="62" selection-end-line="37" selection-end-column="62" />
+          <caret line="10" column="59" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="10" selection-end-column="59" />
+          <folding>
+            <element signature="e#57#135#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="94" column="26" lean-forward="true" selection-start-line="94" selection-start-column="26" selection-end-line="94" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/DatabaseUtil.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="109" column="1" lean-forward="true" selection-start-line="109" selection-start-column="1" selection-end-line="109" selection-end-column="1" />
+          <folding>
+            <element signature="e#48#275#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

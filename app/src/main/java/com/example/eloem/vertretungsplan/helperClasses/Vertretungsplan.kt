@@ -1,17 +1,16 @@
 package com.example.eloem.vertretungsplan.helperClasses
 
-import com.example.eloem.vertretungsplan.util.currentWeekday
-import com.example.eloem.vertretungsplan.util.extractDay
-import com.example.eloem.vertretungsplan.util.extractUpdateTime
-import com.example.eloem.vertretungsplan.util.extractVerPlan
+import android.content.Context
+import com.example.eloem.vertretungsplan.util.*
 
-data class Vertretungsplan(val generalPlan: Plan = Plan(), val customPlan: Plan = Plan(),
+data class Vertretungsplan(val fetchedTime: Long = System.currentTimeMillis(),
+                           val generalPlan: Plan = Plan(-1), val customPlan: Plan = Plan(-1),
                            val day: Int = 0, val updateTime: Long = 0) {
     
     data class Row(val lesson: Int, val teacher: String, val verTeacher: String, val room: String,
                    val verRoom: String, val verText: String)
     
-    data class Plan(val plan: MutableList<Row> = mutableListOf(), var error: String = ERROR_NO)
+    data class Plan(val id: Int, val plan: MutableList<Row> = mutableListOf(), var error: String = ERROR_NO)
     
     fun calculateCustPlan(timetable: Timetable){
         val verDay = day
@@ -48,13 +47,13 @@ data class Vertretungsplan(val generalPlan: Plan = Plan(), val customPlan: Plan 
         const val ERROR_CONNECTION = "connectionError"
         const val ERROR_NO = "noError"
         
-        fun newInstance(html: String, timetable: Timetable): Vertretungsplan{
-            val gPlan = extractVerPlan(html)
+        fun newInstance(html: String, context: Context): Vertretungsplan{
+            val gPlan = extractVerPlan(html, context)
             val weekDay = extractDay(html)
             val updateTime = extractUpdateTime(html)
             
             val vPlan = Vertretungsplan(generalPlan = gPlan, day = weekDay, updateTime = updateTime)
-            vPlan.calculateCustPlan(timetable)
+            vPlan.calculateCustPlan(readTimetable(context))
             
             return vPlan
         }
