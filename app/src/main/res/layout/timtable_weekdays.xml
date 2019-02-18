@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:text=""/>
+
+    <TextView
+        style="@style/DayTimetableTV"
+        android:text="@string/timetable_monday"/>
+
+    <TextView
+        style="@style/DayTimetableTV"
+        android:text="@string/timetable_tuesday"/>
+
+    <TextView
+        style="@style/DayTimetableTV"
+        android:text="@string/timetable_wednesday"/>
+
+    <TextView
+        style="@style/DayTimetableTV"
+        android:text="@string/timetable_thursday" />
+
+    <TextView
+        style="@style/DayTimetableTV"
+        android:text="@string/timetable_friday"/>
+</TableRow>

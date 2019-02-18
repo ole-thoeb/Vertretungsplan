@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context=".CurrentPlanActivity"
+    android:background="?attr/backgroundColor">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_height="match_parent"
@@ -18,40 +19,8 @@
             android:id="@+id/table"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
-                    android:text=""/>
+            android:orientation="vertical"/>
 
-                <TextView
-                    style="@style/DayTimetableTV"
-                    android:text="@string/timetable_monday"/>
-
-                <TextView
-                    style="@style/DayTimetableTV"
-                    android:text="@string/timetable_tuesday"/>
-
-                <TextView
-                    style="@style/DayTimetableTV"
-                    android:text="@string/timetable_wednesday"/>
-
-                <TextView
-                    style="@style/DayTimetableTV"
-                    android:text="@string/timetable_thursday" />
-
-                <TextView
-                    style="@style/DayTimetableTV"
-                    android:text="@string/timetable_friday"/>
-            </TableRow>
-
-        </TableLayout>
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

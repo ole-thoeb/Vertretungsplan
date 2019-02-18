@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/action_settings"
+        app:showAsAction= "never"/>
+
+    <item
+        android:id="@+id/deleteTimetable"
+        android:title="@string/action_deleteTimetable"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/metaData"
+        android:title="@string/action_metaData"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/timetable"
+        android:title="@string/title_timetable"
+        android:icon="@drawable/ic_timetable"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/listVerplan"
+        android:title="@string/action_verplanList"
+        app:showAsAction="never"/>
+
+</menu>

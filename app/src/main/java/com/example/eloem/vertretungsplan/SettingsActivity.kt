@@ -5,8 +5,11 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceActivity
 import android.preference.PreferenceFragment
-import android.support.v4.app.NavUtils
-import android.view.MenuItem
+import android.view.ViewGroup
+import com.example.eloem.vertretungsplan.util.RECREATE_PARENT_KEY
+import com.example.eloem.vertretungsplan.util.SETTINGS_THEME_KEY
+import com.example.eloem.vertretungsplan.util.booleanPref
+import com.example.eloem.vertretungsplan.util.getAttribute
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -21,12 +24,21 @@ import android.view.MenuItem
 class SettingsActivity : AppCompatPreferenceActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        val darkTheme by booleanPref(SETTINGS_THEME_KEY)
+        setTheme(if (darkTheme) R.style.DarkAppTheme else R.style.AppTheme)
+        
         super.onCreate(savedInstanceState)
         setupActionBar()
+    
+    
+        findViewById<ViewGroup>(android.R.id.content).getChildAt(0).setBackgroundColor(
+                getAttribute(R.attr.backgroundColor, true).data
+        )
         
         fragmentManager.beginTransaction()
                 .replace(android.R.id.content, SettingFragment())
                 .commit()
+    
     }
     
     /**
@@ -41,14 +53,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
      */
     override fun onIsMultiPane(): Boolean {
         return isXLargeTablet(this)
-    }
-    
-    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId){
-        R.id.home -> {
-            NavUtils.navigateUpFromSameTask(this)
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
     }
     
     /**
@@ -85,6 +89,16 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             super.onCreate(savedInstanceState)
             
             addPreferencesFromResource(R.xml.pref_settings)
+            
+            findPreference(SETTINGS_THEME_KEY).setOnPreferenceClickListener {
+                
+                activity.recreate()
+                var recreateParent by context.booleanPref(RECREATE_PARENT_KEY)
+                recreateParent = true
+                
+                true
+            }
+            
         }
     }
     /*

@@ -10,9 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import com.example.eloem.vertretungsplan.helperClasses.Timetable
-import com.example.eloem.vertretungsplan.util.isDarkColor
-import com.example.eloem.vertretungsplan.util.readTimetable
-import com.example.eloem.vertretungsplan.util.writeTimetable
+import com.example.eloem.vertretungsplan.util.*
 import kotlinx.android.synthetic.main.activity_timetable.*
 import kotlinx.android.synthetic.main.timetable_row.view.*
 
@@ -20,10 +18,19 @@ class TimetableActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    
+        val darkTheme by booleanPref(SETTINGS_THEME_KEY)
+        setTheme(if (darkTheme) R.style.DarkAppTheme else R.style.AppTheme)
+    
         setContentView(R.layout.activity_timetable)
-        fillTable()
+    
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = resources.getString(R.string.title_timetable)
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        refillTable()
     }
     
     override fun onCreateOptionsMenu(menu: Menu):Boolean {
@@ -42,10 +49,8 @@ class TimetableActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
             builder.setMessage(R.string.dialog_deleteTimetable_message)
                     .setPositiveButton(R.string.ok){ _, _ ->
-                        writeTimetable(Timetable(4, 10), this)
-                        //refresh activity
-                        finish()
-                        startActivity(intent)
+                        insertTimetable(this, Timetable.newDefaultInstance(this))
+                        refillTable()
                     }
                     .setNegativeButton(R.string.cancel){ _, _ ->
                         //do nothing
@@ -57,6 +62,11 @@ class TimetableActivity : AppCompatActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+    
+    private fun refillTable(){
+        table.removeAllViews()
+        fillTable()
     }
     
     /*private fun fillTable(){
@@ -100,25 +110,31 @@ class TimetableActivity : AppCompatActivity() {
         }
     }*/
     private fun fillTable(){
-        val timetable = readTimetable(this)
+        val timetable = getLatestTimetable(this)
         
-        fun configureSubjectTv(tv: TextView, day: Int, lesson: Int){
+        fun configureSubjectTv(tv: TextView, day: Int, lessonNr: Int){
+            val lesson = timetable[day][lessonNr]
             with(tv) {
-                text = timetable[day][lesson].subject
-                setBackgroundColor(Color.parseColor(timetable[day][lesson].color))
-                if (isDarkColor(timetable[day][lesson].color)) setTextColor(Color.WHITE)
-                else setTextColor(Color.BLACK)
-                setOnClickListener {
+                text = lesson.subject
+                val backgroundColor =
+                        if (lesson.color == Timetable.Lesson.DEFAULT_COLOR)
+                            getAttribute(R.attr.backgroundColor, true).data
+                        else lesson.color
+                setBackgroundColor(backgroundColor)
+                setTextColor(if (isDarkColor(backgroundColor)) Color.WHITE else Color.BLACK)
+                setNoDoubleClickListener {
                     startActivity(Intent(this@TimetableActivity,
                             AddLessonActivity::class.java).apply {
-                        putExtra("Day", day)
-                        putExtra("Lesson", lesson)
-                    })
+                                putExtra(AddLessonActivity.EXTRA_DAY, day)
+                                putExtra(AddLessonActivity.EXTRA_LESSON, lessonNr)
+                            }
+                    )
                 }
             }
         }
+        layoutInflater.inflate(R.layout.timtable_weekdays, table)
         
-        for (i in 0..10){
+        for (i in 0.until(timetable.lessons)){
             val tr = layoutInflater.inflate(R.layout.timetable_row, table, false)
             with(tr) {
                 lessonTV.text = (i + 1).toString()
@@ -128,8 +144,9 @@ class TimetableActivity : AppCompatActivity() {
                 configureSubjectTv(subject3TV, 2, i)
                 configureSubjectTv(subject4TV, 3, i)
                 configureSubjectTv(subject5TV, 4, i)
+    
+                table.addView(this)
             }
-            table.addView(tr)
         }
     }
 }

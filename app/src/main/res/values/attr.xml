@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="customAttrs">
+        <attr name="backgroundColor" format="reference"/>
+        <attr name="highlightSelect" format="reference"/>
+        <attr name="internalCardBackgroundColor" format="reference"/>
+        <attr name="textHighlightColor" format="reference"/>
+        <attr name="cardBoarder" format="reference"/>
+    </declare-styleable>
+</resources>

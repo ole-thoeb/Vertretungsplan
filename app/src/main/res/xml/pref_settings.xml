@@ -9,13 +9,27 @@
         android:entryValues="@array/grade_values"
         android:defaultValue="@string/grade_default_value"/>
 
-    <ListPreference
+    <!--<ListPreference
         android:key="sort_plan"
         android:title="@string/sort_plan_title"
         android:summary="%s"
         android:dialogTitle="@string/sort_plan_title"
         android:entries="@array/sort_plan_entries"
         android:entryValues="@array/sort_plan_values"
-        android:defaultValue="@string/sort_plan_default_value"/>
+        android:defaultValue="@string/sort_plan_default_value"/>-->
+
+    <CheckBoxPreference
+        android:key="downloadAllPlans"
+        android:title="@string/allPlansTitle"
+        android:summaryOn="@string/allPlansOnSummery"
+        android:summaryOff="@string/allPlansOffSummery"
+        android:defaultValue="false"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="preference_theme"
+        android:title="@string/themeTitle"
+        android:summaryOff="@string/themeOffSummery"
+        android:summaryOn="@string/themeOnSummery"/>
 
 </PreferenceScreen>

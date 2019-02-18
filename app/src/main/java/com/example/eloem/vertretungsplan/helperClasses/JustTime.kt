@@ -35,6 +35,6 @@ class JustTime {
     }
     
     override fun toString(): String{
-        return "${this.hour}:${this.minute}"
+        return "$hour:$minute"
     }
 }

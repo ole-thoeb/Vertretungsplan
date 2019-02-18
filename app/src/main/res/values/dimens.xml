@@ -5,4 +5,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="widget_margin">8dp</dimen>
+
+    <dimen name="appWidgetTextSize">12.5dp</dimen>
+
+    <dimen name="dialogMargin">24dp</dimen>
+
+    <dimen name="cardCornerRadius">10dp</dimen>
 </resources>

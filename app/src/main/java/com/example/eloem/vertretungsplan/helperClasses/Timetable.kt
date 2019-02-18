@@ -1,17 +1,24 @@
 package com.example.eloem.vertretungsplan.helperClasses
 
-import org.jetbrains.anko.collections.forEachReversedByIndex
+import android.content.Context
+import com.example.eloem.vertretungsplan.util.newTimetableId
 import org.jetbrains.anko.collections.forEachReversedWithIndex
 import kotlin.collections.ArrayList
 
-class Timetable(private val days: Int, private val lessons: Int) {
+class Timetable(val id: Int, val days: Int, val lessons: Int,
+                val table: MutableList<MutableList<Lesson>> =
+                        List(days){ List(lessons) { Lesson() }.toMutableList()}.toMutableList()) {
     
     data class Lesson(val subject: String = "", val teacher: String = "", val room: String = "",
-                      val color: String = "#FFFAFAFA")
+                      val color: Int = DEFAULT_COLOR){
+        
+        companion object {
+            const val DEFAULT_COLOR = 0xFFFAFAFA.toInt()
+        }
+    }
     
-    val table: ArrayList<ArrayList<Lesson>> = ArrayList<ArrayList<Lesson>>()
     
-    init {
+    /*init {
         clear()
         /*this.endOfLessons.add(Date(0, 0, 0, 8, 40))
         this.endOfLessons.add(Date(0, 0, 0, 9, 30))
@@ -24,23 +31,22 @@ class Timetable(private val days: Int, private val lessons: Int) {
         this.endOfLessons.add(Date(0, 0, 0, 15, 50))
         this.endOfLessons.add(Date(0, 0, 0, 16, 40))
         this.endOfLessons.add(c)*/
-    }
+    }*/
     
-    fun distinctLessons(): ArrayList<Lesson>{
+    /*val distinctLessons: List<Lesson> get() {
         val list = ArrayList<Lesson>()
         val alreadyInList = ArrayList<String>()
         alreadyInList.add("")
         
-        for (i in this.table) {
-            for (j in i) {
-                if (j.subject !in alreadyInList){
-                    list.add(j)
-                    alreadyInList.add(j.subject)
-                }
+        for (day in table) {
+            for (lesson in list) {
+                if (lesson.subject !in alreadyInList) list.add(lesson)
             }
         }
         return list
-    }
+    }*/
+    
+    val distinctLessons: List<Lesson> get() = table.flatten().distinctBy { it.subject }
     
     fun endOfDay(day: Int): JustTime{
         val endOfLessons = arrayOf(JustTime(8, 40),
@@ -65,13 +71,21 @@ class Timetable(private val days: Int, private val lessons: Int) {
     
     fun clear(){
         table.clear()
-        for (i in 0..days) {
+        for (i in 0.until(days)) {
             val day = ArrayList<Lesson>()
-            for (j in 0..lessons) {
+            for (j in 0.until(lessons)) {
                 day.add(j, Lesson())
             }
             table.add(i, day)
         }
     }
+    
     operator fun get(day: Int) = table[day]
+    operator fun set(pos: Int, value: MutableList<Lesson>){
+        table[pos] = value
+    }
+    
+    companion object {
+        fun newDefaultInstance(context: Context) = Timetable(newTimetableId(context), 5, 11)
+    }
 }

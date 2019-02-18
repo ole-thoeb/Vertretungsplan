@@ -6,19 +6,29 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="noBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionModeStyle">@style/CAB</item>
+        <item name="actionBarSize">56dp</item>
+        <item name="actionBarStyle">@style/ActionBarStyleLight</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="backgroundColor">@color/white_grey</item>
+        <item name="highlightSelect">@color/lightAccentColor</item>
+        <item name="internalCardBackgroundColor">@color/white</item>
+        <item name="textHighlightColor">@color/black</item>
+        <item name="cardBoarder">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    
+
+    <!--<style name="noBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>-->
+
     <style name="SubjectTV" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:gravity">center</item>
         <item name="android:textSize">15sp</item>
@@ -37,9 +47,49 @@
         <item name="android:layout_weight">1</item>
     </style>
 
+    <style name="CAB" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">@style/CABTitleStyle</item>
+        <item name="background">@color/colorAccent</item>
+    </style>
+
+    <style name="CABTitleStyle" parent="Base.TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="ActionBarStyleLight" parent="Base.Widget.AppCompat.Light.ActionBar">
+        <item name="titleTextStyle">@style/ActionBarTitleStyle</item>
+        <item name="background">?android:colorPrimary</item>
+    </style>
+
+    <style name="ActionBarTitleStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">20dp</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="DarkAppTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionModeStyle">@style/CAB</item>
+        <item name="actionBarSize">56dp</item>
+        <item name="actionBarStyle">@style/ActionBarStyleDark</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="backgroundColor">@color/black</item>
+        <item name="highlightSelect">@color/highlightSelectDark</item>
+        <item name="internalCardBackgroundColor">@color/black</item>
+        <item name="textHighlightColor">@color/white</item>
+        <item name="cardBoarder">@drawable/card_boarder</item>
+    </style>
 
+    <style name="DarkAppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ActionBarStyleDark" parent="Base.Widget.AppCompat.ActionBar">
+        <item name="titleTextStyle">@style/ActionBarTitleStyle</item>
+        <item name="background">?android:colorPrimary</item>
+    </style>
 
 </resources>

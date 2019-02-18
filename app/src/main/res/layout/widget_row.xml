@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
+    android:padding="6dp"
     android:id="@+id/root">
 
     <TextView
         android:id="@+id/lessonTV"
+        android:text="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="16sp"/>
+        android:textSize="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,36 +23,43 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/teacherTV"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:text="ABCD"
+                android:textAlignment="center"
+                android:textSize="@dimen/appWidgetTextSize"
+                android:paddingHorizontal="3dp"/>
 
             <TextView
                 android:id="@+id/verTeacherTV"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:text="EFGH"
+                android:textAlignment="center"
+                android:textSize="@dimen/appWidgetTextSize"
+                android:paddingHorizontal="3dp"/>
 
             <TextView
                 android:id="@+id/roomTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:text="456"
+                android:textAlignment="center"
+                android:textSize="@dimen/appWidgetTextSize" />
 
             <TextView
                 android:id="@+id/verRoomTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:text="123"
+                android:textAlignment="center"
+                android:textSize="@dimen/appWidgetTextSize" />
         </LinearLayout>
 
         <TextView
@@ -58,6 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textAlignment="center"/>
+            android:text="Alles kaputt"
+            android:textAlignment="center"
+            android:textSize="@dimen/appWidgetTextSize" />
     </LinearLayout>
 </LinearLayout>
