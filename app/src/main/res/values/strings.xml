@@ -45,6 +45,7 @@
     <string name="dialog_metaData_refreshed">Aktualisiert</string>
     <string name="dialog_metaDate_target">Für</string>
 
+    <!--related to Filter popup-->
     <string name="dialog_filterPositive">Anwenden</string>
     <string name="dialog_filterNegative">Zurücksetzten</string>
     <string name="dialog_filterTitle">Filter</string>
@@ -54,6 +55,7 @@
     </plurals>
     <string name="periodDefault">Gesammter Zeitraum</string>
     <string name="relevantForMe">Nur Pläne die mich betreffen</string>
+    <string name="lastOfTheDay">Nur letzter Plan des Tages</string>
 
     <string name="gradeEF">EF</string>
     <string name="gradeQ1">Q1</string>

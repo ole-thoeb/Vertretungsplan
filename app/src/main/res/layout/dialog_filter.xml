@@ -101,4 +101,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dialogMargin"
+        android:text="@string/lastOfTheDay"
+        app:layout_constraintBottom_toBottomOf="@+id/lastOfDayCB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lastOfDayCB" />
+
+    <CheckBox
+        android:id="@+id/lastOfDayCB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/dialogMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forMeCB" />
+
 </android.support.constraint.ConstraintLayout>

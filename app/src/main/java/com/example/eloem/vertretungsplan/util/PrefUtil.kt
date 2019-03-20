@@ -135,6 +135,7 @@ const val FILTER_Q1_ENABLED_KEY = "filterQ1EnabledKey"
 const val FILTER_Q2_ENABLED_KEY = "filterQ2EnabledKey"
 const val FILTER_FOR_ME_KEY = "filterForMeKey"
 const val FILTER_SEEKER_PROGRESS_KEY = "filterSeekerProgressKey"
+const val FILTER_LAST_OF_DAY_KEY = "filterLastOfDayKey"
 
 const val SETTINGS_THEME_KEY = "preference_theme"
 const val RECREATE_PARENT_KEY = "recreateParentKey"

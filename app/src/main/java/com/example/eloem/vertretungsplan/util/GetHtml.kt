@@ -148,8 +148,10 @@ fun extractTable(html: String): List<List<String>>{
     val endOfTable = Regex("""(<[^<>]+>|<[^<>]+> |[\n\r])*(?i)</table""")
     s = s.removeRange(endOfTable.find(s)!!.range.first, s.length)
     
+    s = s.replace("&nbsp(;)*".toRegex(), "")
+    
     val dirtyList = s.split("""(?i)(<[^<>]+> |<[^<>]+>|[\n\r])+<TR[^<>]*>(<[^<>]+>|\s)*""".toRegex()).toMutableList()
-    var table = MutableList(dirtyList.size){dirtyList[it].split("""(<[^<>]*>)+(?!<)(?=.)""".toRegex()).toMutableList()}
+    var table = MutableList(dirtyList.size){dirtyList[it].split("""(?i)(<[^<>]*>)*[^<>]*<\/td>[^<>]*(<[^<>]*>)*<td[^<>]*>""".toRegex()).toMutableList()}
     
     table = table.onEach { x ->
         x.onEach { str ->
@@ -193,9 +195,9 @@ fun <T: Context> T.fetchPlan(onFinish: (Vertretungsplan) -> Unit){
             try {
                 val verPlan = Vertretungsplan.newInstance(response, this@fetchPlan, grade)
                 insertVertretungdplanIfNew(this@fetchPlan, verPlan)
-                onFinish(verPlan)
+                uiThread { onFinish(verPlan) }
             }catch (e: Throwable){
-                onFinish(Vertretungsplan.noConnectionPlan())
+                uiThread { onFinish(Vertretungsplan.noConnectionPlan()) }
             }
         }, { error ->
             Log.e(TAG, error.localizedMessage)

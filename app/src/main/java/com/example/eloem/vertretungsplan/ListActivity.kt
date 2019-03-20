@@ -1,5 +1,6 @@
 package com.example.eloem.vertretungsplan
 
+import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
@@ -25,6 +26,7 @@ class ListActivity : AppCompatActivity() {
     private var q2Enabled by booleanPref(FILTER_Q2_ENABLED_KEY, true)
     private var forMe by booleanPref(FILTER_FOR_ME_KEY)
     private var seekerProgress by intPref(FILTER_SEEKER_PROGRESS_KEY, 100)
+    private var lastOfDay by booleanPref(FILTER_LAST_OF_DAY_KEY)
     
     private lateinit var mAdapter: ListAdapter
     private val filteredPlans: List<Vertretungsplan> get() {
@@ -39,10 +41,22 @@ class ListActivity : AppCompatActivity() {
         val latestTime = if (seekerProgress == 100) 0
                 else System.currentTimeMillis() - progressToDays(seekerProgress) * 1000 * 60 * 60* 24
         
-        return getAllVerPlans(this).filter {
+        val filteredPlans = getAllVerPlans(this).filter {
             (!forMe || it.customPlan.plan.isNotEmpty()) &&
                     it.grade in enabledGrades && it.updateTime > latestTime
         }
+        if (lastOfDay) {
+            val groupedPlans = filteredPlans.groupBy {
+                it.grade.toIntCharByChar().toLong() + it.targetDay
+            }.values.toList()
+            return List(groupedPlans.size) {
+                groupedPlans[it].maxBy { plan ->
+                    plan.fetchedTime
+                }!!
+            }
+        }
+        
+        return filteredPlans
     }
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,6 +152,7 @@ class ListActivity : AppCompatActivity() {
     private fun progressToDays(progress: Int) = if (progress == 0) 1
         else 2 + (0.3 * progress * log10(progress.toFloat())).toInt()
     
+    @SuppressLint("InflateParams")
     override fun onOptionsItemSelected(item: MenuItem?): Boolean = when(item?.itemId){
         R.id.listFilter -> {
             val custView = layoutInflater.inflate(R.layout.dialog_filter, null).apply {
@@ -159,6 +174,7 @@ class ListActivity : AppCompatActivity() {
                 Q1CB.isChecked = q1Enabled
                 Q2CB.isChecked = q2Enabled
                 forMeCB.isChecked = forMe
+                lastOfDayCB.isChecked = lastOfDay
             }
             AlertDialog.Builder(this)
                     .setView(custView)
@@ -170,6 +186,7 @@ class ListActivity : AppCompatActivity() {
                             q1Enabled = Q1CB.isChecked
                             q2Enabled = Q2CB.isChecked
                             forMe = forMeCB.isChecked
+                            lastOfDay = lastOfDayCB.isChecked
                         }
                         refreshList()
                     }
@@ -182,6 +199,7 @@ class ListActivity : AppCompatActivity() {
                         q1Enabled = true
                         q2Enabled = true
                         forMe = false
+                        lastOfDay = false
                         refreshList()
                     }
                     .show()

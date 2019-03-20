@@ -37,7 +37,7 @@ data class Vertretungsplan(val fetchedTime: Long = System.currentTimeMillis(),
     
         customPlan.error = ERROR_NO_PLAN
         generalPlan.plan.forEach { row ->
-            if (row.teacher == timetable[verDay][row.lesson -1].teacher){
+            if (row.teacher == timetable[verDay][row.lesson -1].teacher && row.teacher != ""){
                 customPlan.error = ERROR_NO
                 customPlan.plan.add(row)
             }

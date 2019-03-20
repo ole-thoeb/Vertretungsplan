@@ -191,3 +191,5 @@ fun <T> makeNoDoubleActivation(coolDown: Long, action: (T) -> Unit): (T) -> Unit
         }
     }
 }
+
+fun String.toIntCharByChar(): Int = fold(0) {_, c -> c.toInt()}
