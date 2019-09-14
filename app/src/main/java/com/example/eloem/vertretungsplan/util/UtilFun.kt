@@ -1,14 +1,10 @@
 package com.example.eloem.vertretungsplan.util
 
-import android.content.Context
-import android.graphics.Color
-import android.util.TypedValue
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.NoSuchElementException
 
-fun normaliseDateString(date: String):String{
+fun normaliseDateString(date: String): String{
     var day = date.removeRange(date.indexOf('.'), date.length)
     if(day.length != 2) day = "0$day"
     var month = date.removeRange(0, date.indexOf('.') + 1)
@@ -54,7 +50,7 @@ fun shortWeekdayString(weekday: Int) =  when(weekday){
 }
 
 fun Date.toWeekdayDateTimeString(): String{
-    val sdf= SimpleDateFormat("dd.MM.yyyy HH:mm")
+    val sdf= SimpleDateFormat("dd.MM HH:mm")
     val cal = Calendar.getInstance()
     cal.time = this
     val d = cal.get(Calendar.DAY_OF_WEEK)
@@ -62,85 +58,36 @@ fun Date.toWeekdayDateTimeString(): String{
 }
 
 fun Date.toWeekdayDateString(): String{
-    val sdf= SimpleDateFormat("dd.MM.yyyy")
+    val sdf= SimpleDateFormat("dd.MM")
     val cal = Calendar.getInstance()
     cal.time = this
     val d = cal.get(Calendar.DAY_OF_WEEK)
     return "${shortWeekdayString(d)} ${sdf.format(this)}"
 }
 
-fun View.hideKeyboard() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(windowToken, 0)
-}
 
-fun random(from: Int, to: Int): Int{
-    val rand = Random()
-    return rand.nextInt(to - from) + from
-}
-
-fun randomColorString(): String{
-    val int = random(0, 16777215)
-    return String.format("#%06x", int)
-}
-
-fun colorIntToString(colorInt: Int):String{
-    return String.format("#%06x", colorInt)
-}
-
-//http://stackoverflow.com/a/24810681/2444312
-fun isDarkColor(colorStr: String): Boolean = isDarkColor(Color.parseColor(colorStr))
-
-fun isDarkColor(color: Int): Boolean =
-        Color.red(color) * 0.299 +
-        Color.green(color) * 0.587 +
-        Color.blue(color) * 0.114 < 160
-
-fun differentShade (color: Int, difference: Float): Int{
-    val factor = 1 + difference
-    val hsv = FloatArray(3)
-    Color.colorToHSV(color, hsv)
-    hsv[2] = hsv[2] * factor
-    return Color.HSVToColor(hsv)
-}
-
-/**
-*  Convenience method to add a specified number of minutes to a Date object
-*  From: http://stackoverflow.com/questions/9043981/how-to-add-minutes-to-my-date
-*  @param  minutes  The number of minutes to add
-*  @param  beforeTime  The time that will have minutes added to it
-*  @return  A date object with the specified number of minutes added to it
-*/
-fun Date.addMinutesToDate(minutes: Int): Date{
-    val ONE_MINUTE_IN_MILLIS = 60000//millisecs
+enum class WeekDay(val fullName: String, val shortName: String) {
+    MONDAY("Montag", "Mo."),
+    TUESDAY("Dienstag", "Di."),
+    WEDNESDAY("Mittwoch", "Mi."),
+    THURSDAY("Donnerstag", "Do."),
+    FRIDAY("Freitag", "Fr."),
+    SATURDAY("Samstag", "Sa."),
+    SUNDAY("Sonntag", "So.");
     
-    val curTimeInMs = time
-    val afterAddingMins = Date(curTimeInMs + (minutes * ONE_MINUTE_IN_MILLIS))
-    return afterAddingMins
+    val isWeekend: Boolean get() = this == SATURDAY || this == SUNDAY
+    val isNotWeekend: Boolean get() = !isWeekend
+    fun nextDay(): WeekDay = values()[(ordinal + 1) % 7]
+    fun nextDayNotWeekend(): WeekDay = if (this == FRIDAY || this == SUNDAY) MONDAY else nextDay()
 }
-
-fun Date.subMinutesToDate(minutes: Int): Date{
-    val ONE_MINUTE_IN_MILLIS = 60000//millisecs
-    
-    val curTimeInMs = time
-    val afterSubtractingMins = Date(curTimeInMs - (minutes * ONE_MINUTE_IN_MILLIS));
-    return afterSubtractingMins
-}
-
 
 //returns Monday as 0, Thursday as 1 ...
-val currentWeekday: Int get() {
+val currentWeekday: WeekDay get() {
     val cal = Calendar.getInstance()
     var weekDay = cal.get(Calendar.DAY_OF_WEEK)
     weekDay -= 2
     if (weekDay < 0) weekDay = 6
-    return weekDay
-}
-
-fun Context.getAttribute(resourceId: Int, resolveRef: Boolean): TypedValue{
-    val tv = TypedValue()
-    theme.resolveAttribute(resourceId, tv, resolveRef)
-    return tv
+    return WeekDay.values()[weekDay]
 }
 
 /**
@@ -160,6 +107,57 @@ fun <T> List<T>.subList(indices: List<Int>): List<T> = List(indices.size) { this
 
 fun <T> List<T>.onEach(action: (T) -> T): List<T> = List(size){ action(this[it]) }
 
+fun <T> Iterable<Iterable<T>>.flatIterator(): Iterator<T> {
+    return object : Iterator<T> {
+        private val outerIter = this@flatIterator.iterator()
+        private var curIter: Iterator<T>? = null
+    
+        override fun next(): T {
+            val cIter = curIter
+            return if (cIter?.hasNext() == true) {
+                cIter.next()
+            } else {
+                curIter = outerIter.next().iterator()
+                next()
+            }
+        }
+        
+        override fun hasNext(): Boolean {
+            if (curIter?.hasNext() == true) return true
+            while (outerIter.hasNext()) {
+                val cIter = outerIter.next().iterator()
+                if (cIter.hasNext()) {
+                    curIter = cIter
+                    return true
+                }
+            }
+            return false
+        }
+    }
+}
+
+fun <T> Iterable<Iterable<T>>.flatIterable(): Iterable<T> {
+    return flatIterator().asIterable()
+}
+
+fun <T> Iterator<T>.asIterable(): Iterable<T> {
+    return object : Iterable<T> {
+        override fun iterator(): Iterator<T> = this@asIterable
+    }
+}
+
+inline fun <T> MutableList<T>.findAndRemove(predicate: (T) -> Boolean): T {
+    val iter = iterator()
+    while (iter.hasNext()) {
+        val value = iter.next()
+        if (predicate(value)) {
+            iter.remove()
+            return value
+        }
+    }
+    throw NoSuchElementException()
+}
+
 fun String.retainMatches(regex: Regex, vararg matches: Int): String{
     val matchAll = -1 in matches
     var currentMatchNum = 0
@@ -177,19 +175,9 @@ fun String.retainMatches(regex: Regex, vararg matches: Int): String{
     return resultString
 }
 
-fun View.setNoDoubleClickListener(timeInterval: Long = 500, action: (View) -> Unit){
-    setOnClickListener(makeNoDoubleActivation(timeInterval, action))
-}
-
-fun <T> makeNoDoubleActivation(coolDown: Long, action: (T) -> Unit): (T) -> Unit {
-    var lastClick = 0L
-    return {
-        val currTime = System.currentTimeMillis()
-        if (lastClick + coolDown < currTime) {
-            lastClick = currTime
-            action(it)
-        }
-    }
-}
 
 fun String.toIntCharByChar(): Int = fold(0) {_, c -> c.toInt()}
+
+infix fun Int.divides(that: Int): Boolean = that % this == 0
+
+fun CharSequence?.orEmpty(): String = this?.toString() ?: ""

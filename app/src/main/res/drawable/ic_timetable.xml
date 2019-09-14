@@ -3,7 +3,8 @@
     android:width="257.02171dp"
     android:height="176.94578dp"
     android:viewportWidth="257.02171"
-    android:viewportHeight="176.94578">
+    android:viewportHeight="176.94578"
+    android:tint="?toolbarIconColor">
 
     <group
             android:translateX="426.9808"

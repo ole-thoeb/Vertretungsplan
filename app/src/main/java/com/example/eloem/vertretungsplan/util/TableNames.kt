@@ -14,7 +14,7 @@ object VerPlan{
 object Plan{
     const val tableName = "tablePlan"
     const val columnId = "id"
-    const val columnError = "error"
+    const val columnError = "status"
 }
 
 object VerRow{

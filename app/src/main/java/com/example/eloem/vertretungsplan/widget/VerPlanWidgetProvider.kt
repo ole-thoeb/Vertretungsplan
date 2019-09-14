@@ -9,14 +9,24 @@ import android.net.Uri
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.Toast
-import com.example.eloem.vertretungsplan.CurrentPlanActivity
 import com.example.eloem.vertretungsplan.R
+import com.example.eloem.vertretungsplan.ui.HostActivity
 import com.example.eloem.vertretungsplan.util.*
 
 class VerPlanWidgetProvider: AppWidgetProvider() {
     
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray) {
-        context?.fetchPlan { updateRest(context, appWidgetManager, appWidgetIds) }
+//        ctx?.let {  ctx ->
+//            Log.d(TAG, "updating app widget")
+//            runBlocking(Dispatchers.IO) {
+//                when (val planResponse = PlanRepository.create(ctx).currentVerPlan(readGrade(ctx), ctx)) {
+//                    is Result.Success -> withContext(Dispatchers.Main) {
+//                        updateRest(ctx, appWidgetManager, appWidgetIds)
+//                    }
+//                    is Result.Failure -> TODO()
+//                }
+//            }
+//        }
     }
     
      private fun updateRest(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray){
@@ -52,7 +62,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
             )
             
             //Intent, wenn man item in list klickt -> mainactivity
-            val intent = Intent(context, CurrentPlanActivity::class.java)
+            val intent = Intent(context, HostActivity::class.java)
             val pIntent = PendingIntent.getActivity(context, Intent.FLAG_ACTIVITY_NEW_TASK, intent, 0)
             views.setPendingIntentTemplate(R.id.list, pIntent)
     
@@ -103,5 +113,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
         const val REFRESH_ACTION = "MY.REFRESH_ACTION"
         const val SWITCH_ACTION = "MY.SWITCH_ACTION"
         const val IS_MY_PLAN_BOOLEAN = "IS.MY.PLAN"
+        
+        private const val TAG = "VerPlanAppWidgetPro"
     }
 }

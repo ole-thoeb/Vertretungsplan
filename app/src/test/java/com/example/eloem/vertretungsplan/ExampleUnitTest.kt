@@ -1,5 +1,6 @@
 package com.example.eloem.vertretungsplan
 
+import com.example.eloem.vertretungsplan.network.extractTable
 import com.example.eloem.vertretungsplan.util.*
 import org.junit.Test
 

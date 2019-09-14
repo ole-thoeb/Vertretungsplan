@@ -1,46 +1,28 @@
 package com.example.eloem.vertretungsplan.helperClasses
 
-import android.content.Context
-import com.example.eloem.vertretungsplan.util.*
+import com.example.eloem.vertretungsplan.util.WeekDay
+import com.example.eloem.vertretungsplan.util.currentWeekday
 
-data class Vertretungsplan(val fetchedTime: Long = System.currentTimeMillis(),
-                           val generalPlan: Plan = Plan(-1), val customPlan: Plan = Plan(-1),
-                           val weekDay: Int = 0, val updateTime: Long = 0, val targetDay: Long = 0,
-                           val grade: String = "Q1") {
+data class Vertretungsplan(
+        val id: Long,
+        val fetchedTime: Long = System.currentTimeMillis(),
+        val generalPlan: Plan = Plan(-1),
+        val customPlan: Plan = Plan(-1),
+        val weekDay: WeekDay = WeekDay.MONDAY,
+        val updateTime: Long = 0,
+        val targetDay: Long = 0,
+        val grade: Grade = Grade.Q1,
+        val computedWith: Long
+) {
     
     data class Row(val lesson: Int, val teacher: String, val verTeacher: String, val room: String,
                    val verRoom: String, val verText: String)
     
-    data class Plan(val id: Int, val plan: MutableList<Row> = mutableListOf(), var error: String = ERROR_NO){
-        fun contentEquals(other: Plan) = other.plan == plan && error == other.error
-    }
-    
-    fun calculateCustPlan(timetable: Timetable){
-        val verDay = weekDay
-        var currentDay = currentWeekday
-    
-        if (currentDay > 4) currentDay = 0
-        else{
-            val time = JustTime()
-            val endOfDayTime = timetable.endOfDay(currentDay)
-            if (time.isLaterThen(endOfDayTime)){
-                currentDay++
-                if(currentDay > 4) currentDay = 0
-            }
-        }
-    
-        if (verDay != currentDay){
-            customPlan.error = ERROR_WRONG_DAY
-            customPlan.plan.clear()
-            return
-        }
-    
-        customPlan.error = ERROR_NO_PLAN
-        generalPlan.plan.forEach { row ->
-            if (row.teacher == timetable[verDay][row.lesson -1].teacher && row.teacher != ""){
-                customPlan.error = ERROR_NO
-                customPlan.plan.add(row)
-            }
+    data class Plan(val id: Long, val plan: List<Row> = mutableListOf(), var status: PlanStatus = PlanStatus.OK) {
+        fun contentEquals(other: Plan) = other.plan == plan && status == other.status
+        
+        companion object {
+            val EMPTY = Plan(-1, emptyList(), PlanStatus.OK)
         }
     }
     
@@ -57,34 +39,41 @@ data class Vertretungsplan(val fetchedTime: Long = System.currentTimeMillis(),
                 updateTime == other.updateTime && c && g
     }
     
+    enum class Grade(val url: String) {
+        EF("http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_EF.htm"),
+        Q1("http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_Q1.htm"),
+        Q2("http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_Q2.htm")
+    }
+    
+    enum class PlanStatus { OK, WRONG_DAY, NO_PLAN, CALCULATION_ERROR, NO_TIMETABLE }
+    
     companion object {
-        const val ERROR_NO_PLAN = "noPlanError"
-        const val ERROR_WRONG_DAY = "wrongDayError"
-        const val ERROR_CONNECTION = "connectionError"
-        const val ERROR_NO = "noError"
+        fun calculateCustPlan(weekDay: WeekDay, timetable: Timetable, generalPlan: Plan, id: Long): Plan{
+            val plan = mutableListOf<Row>()
+    
+            var currentDay = currentWeekday
         
-        fun newInstance(html: String, context: Context, grade: String = readGrade(context)): Vertretungsplan{
-            val gPlan = extractVerPlan(html, context)
-            val cPlan = Plan(newPlanId(context))
-            val weekDay = extractWeekday(html)
-            val updateTime = extractUpdateTime(html)
-            val targetDay = extractTargetDay(html)
-            
-            val vPlan = Vertretungsplan(generalPlan = gPlan, customPlan = cPlan, weekDay = weekDay,
-                    updateTime = updateTime, targetDay = targetDay, grade = grade)
-            vPlan.calculateCustPlan(
-                    if (grade == readGrade(context)) getLatestTimetable(context)
-                    else Timetable.newDefaultInstance(context)
-            )
-            
-            return vPlan
-        }
+            if (currentDay.isWeekend) currentDay = WeekDay.MONDAY
+            else {
+                val time = JustTime.now()
+                val endOfDayTime = timetable.endOfDay(currentDay)
+                if (time > endOfDayTime) {
+                    currentDay = currentDay.nextDayNotWeekend()
+                }
+            }
         
-        fun noConnectionPlan(): Vertretungsplan{
-            val vPlan = Vertretungsplan()
-            vPlan.generalPlan.error = ERROR_CONNECTION
-            vPlan.customPlan.error = ERROR_CONNECTION
-            return vPlan
+            if (weekDay != currentDay) {
+                return Plan(id, plan, PlanStatus.WRONG_DAY)
+            }
+    
+            var status = PlanStatus.NO_PLAN
+            generalPlan.plan.forEach { row ->
+                if (row.teacher == timetable[weekDay.ordinal][row.lesson -1].teacher && row.teacher != ""){
+                    status = PlanStatus.NO_PLAN
+                    plan.add(row)
+                }
+            }
+            return Plan(id, plan, status)
         }
     }
 }

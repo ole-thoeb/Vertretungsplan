@@ -57,44 +57,44 @@ fun dropTables(db: SQLiteDatabase?){
         dropTable(Lessons.tableName)
     }
 }
-
-fun verPlanParser(context: Context) = rowParser{ fetchedTime: Long, gPlanID: Int, cPlanId: Int, day: Int,
+/*
+fun verPlanParser(ctx: Context) = rowParser{ fetchedTime: Long, gPlanID: Int, cPlanId: Int, day: Int,
                                                  updateTime: Long, tagrgetDay: Long, grade: String ->
     
-    Vertretungsplan(fetchedTime, getPlan(context, gPlanID),
-            getPlan(context, cPlanId), day, updateTime, tagrgetDay ,grade)
+    Vertretungsplan(fetchedTime, getPlan(ctx, gPlanID),
+            getPlan(ctx, cPlanId), day, updateTime, tagrgetDay ,grade)
 }
 
-fun getAllVerPlans(context: Context): List<Vertretungsplan> = context.database.use {
+fun getAllVerPlans(ctx: Context): List<Vertretungsplan> = ctx.database.use {
     
     select(VerPlan.tableName)
-            .parseList(verPlanParser(context))
+            .parseList(verPlanParser(ctx))
 }
 
-fun getVerPlan(context: Context, fetchedTime: Long): Vertretungsplan = context.database.use {
+fun getVerPlan(ctx: Context, fetchedTime: Long): Vertretungsplan = ctx.database.use {
     
     select(VerPlan.tableName)
             .whereArgs("${VerPlan.columnFetchedTime} = {fTime}", "fTime" to fetchedTime)
-            .parseSingle(verPlanParser(context))
+            .parseSingle(verPlanParser(ctx))
 }
 
-fun getLatestVerPlanByGrade(context: Context, grade: String = readGrade(context)):
-        Vertretungsplan = context.database.use {
+fun getLatestVerPlanByGrade(ctx: Context, grade: String = readGrade(ctx)):
+        Vertretungsplan = ctx.database.use {
     
     select(VerPlan.tableName)
             .orderBy(VerPlan.columnFetchedTime, SqlOrderDirection.DESC)
             .whereArgs("${VerPlan.columnGrade} = {g}", "g" to grade)
             .limit(1)
-            .parseSingle(verPlanParser(context))
+            .parseSingle(verPlanParser(ctx))
 }
 
-fun insertVertretungdplanIfNew(context: Context, verPlan: Vertretungsplan){
+fun insertVertretungdplanIfNew(ctx: Context, verPlan: Vertretungsplan){
     try {
-        val lastPlan = getLatestVerPlanByGrade(context, verPlan.grade)
+        val lastPlan = getLatestVerPlanByGrade(ctx, verPlan.grade)
         if (!lastPlan.contentEquals(verPlan))
-            insertVertretungsplan(context, verPlan)
+            insertVertretungsplan(ctx, verPlan)
         else{
-            context.database.use {
+            ctx.database.use {
                 update(VerPlan.tableName,
                         VerPlan.columnFetchedTime to System.currentTimeMillis())
                         .whereArgs("${VerPlan.columnFetchedTime} = {fTime}", "fTime" to lastPlan.fetchedTime)
@@ -103,11 +103,11 @@ fun insertVertretungdplanIfNew(context: Context, verPlan: Vertretungsplan){
         }
     }catch (e: Throwable){
         Log.e("Vertretungsplan", "No Vertretungsplan in Database", e)
-        insertVertretungsplan(context, verPlan)
+        insertVertretungsplan(ctx, verPlan)
     }
 }
 
-fun lastUpdate(context: Context, grade: String = readGrade(context)): Long = context.database.use {
+fun lastUpdate(ctx: Context, grade: String = readGrade(ctx)): Long = ctx.database.use {
     
     val longParser = rowParser { l: Long -> l }
     
@@ -123,7 +123,7 @@ fun lastUpdate(context: Context, grade: String = readGrade(context)): Long = con
     }
 }
 
-fun insertVertretungsplan(context: Context, verPlan: Vertretungsplan) = context.database.use {
+fun insertVertretungsplan(ctx: Context, verPlan: Vertretungsplan) = ctx.database.use {
     Log.d("Vertretungsplan", "inserting verPlan in DB")
     insert(VerPlan.tableName,
             VerPlan.columnFetchedTime to verPlan.fetchedTime,
@@ -134,14 +134,14 @@ fun insertVertretungsplan(context: Context, verPlan: Vertretungsplan) = context.
             VerPlan.columnTargetDay to verPlan.targetDay,
             VerPlan.columnGrade to verPlan.grade)
     
-    insertPlan(context, verPlan.generalPlan)
-    insertPlan(context, verPlan.customPlan)
+    insertPlan(ctx, verPlan.generalPlan)
+    insertPlan(ctx, verPlan.customPlan)
 }
 
-fun getPlan(context: Context, planId: Int): Vertretungsplan.Plan = context.database.use {
+fun getPlan(ctx: Context, planId: Int): Vertretungsplan.Plan = ctx.database.use {
     
-    val planParser = rowParser {id: Int, error: String ->
-        Vertretungsplan.Plan(id, getAllRowsFormOnePlan(context, id), error)
+    val planParser = rowParser {id: Int, status: String ->
+        Vertretungsplan.Plan(id, getAllRowsFormOnePlan(ctx, id), status)
     }
     
     select(Plan.tableName)
@@ -149,8 +149,8 @@ fun getPlan(context: Context, planId: Int): Vertretungsplan.Plan = context.datab
             .parseSingle(planParser)
 }
 
-fun getAllRowsFormOnePlan(context: Context, planId: Int): MutableList<Vertretungsplan.Row>
-        = context.database.use {
+fun getAllRowsFormOnePlan(ctx: Context, planId: Int): MutableList<Vertretungsplan.Row>
+        = ctx.database.use {
     
     val mRowParser = rowParser { lesson: Int, teacher: String, verTeacher: String, room: String,
                                  verRoom: String, verText: String ->
@@ -166,15 +166,15 @@ fun getAllRowsFormOnePlan(context: Context, planId: Int): MutableList<Vertretung
             .toMutableList()
 }
 
-fun insertPlan(context: Context, plan: Vertretungsplan.Plan) = context.database.use {
+fun insertPlan(ctx: Context, plan: Vertretungsplan.Plan) = ctx.database.use {
     insert(Plan.tableName,
             Plan.columnId to plan.id,
-            Plan.columnError to plan.error)
+            Plan.columnError to plan.status)
     
-    plan.plan.forEach { insertRow(context, it, plan.id) }
+    plan.plan.forEach { insertRow(ctx, it, plan.id) }
 }
 
-fun insertRow(context: Context, row: Vertretungsplan.Row, planId: Int) = context.database.use {
+fun insertRow(ctx: Context, row: Vertretungsplan.Row, planId: Int) = ctx.database.use {
     insert(VerRow.tableName,
             VerRow.columnLesson to row.lesson,
             VerRow.columnTeacher to row.teacher,
@@ -185,27 +185,27 @@ fun insertRow(context: Context, row: Vertretungsplan.Row, planId: Int) = context
             VerRow.columnPlanId to planId)
 }
 
-fun deleteVertretungsPlan(context: Context, verPlan: Vertretungsplan) = context.database.use {
+fun deleteVertretungsPlan(ctx: Context, verPlan: Vertretungsplan) = ctx.database.use {
     delete(VerPlan.tableName,
             "${VerPlan.columnFetchedTime} = {fetchedTime}", "fetchedTime" to verPlan.fetchedTime)
     
-    deletePlan(context, verPlan.customPlan)
-    deletePlan(context, verPlan.generalPlan)
+    deletePlan(ctx, verPlan.customPlan)
+    deletePlan(ctx, verPlan.generalPlan)
 }
 
-fun deletePlan(context: Context, plan: Vertretungsplan.Plan) = context.database.use {
+fun deletePlan(ctx: Context, plan: Vertretungsplan.Plan) = ctx.database.use {
     delete(Plan.tableName,
             "${Plan.columnId} = {id}", "id" to plan.id)
     
-    deleteRows(context, plan.id)
+    deleteRows(ctx, plan.id)
 }
 
-fun deleteRows(context: Context, planId: Int) = context.database.use {
+fun deleteRows(ctx: Context, planId: Int) = ctx.database.use {
     delete(VerRow.tableName,
             "${VerRow.columnPlanId} = {id}", "id" to planId)
 }
 
-fun insertTimetable(context: Context, timetable: Timetable): Unit = context.database.use {
+fun insertTimetable(ctx: Context, timetable: Timetable): Unit = ctx.database.use {
     insert(Timetables.tableName,
             Timetables.columnId to timetable.id,
             Timetables.columnDays to timetable.days,
@@ -213,12 +213,12 @@ fun insertTimetable(context: Context, timetable: Timetable): Unit = context.data
     
     timetable.table.forEachIndexed { d, day ->
         day.forEachIndexed { l, lesson ->
-            insertLesson(context, lesson, timetable.id, d, l)
+            insertLesson(ctx, lesson, timetable.id, d, l)
         }
     }
 }
 
-fun insertLesson(context: Context, lesson: Timetable.Lesson, tId: Int, d: Int, l: Int): Unit = context.database.use {
+fun insertLesson(ctx: Context, lesson: Timetable.Lesson, tId: Int, d: Int, l: Int): Unit = ctx.database.use {
     insert(Lessons.tableName,
             Lessons.columnSubject to lesson.subject,
             Lessons.columnTeacher to lesson.teacher,
@@ -229,7 +229,7 @@ fun insertLesson(context: Context, lesson: Timetable.Lesson, tId: Int, d: Int, l
             Lessons.columnLesson to l)
 }
 
-fun updateLesson(context: Context, timetableId: Int, day: Int, lesson: Int, newLesson: Timetable.Lesson) = context.database.use {
+fun updateLesson(ctx: Context, timetableId: Int, day: Int, lesson: Int, newLesson: Timetable.Lesson) = ctx.database.use {
     update(Lessons.tableName,
             Lessons.columnTeacher to newLesson.teacher,
             Lessons.columnSubject to newLesson.subject,
@@ -241,11 +241,11 @@ fun updateLesson(context: Context, timetableId: Int, day: Int, lesson: Int, newL
             .exec()
 }
 
-fun getLatestTimetable(context: Context): Timetable = try {
-    context.database.use {
+fun getLatestTimetable(ctx: Context): Timetable = try {
+    ctx.database.use {
     
     val mParser = rowParser { id: Int, days: Int, lessons: Int ->
-        Timetable(id, days, lessons, getLessonFromOnePlan(context, id, days, lessons))
+        Timetable(id, days, lessons, getLessonFromOnePlan(ctx, id, days, lessons))
     }
     
     select(Timetables.tableName,
@@ -259,14 +259,14 @@ fun getLatestTimetable(context: Context): Timetable = try {
     
 }catch (e: Throwable){
     Log.e("Vertretungsplan", "No Timetable in Database", e)
-    val t = Timetable.newDefaultInstance(context)
-    insertTimetable(context, t)
+    val t = Timetable.newDefaultInstance(ctx)
+    insertTimetable(ctx, t)
     
     t
 }
 
-fun getLessonFromOnePlan(context: Context, planId: Int, days: Int, lessons: Int):
-        MutableList<MutableList<Timetable.Lesson>> = context.database.use {
+fun getLessonFromOnePlan(ctx: Context, planId: Int, days: Int, lessons: Int):
+        MutableList<MutableList<Timetable.Lesson>> = ctx.database.use {
     
     val lessonList = MutableList(days) { MutableList(lessons) { Timetable.Lesson() }}
     
@@ -286,4 +286,4 @@ fun getLessonFromOnePlan(context: Context, planId: Int, days: Int, lessons: Int)
             .parseList(mLessonParser)
     
     lessonList
-}
+}*/

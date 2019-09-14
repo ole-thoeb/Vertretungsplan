@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.*
 import android.widget.*
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
@@ -41,20 +41,21 @@ class ListActivity : AppCompatActivity() {
         val latestTime = if (seekerProgress == 100) 0
                 else System.currentTimeMillis() - progressToDays(seekerProgress) * 1000 * 60 * 60* 24
         
-        val filteredPlans = getAllVerPlans(this).filter {
-            (!forMe || it.customPlan.plan.isNotEmpty()) &&
-                    it.grade in enabledGrades && it.updateTime > latestTime
-        }
-        if (lastOfDay) {
-            val groupedPlans = filteredPlans.groupBy {
-                it.grade.toIntCharByChar().toLong() + it.targetDay
-            }.values.toList()
-            return List(groupedPlans.size) {
-                groupedPlans[it].maxBy { plan ->
-                    plan.fetchedTime
-                }!!
-            }
-        }
+        TODO()
+//        val filteredPlans = getAllVerPlans(this).filter {
+//            (!forMe || it.customPlan.plan.isNotEmpty()) &&
+//                    it.grade in enabledGrades && it.updateTime > latestTime
+//        }
+//        if (lastOfDay) {
+//            val groupedPlans = filteredPlans.groupBy {
+//                it.grade.toIntCharByChar().toLong() + it.targetDay
+//            }.values.toList()
+//            return List(groupedPlans.size) {
+//                groupedPlans[it].maxBy { plan ->
+//                    plan.fetchedTime
+//                }!!
+//            }
+//        }
         
         return filteredPlans
     }
@@ -93,7 +94,8 @@ class ListActivity : AppCompatActivity() {
                     // Respond to clicks on the actions in the CAB
                     return when (item.itemId) {
                         R.id.deletePlan -> {
-                            mAdapter.selectedPlans.forEach { deleteVertretungsPlan(this@ListActivity, it) }
+                            TODO()
+                            //mAdapter.selectedPlans.forEach { deleteVertretungsPlan(this@ListActivity, it) }
                             refreshList()
                             mode.finish() // Action picked, so close the CAB
                             true
@@ -242,7 +244,7 @@ class ListActivity : AppCompatActivity() {
             
             vh.updateTimeTV.text = plan.updateTime.toDate().toDateTimeString()
             vh.targetDayTV.text = resources.getString(R.string.targetDay, plan.targetDay.toDate().toWeekdayDateString())
-            vh.gradeTV.text = plan.grade
+            vh.gradeTV.text = plan.grade.toString()
             
             val previewRows = arrayOf(vh.r0, vh.r1, vh.r2, vh.r3, vh.r4)
             val gPlan = plan.generalPlan.plan
@@ -284,18 +286,18 @@ class ListActivity : AppCompatActivity() {
                 if (currentlyCABActive){
                     itemInCABPressed(position)
                 }else{
-                    startActivity(Intent(this@ListActivity, DisplayPlanActivity::class.java).apply {
-                        putExtra(DisplayPlanActivity.EXTRA_PLAN_FETCHED_TIME, plan.fetchedTime)
-                    }, ActivityOptions.makeSceneTransitionAnimation(this@ListActivity,
-                            previewList, transitionName)
-                            .toBundle())
+//                    startActivity(Intent(this@ListActivity, DisplayPlanActivity::class.java).apply {
+//                        putExtra(DisplayPlanActivity.EXTRA_PLAN_FETCHED_TIME, plan.fetchedTime)
+//                    }, ActivityOptions.makeSceneTransitionAnimation(this@ListActivity,
+//                            previewList, transitionName)
+//                            .toBundle())
                 }
             }
-            
-            vh.verPlanCard.setCardBackgroundColor(
-                    if (isItemChecked(position))context.getAttribute(R.attr.highlightSelect, true).data
-                    else context.getAttribute(R.attr.internalCardBackgroundColor, true).data)
-            
+//
+//            vh.verPlanCard.setCardBackgroundColor(
+//                    if (isItemChecked(position))ctx.getAttribute(R.attr.highlightSelect, true).data
+//                    else ctx.getAttribute(R.attr.internalCardBackgroundColor, true).data)
+//
             return vh
         }
     

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+    app:startDestination="@id/currentPlanFragment">
+
+    <fragment
+        android:id="@+id/currentPlanFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.CurrentPlanFragment"
+        android:label="CurrentPlanFragment"
+        tools:layout="@layout/fragment_current_plan">
+        <action
+            android:id="@+id/action_currentPlanFragment_to_timetableOverviewFragment"
+            app:destination="@id/timetableOverviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.SettingsFragment"
+        android:label="SettingsFragment"/>
+    <action android:id="@+id/action_global_settingsFragment" app:destination="@id/settingsFragment" />
+    <fragment
+        android:id="@+id/timetableFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.TimetableFragment"
+        android:label="TimetableFragment"
+        tools:layout="@layout/fragment_timetable">
+        <argument
+            android:name="timetableId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_timetableFragment_to_editLessonFragment"
+            app:destination="@id/editLessonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timetableOverviewFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.TimetableOverviewFragment"
+        android:label="TimetableOverviewFragment"
+        tools:layout="@layout/fragment_timetable_overview">
+        <action
+            android:id="@+id/action_timetableOverviewFragment_to_timetableFragment"
+            app:destination="@id/timetableFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editLessonFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.EditLessonFragment"
+        android:label="fragment_edit_lesson"
+        tools:layout="@layout/fragment_edit_lesson" >
+        <argument
+            android:name="day"
+            app:argType="integer" />
+        <argument
+            android:name="lesson"
+            app:argType="integer" />
+        <argument
+            android:name="timetableId"
+            app:argType="long" />
+    </fragment>
+</navigation>

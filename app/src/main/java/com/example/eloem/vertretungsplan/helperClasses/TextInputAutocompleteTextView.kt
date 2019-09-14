@@ -1,14 +1,14 @@
 package com.example.eloem.vertretungsplan.helperClasses
 
 import android.content.Context
-import android.support.design.R
-import android.support.design.widget.TextInputLayout
-import android.support.v7.widget.AppCompatAutoCompleteTextView
-import android.support.v7.widget.AppCompatEditText
+import com.google.android.material.textfield.TextInputLayout
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
+import androidx.appcompat.widget.AppCompatEditText
 import android.util.AttributeSet
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import com.example.eloem.vertretungsplan.R
 
 class TextInputAutocompleteTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null,
                                                               defStyleAttr: Int = R.attr.editTextStyle) :

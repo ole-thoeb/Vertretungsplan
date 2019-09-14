@@ -1,40 +1,45 @@
 package com.example.eloem.vertretungsplan.helperClasses
 
-import java.text.SimpleDateFormat
 import java.util.*
 
-class JustTime {
-    var hour = 0
-    var minute = 0
+class JustTime(val hour: Int, val minute: Int): Comparable<JustTime> {
     
-    constructor(){
-        val cal = Calendar.getInstance()
-        this.hour = cal.get(Calendar.HOUR_OF_DAY)
-        this.minute = cal.get(Calendar.MINUTE)
-    }
+    val minutes = hour * 60 * minute
     
-    constructor(pHour: Int, pMinute: Int){
-        this.hour = pHour
-        this.minute = pMinute
-    }
-    
-    constructor(date: Date){
-        val mdformat = SimpleDateFormat("HH:mm")
-        val stringTime = mdformat.format(date)
-        val splitTime = stringTime.split(":")
-        this.hour = splitTime[0].toInt()
-        this.minute = splitTime[1].toInt()
-    }
-    
-    constructor(millis: Long): this(Calendar.getInstance().apply{timeInMillis = millis}.time)
-    
-    fun isLaterThen(time2: JustTime): Boolean{
-        val thisTime = (this.hour * 60) + this.minute
-        val otherTime = (time2.hour * 60) + time2.minute
-        return thisTime > otherTime
+    override operator fun compareTo(other: JustTime): Int {
+        return minutes - other.minutes
     }
     
     override fun toString(): String{
         return "$hour:$minute"
     }
+    
+    companion object {
+        fun fromCalender(calendar: Calendar): JustTime {
+            val hour = calendar[Calendar.HOUR]
+            val minute = calendar[Calendar.MINUTE]
+            return JustTime(hour, minute)
+        }
+        
+        fun now(): JustTime {
+            return System.currentTimeMillis().justTime()
+        }
+    }
 }
+
+fun Long.justTime(): JustTime {
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = this
+    return JustTime.fromCalender(cal)
+}
+
+fun Date.justTime(): JustTime {
+    val cal = Calendar.getInstance()
+    cal.time = this
+    IntRange
+    return JustTime.fromCalender(cal)
+}
+
+private class SimpleRange<T: Comparable<T>>(override val start: T, override val endInclusive: T): ClosedRange<T>
+
+operator fun JustTime.rangeTo(that: JustTime): ClosedRange<JustTime> = SimpleRange(this, that)

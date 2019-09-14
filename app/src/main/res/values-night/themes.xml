@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents">
+        <item name="colorOnBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorAccent">@color/colorSecondary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryLight</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="colorConfirm">@color/colorConfirm</item>
+
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="statusBarColor">?colorSurface</item>
+        <item name="toolbarColor">?colorSurface</item>
+        <item name="android:statusBarColor">?attr/statusBarColor</item>
+
+        <item name="toolbarIconColor">@color/white</item>
+        <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonColor</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="toolbarStyle">@style/AppToolbar</item>
+
+        <item name="alertDialogTheme">@style/DialogStyleDark</item>
+        <item name="materialAlertDialogTheme">@style/DialogStyleDark</item>
+    </style>
+</resources>

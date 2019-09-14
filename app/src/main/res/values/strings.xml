@@ -1,10 +1,19 @@
 <resources>
+    <plurals name="periodText">
+        <item quantity="one">Letzter Tag</item>
+        <item quantity="other">Letzten %1d Tage</item>
+    </plurals>
+    <plurals name="listOverflow">
+        <item quantity="one">+1 weiterer Eintrag</item>
+        <item quantity="other">+%1d weitere Einträge</item>
+    </plurals>
     <string name="app_name">Vertretungsplan</string>
     <string name="title_myPlan">Mein Plan</string>
     <string name="title_plan">Vertretungsplan</string>
     <string name="title_timetable">Stundenplan</string>
-    <string name="title_activity_add_lesson">Stunde hinzufügen</string>
-    <string name="title_activity_settings">Einstellungen</string>
+    <string name="title_timetable_overview">Stundenpläne</string>
+    <string name="title_settings">Einstellungen</string>
+    <string name="title_edit_lesson">%1$s %2$d. Stunde</string>
 
     <string name="timetable_monday">Mo.</string>
     <string name="timetable_tuesday">Di.</string>
@@ -12,18 +21,19 @@
     <string name="timetable_thursday">Do.</string>
     <string name="timetable_friday">Fr.</string>
 
-    <string name="addLessonTitle">%1s %2d. Stunde</string>
-
     <string name="error_message_no_plan">Heute fällt für dich nichts aus 😞</string>
     <string name="error_message_wrong_day">Der Vertretungsplan ist noch nicht aktualisiert.</string>
     <string name="error_message_no_connection">Schau mal nach ob du das Internet gelöscht hast.</string>
+    <string name="error_message_calc">Konnte keinen Plan für dich berechnen.</string>
+    <string name="error_message_pars">Konnte aus dem Plan nicht schlau werden…</string>
+    <string name="error_message_no_timetable">Ohne Stundenplan kann ich da auch nix machen. Erstell doch einen!</string>
     <string name="error_message_universal">Upsala</string>
 
-    <string name="add_lesson_subject">Fach</string>
-    <string name="add_lesson_teacher">Lehrer(Kürzel)</string>
-    <string name="add_lesson_room">Raum</string>
+    <string name="edit_lesson_subject">Fach</string>
+    <string name="edit_lesson_teacher">Lehrer(Kürzel)</string>
+    <string name="edit_lesson_room">Raum</string>
 
-    <string name="action_back">zurück</string>
+
     <string name="action_settings">Einstellungen</string>
     <string name="action_deleteTimetable">Lösch Stundenplan</string>
     <string name="action_deleteLesson">Lösch Stunde</string>
@@ -34,51 +44,90 @@
     <string name="action_filterList">Filter</string>
 
     <string name="actionbar_time_info">%1s <b>↻</b> %2s <b>↧</b></string>
-
     <string name="dialog_deleteLesson_message">Willst du diese Stunde löschen?</string>
     <string name="dialog_deleteTimetable_message">Willst du den Stundenplan löschen?</string>
     <string name="cancel">abbrechen</string>
+
+    <string name="dialog_positive">jop</string>
+    <string name="dialog_negative">nope</string>
     <string name="ok">jop</string>
     <string name="error">ERROR</string>
-
+    <string name="dialog_metaDate_title">Metadaten</string>
     <string name="dialog_metaData_fetched">Abgerufen</string>
     <string name="dialog_metaData_refreshed">Aktualisiert</string>
-    <string name="dialog_metaDate_target">Für</string>
+    <string name="dialog_metaDate_target">Geltungs Tag</string>
+
+    <string name="dialog_newTimetable_title">Neuer Stundenplan</string>
+    <string name="dialog_newTimetable_nameHint">Name</string>
+    <string name="dialog_newTimetable_errorMsg">Der Name darf nicht leer sein!</string>
+    <string name="dialog_newTimetable_positive">Erstellen</string>
+
+    <string name="dialog_rename_positive">Umbennen</string>
+
+    <string name="optionsEdit">Bearbeiten</string>
+    <string name="optionsDelete">Löschen</string>
+    <string name="optionsRename">Umbennenen</string>
+    <string name="optionsFavorite">Favorisieren</string>
+
+    <string name="timetableNamePlaceHolder">Kein Name</string>
 
     <!--related to Filter popup-->
     <string name="dialog_filterPositive">Anwenden</string>
     <string name="dialog_filterNegative">Zurücksetzten</string>
     <string name="dialog_filterTitle">Filter</string>
-    <plurals name="periodText">
-        <item quantity="one">Letzter Tag</item>
-        <item quantity="other">Letzten %1d Tage</item>
-    </plurals>
     <string name="periodDefault">Gesammter Zeitraum</string>
     <string name="relevantForMe">Nur Pläne die mich betreffen</string>
-    <string name="lastOfTheDay">Nur letzter Plan des Tages</string>
 
+    <string name="lastOfTheDay">Nur letzter Plan des Tages</string>
     <string name="gradeEF">EF</string>
     <string name="gradeQ1">Q1</string>
     <string name="gradeQ2">Q2</string>
-
     <string name="targetDay">Für %1s</string>
-    <plurals name="listOverflow">
-        <item quantity="one">+1 weiterer Eintrag</item>
-        <item quantity="other">+%1d weitere Einträge</item>
-    </plurals>
 
     <string name="titleCAB">%1d Ausgewählt</string>
 
     <string name="tab_text_myPlan">Mein Plan</string>
     <string name="tab_text_Plan">Vertretungsplan</string>
 
+    <!-- Strings related to Notifications -->
+
     <string name="channel_name">Benarichtigungen</string>
     <string name="channel_description">Benarichtigungen der App</string>
     <string name="standard_channel">standard</string>
 
     <!-- Strings related to Settings -->
+
+    <string name="settingsThemeTitle">Theme</string>
+    <string name="settingsThemeSummary">Aktivieren für dark theme</string>
+    <string name="lightTheme">Light Theme</string>
+    <string name="darkTheme">Dark Theme</string>
+    <string name="autoTheme">Abhängig vom Energiesparmodus</string>
+    <string name="defaultThemeValue">0</string>
     <string name="grade_title">Stufe</string>
     <string name="grade_summery">Von dieser Stufe wird dir der Vertretungsplan Angezeigt</string>
+
+    <string name="grade_default_value">@string/gradeQ1</string>
+    <string name="auto_time_title">Nächster Tag</string>
+    <string name="auto_time_summary">Uhrzeit automatisch bestimmen</string>
+    <string name="sort_plan_title">Plan sotieren</string>
+    <string name="sort_plan_default_value">0</string>
+
+    <string name="allPlansTitle">Alle Pläne speichern</string>
+    <string name="allPlansOffSummery">Nur der Plan deiner Stufe wird gespeichert</string>
+
+    <string name="allPlansOnSummery">Die Pläne aller Stufen werden gespeichert</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="themes">
+        <item>@string/lightTheme</item>
+        <item>@string/darkTheme</item>
+        <item>@string/autoTheme</item>
+    </string-array>
+    <string-array name="settingsThemeValue">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <string-array name="grade_values">
         <item>@string/gradeEF</item>
         <item>@string/gradeQ1</item>
@@ -89,12 +138,6 @@
         <item>@string/gradeQ1</item>
         <item>@string/gradeQ2</item>
     </string-array>
-    <string name="grade_default_value">@string/gradeQ1</string>
-
-    <string name="auto_time_title">Nächster Tag</string>
-    <string name="auto_time_summary">Uhrzeit automatisch bestimmen</string>
-
-    <string name="sort_plan_title">Plan sotieren</string>
     <string-array name="sort_plan_entries">
         <item>1,1,1,2,2,2(nach Stunde)</item>
         <item>1,2,1,2,1,2(nach Doppelstunde)</item>
@@ -103,14 +146,5 @@
         <item>0</item>
         <item>1</item>
     </string-array>
-    <string name="sort_plan_default_value">0</string>
-
-    <string name="allPlansTitle">Alle Pläne speichern</string>
-    <string name="allPlansOffSummery">Nur der Plan deiner Stufe wird gespeichert</string>
-    <string name="allPlansOnSummery">Die Pläne aller Stufen werden gespeichert</string>
-
-    <string name="themeTitle">Theme</string>
-    <string name="themeOffSummery">helles Theme</string>
-    <string name="themeOnSummery">dunkles Theme</string>
 
 </resources>

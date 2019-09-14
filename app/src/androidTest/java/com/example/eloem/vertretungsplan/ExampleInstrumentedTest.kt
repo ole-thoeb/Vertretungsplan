@@ -1,8 +1,8 @@
 package com.example.eloem.vertretungsplan
 
 import android.graphics.Color
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import com.example.eloem.vertretungsplan.util.intPref
 
 import org.junit.Test

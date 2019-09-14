@@ -3,65 +3,12 @@ package com.example.eloem.vertretungsplan.util
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import androidx.core.content.edit
+import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
+import com.example.eloem.vertretungsplan.recyclerView.ContextAdapter
 import org.jetbrains.anko.defaultSharedPreferences
 import java.io.Serializable
 import kotlin.reflect.KProperty
-
-/*
-const val VERTRETUNGSPLAN_ID = "com.example.eloem.vertretungsplan.vertretungsplan"
-
-fun writeVertretungsplan(verPlan: Vertretungsplan, context: Context?){
-    val preference = PreferenceManager.getDefaultSharedPreferences(context).edit()
-    val gson = Gson()
-    val json = gson.toJson(verPlan)
-    preference.putString(VERTRETUNGSPLAN_ID, json)
-    preference.apply()
-}
-
-fun readVertretungsplan(context: Context?): Vertretungsplan {
-    val preference = PreferenceManager.getDefaultSharedPreferences(context)
-    val gson = Gson()
-    val json = preference.getString(VERTRETUNGSPLAN_ID, "")
-    return gson.fromJson(json, Vertretungsplan::class.java)
-}*/
-
-/*const val VERTRETUNGSPLAN_TIME_ID = "com.example.eloem.vertretungsplan.vertretungsplan_time"
-
-fun writeVerPlanTime(time: Long, context: Context?){
-    PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putLong(VERTRETUNGSPLAN_TIME_ID, time)
-            .apply()
-}
-
-fun readVerPlanTime(context: Context?): Long = PreferenceManager
-        .getDefaultSharedPreferences(context)
-        .getLong(VERTRETUNGSPLAN_TIME_ID, 0)
-        */
-
-/*
-const val TIMETABLE_ID =  "com.example.eloem.vertretungsplan.timetable"
-
-fun writeTimetable(timetable: Timetable, context: Context?){
-    val preference = PreferenceManager.getDefaultSharedPreferences(context).edit()
-    val gson = Gson()
-    val json = gson.toJson(timetable)
-    preference.putString(TIMETABLE_ID, json)
-    preference.apply()
-}
-
-fun readTimetable(context: Context): Timetable {
-    val preference = PreferenceManager.getDefaultSharedPreferences(context)
-    val gson = Gson()
-    try {
-        val json = preference.getString(TIMETABLE_ID, "")
-        return gson.fromJson(json, Timetable::class.java)
-    }catch (e: Throwable){
-        val timetable = Timetable.newDefaultInstance(context)
-        writeTimetable(timetable, context)
-        return readTimetable(context)
-    }
-}*/
 
 const val NOTIFICATION_ID_ID = "com.example.eloem.vertretungsplan.notification"
 
@@ -82,26 +29,68 @@ fun newNotificationId(context: Context?): Int{
 
 const val PLAN_ID_ID = "planId"
 
-fun newPlanId(context: Context): Int = context.defaultSharedPreferences.newId(PLAN_ID_ID)
+fun newPlanId(context: Context): Long = context.defaultSharedPreferences.newId(PLAN_ID_ID)
 
 const val TIMETABLE_ID_ID = "timetableId"
 
-fun newTimetableId(context: Context): Int = context.defaultSharedPreferences.newId(TIMETABLE_ID_ID)
+fun newTimetableId(context: Context): Long = context.defaultSharedPreferences.newId(TIMETABLE_ID_ID)
 
-fun SharedPreferences.newId(key: String): Int{
-    val id = getInt(key, 0) + 1
-    edit().putInt(key, id).apply()
-    return id
+const val VERTRETUNGSPLAN_ID_ID = "vertretungsplanId"
+
+fun newVertretungsplanId(context: Context): Long = context.defaultSharedPreferences.newId(VERTRETUNGSPLAN_ID_ID)
+
+fun SharedPreferences.newId(key: String): Long{
+    return synchronized(this) {
+        val id = getLong(key, 0) + 1
+        edit {
+            putLong(key, id)
+        }
+        id
+    }
 }
 
 /** Zum lesen von Einstellugnen**/
-fun readGrade(context: Context?): String{
+fun readGrade(context: Context?): Vertretungsplan.Grade {
+    val default = Vertretungsplan.Grade.Q1
     val preference = PreferenceManager.getDefaultSharedPreferences(context)
-    return preference.getString("grade", "Q1") ?: "Q1"
+    return when (preference.getString("grade", default.toString())) {
+        "EF" -> Vertretungsplan.Grade.EF
+        "Q1" -> Vertretungsplan.Grade.Q1
+        "Q2" -> Vertretungsplan.Grade.Q2
+        else -> {
+            preference.edit { putString("grade", default.toString()) }
+            default
+        }
+    }
 }
 
-/*fun readSortPlan(context: Context):Boolean{
-    val preference = PreferenceManager.getDefaultSharedPreferences(context)
+private const val FAVORITE_TIMETABLE_ID_KEY = "favoriteTimetableId"
+
+class GeneralPreferences(private val ctx: Context) {
+    val grade: Vertretungsplan.Grade
+        get() = readGrade(ctx)
+    
+    val downloadAllPlansEnabled: Boolean
+        get() = readDownloadAllPlans(ctx)
+    
+    
+    var favoriteTimetableId: Long
+        set(value) {
+            ctx.defaultSharedPreferences.edit { putLong(FAVORITE_TIMETABLE_ID_KEY, value) }
+        }
+        get() =  ctx.defaultSharedPreferences.getLong(FAVORITE_TIMETABLE_ID_KEY, -1)
+}
+
+inline fun <T> ContextOwner.generalPreferences(block: GeneralPreferences.() -> T) {
+    block(GeneralPreferences(ctx))
+}
+
+inline fun <T> Context.generalPreferences(block: GeneralPreferences.() -> T): T {
+    return block(GeneralPreferences(this))
+}
+
+/*fun readSortPlan(ctx: Context):Boolean{
+    val preference = PreferenceManager.getDefaultSharedPreferences(ctx)
     val value = preference.getString("sort_plan", "")
     return value == "1"
 }*/
@@ -114,9 +103,10 @@ fun readDownloadAllPlans(context: Context): Boolean = PreferenceManager
 
 const val CURRENTLY_MY_PLAN_ID = "com.example.eloem.vertretungsplan.currentlyMyPlan"
 
-fun writeCurrentlyMyPLan(context: Context?, isMyPlan: Boolean){
-    val preference = PreferenceManager.getDefaultSharedPreferences(context).edit()
-    preference.putBoolean(CURRENTLY_MY_PLAN_ID, isMyPlan).apply()
+fun writeCurrentlyMyPLan(context: Context?, isMyPlan: Boolean) {
+    PreferenceManager.getDefaultSharedPreferences(context).edit {
+        putBoolean(CURRENTLY_MY_PLAN_ID, isMyPlan)
+    }
 }
 
 fun readCurrentlyMyPlan(context: Context?): Boolean{

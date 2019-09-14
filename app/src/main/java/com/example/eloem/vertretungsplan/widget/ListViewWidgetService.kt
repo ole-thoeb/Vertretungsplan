@@ -6,6 +6,6 @@ import android.widget.RemoteViewsService
 class ListViewWidgetService: RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
         println("triggerd")
-        return ListRowFactoryWidget(this.applicationContext)
+        return ListRowFactoryWidget(applicationContext)
     }
 }

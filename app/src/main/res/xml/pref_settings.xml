@@ -1,13 +1,14 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ListPreference
-        android:key="grade"
-        android:title="@string/grade_title"
-        android:summary="%s"
-        android:dialogTitle="@string/grade_title"
-        android:entries="@array/grade_entries"
-        android:entryValues="@array/grade_values"
-        android:defaultValue="@string/grade_default_value"/>
+    <androidx.preference.ListPreference
+        app:key="grade"
+        app:title="@string/grade_title"
+        app:dialogTitle="@string/grade_title"
+        app:entries="@array/grade_entries"
+        app:entryValues="@array/grade_values"
+        app:defaultValue="@string/grade_default_value"
+        app:useSimpleSummaryProvider="true"/>
 
     <!--<ListPreference
         android:key="sort_plan"
@@ -18,18 +19,20 @@
         android:entryValues="@array/sort_plan_values"
         android:defaultValue="@string/sort_plan_default_value"/>-->
 
-    <CheckBoxPreference
-        android:key="downloadAllPlans"
-        android:title="@string/allPlansTitle"
-        android:summaryOn="@string/allPlansOnSummery"
-        android:summaryOff="@string/allPlansOffSummery"
-        android:defaultValue="false"/>
+    <androidx.preference.SwitchPreference
+        app:key="downloadAllPlans"
+        app:title="@string/allPlansTitle"
+        app:summaryOn="@string/allPlansOnSummery"
+        app:summaryOff="@string/allPlansOffSummery"
+        app:defaultValue="false"/>
 
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="preference_theme"
-        android:title="@string/themeTitle"
-        android:summaryOff="@string/themeOffSummery"
-        android:summaryOn="@string/themeOnSummery"/>
+    <androidx.preference.ListPreference
+        app:key="settingsTheme"
+        app:title="@string/settingsThemeTitle"
+        app:dialogTitle="@string/settingsThemeTitle"
+        app:entryValues="@array/settingsThemeValue"
+        app:entries="@array/themes"
+        app:defaultValue="@string/defaultThemeValue"
+        app:useSimpleSummaryProvider="true"/>
 
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>

@@ -1,91 +1,78 @@
 package com.example.eloem.vertretungsplan.helperClasses
 
 import android.content.Context
+import androidx.annotation.ColorInt
+import com.example.eloem.vertretungsplan.util.WeekDay
 import com.example.eloem.vertretungsplan.util.newTimetableId
-import org.jetbrains.anko.collections.forEachReversedWithIndex
-import kotlin.collections.ArrayList
 
-class Timetable(val id: Int, val days: Int, val lessons: Int,
-                val table: MutableList<MutableList<Lesson>> =
-                        List(days){ List(lessons) { Lesson() }.toMutableList()}.toMutableList()) {
+interface Timetable : Iterable<Timetable.Day> {
+    val id: Long
+    val name: String
+    val lastChange: Long
+    val isArchived: Boolean
     
-    data class Lesson(val subject: String = "", val teacher: String = "", val room: String = "",
-                      val color: Int = DEFAULT_COLOR){
+    val days: Int
+    
+    /**
+     * max lessons
+     */
+    val lessons: Int
+    
+    fun endOfDay(weekDay: WeekDay): JustTime
+    
+    val distinctLessons: List<Lesson>
+    
+    operator fun get(weekDay: WeekDay): Day
+    operator fun get(day: Int): Day
+    override operator fun iterator(): Iterator<Day>
+    
+    fun editable(newId: Long): EditTimetable
+    
+    interface Day : Iterable<Lesson> {
+        val weekDay: WeekDay
+        operator fun get(lesson: Int): Lesson
+        override operator fun iterator(): Iterator<Lesson>
+    }
+    
+    interface Lesson {
+        val subject: String
+        val teacher: String
+        val room: String
+        val color: Int
         
         companion object {
-            const val DEFAULT_COLOR = 0xFFFAFAFA.toInt()
+            @ColorInt
+            const val DEFAULT_COLOR = 0
         }
-    }
-    
-    
-    /*init {
-        clear()
-        /*this.endOfLessons.add(Date(0, 0, 0, 8, 40))
-        this.endOfLessons.add(Date(0, 0, 0, 9, 30))
-        this.endOfLessons.add(Date(0, 0, 0, 10, 35))
-        this.endOfLessons.add(Date(0, 0, 0, 11, 25))
-        this.endOfLessons.add(Date(0, 0, 0, 12, 25))
-        this.endOfLessons.add(Date(0, 0, 0, 13, 15))
-        this.endOfLessons.add(Date(0, 0, 0, 14, 10))
-        this.endOfLessons.add(Date(0, 0, 0, 15, 0))
-        this.endOfLessons.add(Date(0, 0, 0, 15, 50))
-        this.endOfLessons.add(Date(0, 0, 0, 16, 40))
-        this.endOfLessons.add(c)*/
-    }*/
-    
-    /*val distinctLessons: List<Lesson> get() {
-        val list = ArrayList<Lesson>()
-        val alreadyInList = ArrayList<String>()
-        alreadyInList.add("")
-        
-        for (day in table) {
-            for (lesson in list) {
-                if (lesson.subject !in alreadyInList) list.add(lesson)
-            }
-        }
-        return list
-    }*/
-    
-    val distinctLessons: List<Lesson> get() = table.flatten().distinctBy { it.subject }
-    
-    fun endOfDay(day: Int): JustTime{
-        val endOfLessons = arrayOf(JustTime(8, 40),
-                JustTime(9, 30),
-                JustTime(10, 35),
-                JustTime(11, 25),
-                JustTime(12, 25),
-                JustTime(13, 15),
-                JustTime(14, 10),
-                JustTime(15, 0),
-                JustTime(15, 50),
-                JustTime(16, 40),
-                JustTime(17, 30))
-        
-        table[day].forEachReversedWithIndex { i, lesson ->
-            if(lesson.subject != ""){
-                return endOfLessons[i]
-            }
-        }
-        return endOfLessons[0]
-    }
-    
-    fun clear(){
-        table.clear()
-        for (i in 0.until(days)) {
-            val day = ArrayList<Lesson>()
-            for (j in 0.until(lessons)) {
-                day.add(j, Lesson())
-            }
-            table.add(i, day)
-        }
-    }
-    
-    operator fun get(day: Int) = table[day]
-    operator fun set(pos: Int, value: MutableList<Lesson>){
-        table[pos] = value
     }
     
     companion object {
-        fun newDefaultInstance(context: Context) = Timetable(newTimetableId(context), 5, 11)
+        fun newDefaultInstance(context: Context) = newDefaultInstance(newTimetableId(context))
+        
+        fun newDefaultInstance(id: Long) = Timetable19_20.newDefaultInstance(id)
+    }
+}
+
+interface EditTimetable : Timetable {
+    
+    override var name: String
+    override var lastChange: Long
+    override var isArchived: Boolean
+    
+    override operator fun get(day: Int): EditDay
+    override operator fun get(weekDay: WeekDay): EditDay
+    override operator fun iterator(): Iterator<EditDay>
+    
+    interface EditDay : Timetable.Day {
+        override operator fun get(lesson: Int): EditLesson
+        operator fun set(lessonNr: Int, lesson: EditLesson)
+        override operator fun iterator(): Iterator<EditLesson>
+    }
+    
+    interface EditLesson : Timetable.Lesson {
+        override var subject: String
+        override var teacher: String
+        override var room: String
+        override var color: Int
     }
 }

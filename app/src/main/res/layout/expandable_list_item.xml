@@ -5,7 +5,7 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:paddingStart="8dp"
     android:gravity="center_vertical|start"
-    android:background="?attr/backgroundColor"
+    android:textColor="?colorOnSurface"
+    android:background="?colorSurface"
     android:textSize="18sp"
-    android:textColor="?attr/textHighlightColor"
-    android:foreground="?attr/selectableItemBackground"/>
+    android:foreground="?selectableItemBackground"/>

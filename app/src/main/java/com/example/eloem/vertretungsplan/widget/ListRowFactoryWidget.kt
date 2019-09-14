@@ -6,13 +6,19 @@ import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.example.eloem.vertretungsplan.R
+import com.example.eloem.vertretungsplan.database.PlanRepository
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.*
+import kotlinx.coroutines.runBlocking
 
 class ListRowFactoryWidget(val context: Context): RemoteViewsService.RemoteViewsFactory{
     
     private var isMyPlan = readCurrentlyMyPlan(context)
-    private var plan: Vertretungsplan.Plan = getLatestVerPlanByGrade(context).getRelevantPlan(isMyPlan)
+    private var plan: Vertretungsplan.Plan = runBlocking {
+        PlanRepository.create(context)
+                .getLatestLocalPlan(readGrade(context))!!
+                .getRelevantPlan(isMyPlan)
+    }
     
     override fun onCreate() {
         //nothing
@@ -23,7 +29,7 @@ class ListRowFactoryWidget(val context: Context): RemoteViewsService.RemoteViews
     }
     
     override fun getCount(): Int =
-        if (plan.error != Vertretungsplan.ERROR_NO) 1
+        if (plan.status != Vertretungsplan.PlanStatus.OK) 1
         else plan.plan.size
     
     override fun getLoadingView(): RemoteViews? {
@@ -33,14 +39,14 @@ class ListRowFactoryWidget(val context: Context): RemoteViewsService.RemoteViews
     override fun getItemId(p0: Int): Long = p0.toLong()
     
     override fun getViewAt(pos: Int): RemoteViews {
-        if (pos == 0 && plan.error != Vertretungsplan.ERROR_NO){
+        if (pos == 0 && plan.status != Vertretungsplan.PlanStatus.OK){
             val resources = context.resources
             val messageRow = RemoteViews(context.packageName, R.layout.widget_row_message)
             messageRow.setOnClickFillInIntent(R.id.messageTV, Intent())
-            when(plan.error){
-                Vertretungsplan.ERROR_NO_PLAN -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_no_plan))
-                Vertretungsplan.ERROR_WRONG_DAY -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_wrong_day))
-                Vertretungsplan.ERROR_CONNECTION -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_no_connection))
+            when(plan.status){
+                Vertretungsplan.PlanStatus.NO_PLAN -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_no_plan))
+                Vertretungsplan.PlanStatus.WRONG_DAY -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_wrong_day))
+                //Vertretungsplan.PlanStatus -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_no_connection))
                 else -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_universal))
             }
             return messageRow
@@ -79,7 +85,11 @@ class ListRowFactoryWidget(val context: Context): RemoteViewsService.RemoteViews
     
     override fun onDataSetChanged() {
         isMyPlan = readCurrentlyMyPlan(context)
-        plan = getLatestVerPlanByGrade(context).getRelevantPlan(isMyPlan)
+        plan = runBlocking {
+            PlanRepository.create(context)
+                    .getLatestLocalPlan(readGrade(context))!!
+                    .getRelevantPlan(isMyPlan)
+        }
         Log.d("AppWidget", "fetched isMyPlan = $isMyPlan, plan = $plan")
     }
 }
