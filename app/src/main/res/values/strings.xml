@@ -89,6 +89,10 @@
     <string name="tab_text_myPlan">Mein Plan</string>
     <string name="tab_text_Plan">Vertretungsplan</string>
 
+    <!-- Strings related to the Appwidget -->
+    <string name="appwidget_refreshing">Aktualisieren…</string>
+    <string name="appwidget_refreshFailed">Konnte den Vertretungsplan nicht Aktualisieren!</string>
+
     <!-- Strings related to Notifications -->
 
     <string name="channel_name">Benarichtigungen</string>
@@ -102,7 +106,7 @@
     <string name="lightTheme">Light Theme</string>
     <string name="darkTheme">Dark Theme</string>
     <string name="autoTheme">Abhängig vom Energiesparmodus</string>
-    <string name="defaultThemeValue">0</string>
+    <string name="defaultThemeValue">2</string>
     <string name="grade_title">Stufe</string>
     <string name="grade_summery">Von dieser Stufe wird dir der Vertretungsplan Angezeigt</string>
 

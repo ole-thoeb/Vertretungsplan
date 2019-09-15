@@ -6,6 +6,7 @@ import android.preference.PreferenceManager
 import androidx.core.content.edit
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.recyclerView.ContextAdapter
+import org.jetbrains.anko.ctx
 import org.jetbrains.anko.defaultSharedPreferences
 import java.io.Serializable
 import kotlin.reflect.KProperty
@@ -50,7 +51,7 @@ fun SharedPreferences.newId(key: String): Long{
 }
 
 /** Zum lesen von Einstellugnen**/
-fun readGrade(context: Context?): Vertretungsplan.Grade {
+private fun readGrade(context: Context?): Vertretungsplan.Grade {
     val default = Vertretungsplan.Grade.Q1
     val preference = PreferenceManager.getDefaultSharedPreferences(context)
     return when (preference.getString("grade", default.toString())) {
@@ -81,21 +82,16 @@ class GeneralPreferences(private val ctx: Context) {
         get() =  ctx.defaultSharedPreferences.getLong(FAVORITE_TIMETABLE_ID_KEY, -1)
 }
 
-inline fun <T> ContextOwner.generalPreferences(block: GeneralPreferences.() -> T) {
-    block(GeneralPreferences(ctx))
+inline fun <T> ContextOwner.generalPreferences(block: GeneralPreferences.() -> T): T{
+    return block(GeneralPreferences(ctx))
 }
 
 inline fun <T> Context.generalPreferences(block: GeneralPreferences.() -> T): T {
     return block(GeneralPreferences(this))
 }
 
-/*fun readSortPlan(ctx: Context):Boolean{
-    val preference = PreferenceManager.getDefaultSharedPreferences(ctx)
-    val value = preference.getString("sort_plan", "")
-    return value == "1"
-}*/
 
-fun readDownloadAllPlans(context: Context): Boolean = PreferenceManager
+private fun readDownloadAllPlans(context: Context): Boolean = PreferenceManager
         .getDefaultSharedPreferences(context)
         .getBoolean("downloadAllPlans", false)
 
@@ -103,13 +99,13 @@ fun readDownloadAllPlans(context: Context): Boolean = PreferenceManager
 
 const val CURRENTLY_MY_PLAN_ID = "com.example.eloem.vertretungsplan.currentlyMyPlan"
 
-fun writeCurrentlyMyPLan(context: Context?, isMyPlan: Boolean) {
+private fun writeCurrentlyMyPLan(context: Context?, isMyPlan: Boolean) {
     PreferenceManager.getDefaultSharedPreferences(context).edit {
         putBoolean(CURRENTLY_MY_PLAN_ID, isMyPlan)
     }
 }
 
-fun readCurrentlyMyPlan(context: Context?): Boolean{
+private fun readCurrentlyMyPlan(context: Context?): Boolean{
     try {
         val preference = PreferenceManager.getDefaultSharedPreferences(context)
         val bool = preference.getBoolean(CURRENTLY_MY_PLAN_ID, true)
@@ -118,6 +114,22 @@ fun readCurrentlyMyPlan(context: Context?): Boolean{
         writeCurrentlyMyPLan(context, true)
     }
     return true
+}
+
+class WidgetPreferences(private val ctx: Context) {
+    var isMyPlan: Boolean
+        set(value) {
+            writeCurrentlyMyPLan(ctx, value)
+        }
+        get() = readCurrentlyMyPlan(ctx)
+}
+
+inline fun <T> ContextOwner.widgetPreferences(block: WidgetPreferences.() -> T): T {
+    return block(WidgetPreferences(ctx))
+}
+
+inline fun <T> Context.widgetPreferences(block: WidgetPreferences.() -> T): T {
+    return block(WidgetPreferences(this))
 }
 
 const val FILTER_EF_ENABLED_KEY = "filterEfEnabledKey"

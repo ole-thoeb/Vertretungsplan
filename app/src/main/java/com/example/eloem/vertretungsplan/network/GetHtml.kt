@@ -8,20 +8,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.onEach
 
-fun getUrl(grade: String) = when(grade){
-    "EF" -> "http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_EF.htm"
-    "Q1" -> "http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_Q1.htm"
-    "Q2" -> "http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_Q2.htm"
-    else -> "http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_Q1.htm"
-}
-
-fun planIsUpToDate(context: Context): Boolean{
-    val lastTime = 0//lastUpdate(ctx)
-    val currentTime = System.currentTimeMillis()
-    
-    return lastTime + 5 * 60 * 1000 > currentTime
-}
-
 fun extractVerPlan(htmlString: String): List<Vertretungsplan.Row> {
     /*val plan = Vertretungsplan.Plan(newPlanId(ctx))
     var mHtml = htmlString
@@ -138,12 +124,10 @@ fun extractWeekday(htmlString: String): WeekDay {
 }
 
 fun extractTargetDay(html: String): Long{
-    val dateString = html.retainMatches("""(?<=Erweitert\s\s)\d+.\d+.""".toRegex(), 0) +
-            Calendar.getInstance().get(Calendar.YEAR).toString()
+    val dateString = html.retainMatches("""(?<=   )\d+.\d+.\d\d\d\d""".toRegex(), 0)
     
     val sdf = SimpleDateFormat("dd.MM.yyyy")
     val dateObj = sdf.parse(dateString)
-    //Log.d(TAG, "Target date: $dateObj")
     return dateObj.time
 }
 

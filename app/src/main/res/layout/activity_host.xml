@@ -14,7 +14,7 @@
         android:layout_gravity="top"
         app:liftOnScroll="true">
 
-        <com.example.eloem.vertretungsplan.ui.widget.AdaptiveColorToolbar
+        <com.example.eloem.vertretungsplan.ui.widgets.AdaptiveColorToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize" />

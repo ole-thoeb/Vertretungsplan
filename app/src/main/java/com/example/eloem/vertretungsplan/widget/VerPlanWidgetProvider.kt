@@ -10,23 +10,32 @@ import android.util.Log
 import android.widget.RemoteViews
 import android.widget.Toast
 import com.example.eloem.vertretungsplan.R
+import com.example.eloem.vertretungsplan.database.PlanRepository
 import com.example.eloem.vertretungsplan.ui.HostActivity
 import com.example.eloem.vertretungsplan.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class VerPlanWidgetProvider: AppWidgetProvider() {
     
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray) {
-//        ctx?.let {  ctx ->
-//            Log.d(TAG, "updating app widget")
-//            runBlocking(Dispatchers.IO) {
-//                when (val planResponse = PlanRepository.create(ctx).currentVerPlan(readGrade(ctx), ctx)) {
-//                    is Result.Success -> withContext(Dispatchers.Main) {
-//                        updateRest(ctx, appWidgetManager, appWidgetIds)
-//                    }
-//                    is Result.Failure -> TODO()
-//                }
-//            }
-//        }
+        context?.let {  ctx ->
+            Log.d(TAG, "updating app widget")
+            CoroutineScope(Dispatchers.IO).launch {
+                when (PlanRepository.create(ctx).updateVerPlan(ctx.generalPreferences { grade }, ctx)) {
+                    is Result.Success -> withContext(Dispatchers.Main) {
+                        Log.d(TAG, "successfuly updated verPlan")
+                        updateRest(ctx, appWidgetManager, appWidgetIds)
+                    }
+                    is Result.Failure -> withContext(Dispatchers.Main) {
+                        Log.e(TAG, "failed to update VerPlan")
+                        Toast.makeText(ctx, R.string.appwidget_refreshFailed, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
     
      private fun updateRest(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray){
@@ -44,20 +53,20 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
     
             //refresh button
             val refreshIntent = Intent(context, VerPlanWidgetProvider::class.java)
-            refreshIntent.action = VerPlanWidgetProvider.REFRESH_ACTION
+            refreshIntent.action = REFRESH_ACTION
             refreshIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
             val pRefreshIntent = PendingIntent.getBroadcast(context, 0, refreshIntent, PendingIntent.FLAG_UPDATE_CURRENT)
             views.setOnClickPendingIntent(R.id.buttonRefresh, pRefreshIntent)
             
             //switcher Text view
             val switchIntent = Intent(context, VerPlanWidgetProvider::class.java)
-            switchIntent.action = VerPlanWidgetProvider.SWITCH_ACTION
+            switchIntent.action = SWITCH_ACTION
             switchIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
             val pSwitchIntent = PendingIntent.getBroadcast(context, 0, switchIntent, PendingIntent.FLAG_UPDATE_CURRENT)
             views.setOnClickPendingIntent(R.id.informationTV, pSwitchIntent)
             
             views.setTextViewText(R.id.informationTV, context?.resources?.getString(
-                    if (readCurrentlyMyPlan(context)) R.string.title_myPlan
+                    if (context.widgetPreferences { isMyPlan }) R.string.title_myPlan
                     else R.string.app_name)
             )
             
@@ -77,14 +86,16 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
     
         val resources = context?.resources
     
-        val isMyPlan = !readCurrentlyMyPlan(context)
+        context?.widgetPreferences {
+            val isMyPlanLocal = !isMyPlan
     
-        views.setTextViewText(R.id.informationTV, resources?.getString(
-                if (isMyPlan) R.string.title_myPlan
-                else R.string.app_name)
-        )
+            views.setTextViewText(R.id.informationTV, resources?.getString(
+                    if (isMyPlanLocal) R.string.title_myPlan
+                    else R.string.app_name)
+            )
     
-        writeCurrentlyMyPLan(context, isMyPlan)
+            isMyPlan = isMyPlanLocal
+        }
         
         appWidgetManager?.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list)
         appWidgetManager?.updateAppWidget(appWidgetIds, views)
@@ -93,14 +104,14 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.d("AppWidget", "received Intent: $intent")
         when(intent?.action){
-            VerPlanWidgetProvider.REFRESH_ACTION -> {
+            REFRESH_ACTION -> {
             
                 val appWidgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS)
     
-                Toast.makeText(context, "Aktualisiere Widget...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.appwidget_refreshing, Toast.LENGTH_SHORT).show()
                 onUpdate(context, AppWidgetManager.getInstance(context), appWidgetIds)
             }
-            VerPlanWidgetProvider.SWITCH_ACTION -> {
+            SWITCH_ACTION -> {
                 val appWidgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS)
     
                 switchPlans(context, AppWidgetManager.getInstance(context), appWidgetIds)

@@ -137,24 +137,18 @@ class EditLessonFragment : ChildFragment() {
     override fun onStop() {
         super.onStop()
         val defaultColor = requireContext().attr(R.attr.toolbarColor).data
-        configureSupportActionBar {
-            setBackgroundDrawable(ColorDrawable(defaultColor))
-        }
         withHost {
             window.setStatusBarAndIconColors(defaultColor)
-            toolbar.setTitleTextColor(requireContext().attr(R.attr.toolbarIconColor).data)
+            toolbar.setBackgroundColor(defaultColor)
         }
         view?.findFocus()?.hideKeyboard()
     }
     
     private fun setToolbarColor(newColor: Int){
         if(newColor != Timetable.Lesson.DEFAULT_COLOR){ //if no color selected
-            hostActivity.toolbar.apply {
-                setBackgroundColor(newColor)
-            }
             withHost {
                 window.setStatusBarAndIconColors(differentShade(newColor, -0.15f))
-                toolbar.setTitleTextColor(textColorOn(newColor))
+                toolbar.setBackgroundColor(newColor)
             }
         }
     }

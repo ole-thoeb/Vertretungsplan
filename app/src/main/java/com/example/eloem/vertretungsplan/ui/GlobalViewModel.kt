@@ -21,11 +21,13 @@ class GlobalViewModel(application: Application): AndroidViewModel(application), 
     override val ctx: Context get() = getApplication()
     
     suspend fun currentPlan(forceRefresh: Boolean): Result<Vertretungsplan, ResponseModel.Error> = withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
-        if (forceRefresh) {
-            Log.d(TAG, "updating because it was forced")
-            repository.updateVerPlan(readGrade(ctx), ctx)
-        } else {
-            repository.currentVerPlan(readGrade(ctx), ctx)
+        generalPreferences {
+            if (forceRefresh) {
+                Log.d(TAG, "updating because it was forced")
+                repository.updateVerPlan(grade, ctx)
+            } else {
+                repository.currentVerPlan(grade, ctx)
+            }
         }
     }
     

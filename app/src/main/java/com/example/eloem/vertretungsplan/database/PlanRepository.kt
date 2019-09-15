@@ -76,7 +76,7 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
     }
     
     suspend fun updateVerPlan(grade: Vertretungsplan.Grade, context: Context): Result<Vertretungsplan, ResponseModel.Error> {
-        val otherGrades = if (readDownloadAllPlans(context)) {
+        val otherGrades = if (context.generalPreferences { downloadAllPlansEnabled }) {
             Vertretungsplan.Grade.values().toMutableList().apply { remove(grade) }
         } else {
             emptyList<Vertretungsplan.Grade>()

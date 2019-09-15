@@ -1,4 +1,4 @@
-package com.example.eloem.vertretungsplan.ui.widget
+package com.example.eloem.vertretungsplan.ui.widgets
 
 import android.content.Context
 import android.util.AttributeSet

@@ -69,7 +69,7 @@ data class Vertretungsplan(
             var status = PlanStatus.NO_PLAN
             generalPlan.plan.forEach { row ->
                 if (row.teacher == timetable[weekDay.ordinal][row.lesson -1].teacher && row.teacher != ""){
-                    status = PlanStatus.NO_PLAN
+                    status = PlanStatus.OK
                     plan.add(row)
                 }
             }

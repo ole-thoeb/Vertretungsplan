@@ -7,12 +7,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.ContextOwner
-import com.example.eloem.vertretungsplan.util.readGrade
+import com.example.eloem.vertretungsplan.util.generalPreferences
 
 open class ChildFragment: Fragment(), ContextOwner {
     val hostActivity: HostActivity get() = requireActivity() as HostActivity
     val globalViewModel: GlobalViewModel by activityViewModels()
-    val currentGrade: Vertretungsplan.Grade get() = readGrade(requireContext())
+    val currentGrade: Vertretungsplan.Grade get() = generalPreferences { grade }
     
     override val ctx: Context get() = requireContext()
     

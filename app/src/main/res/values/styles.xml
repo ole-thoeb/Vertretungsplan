@@ -106,7 +106,7 @@
 
     <style name="AppToolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
         <item name="android:background">?toolbarColor</item>
-        <item name="titleTextColor">?attr/colorOnPrimary</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
         <item name="titleTextAppearance">@style/ToolbarTitleStyle</item>
     </style>
 

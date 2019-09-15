@@ -9,16 +9,13 @@ import com.example.eloem.vertretungsplan.R
 import com.example.eloem.vertretungsplan.database.PlanRepository
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
-class ListRowFactoryWidget(val context: Context): RemoteViewsService.RemoteViewsFactory{
+class ListRowFactoryWidget(override val ctx: Context): RemoteViewsService.RemoteViewsFactory, ContextOwner {
     
-    private var isMyPlan = readCurrentlyMyPlan(context)
-    private var plan: Vertretungsplan.Plan = runBlocking {
-        PlanRepository.create(context)
-                .getLatestLocalPlan(readGrade(context))!!
-                .getRelevantPlan(isMyPlan)
-    }
+    private var isMyPlan = widgetPreferences { isMyPlan }
+    private var plan: Vertretungsplan.Plan = getLatestPlan()
     
     override fun onCreate() {
         //nothing
@@ -40,19 +37,22 @@ class ListRowFactoryWidget(val context: Context): RemoteViewsService.RemoteViews
     
     override fun getViewAt(pos: Int): RemoteViews {
         if (pos == 0 && plan.status != Vertretungsplan.PlanStatus.OK){
-            val resources = context.resources
-            val messageRow = RemoteViews(context.packageName, R.layout.widget_row_message)
+            val resources = ctx.resources
+            val messageRow = RemoteViews(ctx.packageName, R.layout.widget_row_message)
             messageRow.setOnClickFillInIntent(R.id.messageTV, Intent())
-            when(plan.status){
-                Vertretungsplan.PlanStatus.NO_PLAN -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_no_plan))
-                Vertretungsplan.PlanStatus.WRONG_DAY -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_wrong_day))
-                //Vertretungsplan.PlanStatus -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_no_connection))
-                else -> messageRow.setTextViewText(R.id.messageTV, resources.getString(R.string.error_message_universal))
-            }
+            messageRow.setTextViewText(R.id.messageTV,
+                when(plan.status){
+                    Vertretungsplan.PlanStatus.NO_PLAN -> resources.getString(R.string.error_message_no_plan)
+                    Vertretungsplan.PlanStatus.WRONG_DAY -> resources.getString(R.string.error_message_wrong_day)
+                    Vertretungsplan.PlanStatus.OK -> ""
+                    Vertretungsplan.PlanStatus.CALCULATION_ERROR -> resources.getString(R.string.error_message_calc)
+                    Vertretungsplan.PlanStatus.NO_TIMETABLE -> resources.getString(R.string.error_message_no_timetable)
+                }
+            )
             return messageRow
         }
         
-        val row = RemoteViews(context.packageName, R.layout.widget_row)
+        val row = RemoteViews(ctx.packageName, R.layout.widget_row)
         val verPlanRow = if(isMyPlan) plan.plan[pos]
                          else plan.plan[pos]
         
@@ -69,7 +69,7 @@ class ListRowFactoryWidget(val context: Context): RemoteViewsService.RemoteViews
     
     private fun setText(row: RemoteViews, layout: Int, pText: String){
         var text = pText
-        if (text == "" || text == " "){
+        if (text.isBlank()){
             text = "---"
         }
         row.setTextViewText(layout, text)
@@ -83,13 +83,15 @@ class ListRowFactoryWidget(val context: Context): RemoteViewsService.RemoteViews
         return true
     }
     
+    private fun getLatestPlan(): Vertretungsplan.Plan = runBlocking(Dispatchers.IO) {
+        PlanRepository.create(ctx)
+                .getLatestLocalPlan(generalPreferences { grade })!!
+                .getRelevantPlan(isMyPlan)
+    }
+    
     override fun onDataSetChanged() {
-        isMyPlan = readCurrentlyMyPlan(context)
-        plan = runBlocking {
-            PlanRepository.create(context)
-                    .getLatestLocalPlan(readGrade(context))!!
-                    .getRelevantPlan(isMyPlan)
-        }
+        isMyPlan = widgetPreferences { isMyPlan }
+        plan = getLatestPlan()
         Log.d("AppWidget", "fetched isMyPlan = $isMyPlan, plan = $plan")
     }
 }
