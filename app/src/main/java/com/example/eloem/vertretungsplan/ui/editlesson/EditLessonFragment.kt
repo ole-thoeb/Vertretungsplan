@@ -1,7 +1,6 @@
-package com.example.eloem.vertretungsplan.ui
+package com.example.eloem.vertretungsplan.ui.editlesson
 
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -21,6 +20,7 @@ import com.example.eloem.vertretungsplan.R
 import com.example.eloem.vertretungsplan.helperClasses.AnimatedIconFab
 import com.example.eloem.vertretungsplan.helperClasses.Timetable
 import com.example.eloem.vertretungsplan.helperClasses.Timetable19_20
+import com.example.eloem.vertretungsplan.ui.ChildFragment
 import com.example.eloem.vertretungsplan.util.*
 import kotlinx.android.synthetic.main.fragment_edit_lesson.*
 import kotlinx.coroutines.Dispatchers

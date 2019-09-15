@@ -1,20 +1,25 @@
-package com.example.eloem.vertretungsplan.ui
+package com.example.eloem.vertretungsplan.ui.currentplan
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.eloem.vertretungsplan.R
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.network.ResponseModel
+import com.example.eloem.vertretungsplan.ui.ChildFragment
+import com.example.eloem.vertretungsplan.ui.editlesson.CurrentPlanViewModel
 import com.example.eloem.vertretungsplan.util.*
+import com.example.eloem.vertretungsplan.widget.VerPlanWidgetProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.dialog_meta_data.view.*
@@ -26,6 +31,9 @@ import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class CurrentPlanFragment: ChildFragment(), PlanResponseHolder {
+    private val args: CurrentPlanFragmentArgs by navArgs()
+    private val currentPlanViewModel: CurrentPlanViewModel by viewModels()
+    
     private val pages = PlanPair(MyPlanFragment(), GeneralPlanFragment())
     
     private val _generalPlan = MutableLiveData<Result<Vertretungsplan.Plan, ResponseModel.Error>>()
@@ -57,7 +65,6 @@ class CurrentPlanFragment: ChildFragment(), PlanResponseHolder {
             title = resources.getString(R.string.app_name)
             setDisplayHomeAsUpEnabled(false)
         }
-        
         withHost {
             hideFab()
         }
@@ -71,6 +78,12 @@ class CurrentPlanFragment: ChildFragment(), PlanResponseHolder {
             }
         }.attach()
     
+        if (!currentPlanViewModel.applyedAppwidgetArgs &&
+                args.calledFromAppwidget != VerPlanWidgetProvider.INVALID_APPWIDGET_ID) {
+    
+            currentPlanViewModel.applyedAppwidgetArgs = true
+            container.currentItem = if (widgetPreferences(args.calledFromAppwidget) { isMyPlan }) 0 else 1
+        }
         swiperefresh.setOnRefreshListener {
             swiperefresh.isRefreshing = true
             refresh(true)

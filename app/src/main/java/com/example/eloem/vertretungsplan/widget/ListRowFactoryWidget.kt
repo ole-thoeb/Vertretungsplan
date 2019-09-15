@@ -12,9 +12,9 @@ import com.example.eloem.vertretungsplan.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
-class ListRowFactoryWidget(override val ctx: Context): RemoteViewsService.RemoteViewsFactory, ContextOwner {
+class ListRowFactoryWidget(override val ctx: Context, private val appwidgetId: Int): RemoteViewsService.RemoteViewsFactory, ContextOwner {
     
-    private var isMyPlan = widgetPreferences { isMyPlan }
+    private var isMyPlan = widgetPreferences(appwidgetId) { isMyPlan }
     private var plan: Vertretungsplan.Plan = getLatestPlan()
     
     override fun onCreate() {
@@ -90,8 +90,8 @@ class ListRowFactoryWidget(override val ctx: Context): RemoteViewsService.Remote
     }
     
     override fun onDataSetChanged() {
-        isMyPlan = widgetPreferences { isMyPlan }
+        isMyPlan = widgetPreferences(appwidgetId) { isMyPlan }
         plan = getLatestPlan()
-        Log.d("AppWidget", "fetched isMyPlan = $isMyPlan, plan = $plan")
+        Log.d("AppWidget", "id = $appwidgetId, fetched isMyPlan = $isMyPlan, plan = $plan")
     }
 }

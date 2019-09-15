@@ -7,12 +7,16 @@
 
     <fragment
         android:id="@+id/currentPlanFragment"
-        android:name="com.example.eloem.vertretungsplan.ui.CurrentPlanFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.currentplan.CurrentPlanFragment"
         android:label="CurrentPlanFragment"
         tools:layout="@layout/fragment_current_plan">
         <action
             android:id="@+id/action_currentPlanFragment_to_timetableOverviewFragment"
             app:destination="@id/timetableOverviewFragment" />
+        <argument
+            android:name="calledFromAppwidget"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -42,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/editLessonFragment"
-        android:name="com.example.eloem.vertretungsplan.ui.EditLessonFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.editlesson.EditLessonFragment"
         android:label="fragment_edit_lesson"
         tools:layout="@layout/fragment_edit_lesson" >
         <argument

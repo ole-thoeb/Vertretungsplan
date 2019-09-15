@@ -1,4 +1,4 @@
-package com.example.eloem.vertretungsplan.ui
+package com.example.eloem.vertretungsplan.ui.editlesson
 
 import androidx.lifecycle.ViewModel
 import com.example.eloem.vertretungsplan.helperClasses.EditTimetable

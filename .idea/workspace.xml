@@ -10,6 +10,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="VerPlanAppW" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
@@ -19,26 +20,23 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b89fc391-5382-4250-9e10-b530c9a22a06" name="Default" comment="v1 done (migration to architecture components and coroutines)">
+    <list default="true" id="b89fc391-5382-4250-9e10-b530c9a22a06" name="Default" comment="cleanup, toolbar icon and text color fix and added appwidget again">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/editlesson/CurrentPlanViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/BootReceiver.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/MyDatabaseOpenHelper.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/network/GetHtml.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/network/GetHtml.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/ChildFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/ChildFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/EditLessonFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/EditLessonFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/GlobalViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/GlobalViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/widget/AdaptiveColorToolbar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/widgets/AdaptiveColorToolbar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/DatabaseUtil.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/CurrentPlanFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/currentplan/CurrentPlanFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/EditLessonFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/editlesson/EditLessonFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/EditLessonViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/editlesson/EditLessonViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/PlanFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/currentplan/PlanFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/PlanResponseHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/currentplan/PlanResponseHolder.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/TableNames.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/ViewModelUtil.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListRowFactoryWidget.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListRowFactoryWidget.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListViewWidgetService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListViewWidgetService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/VerPlanWidgetProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/VerPlanWidgetProvider.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_host.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_host.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,22 +63,44 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/editlesson/EditLessonFragment.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="122">
+              <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/VerPlanWidgetProvider.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+            <state relative-caret-position="820">
+              <caret line="98" column="42" lean-forward="true" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="42" />
               <folding>
+                <element signature="e#50#787#0" expanded="true" />
                 <element signature="e#1518#1550#1" expanded="true" />
-                <element signature="e#4511#4532#1" expanded="true" />
-                <element signature="e#4558#4575#1" expanded="true" />
-                <element signature="e#5145#5174#1" expanded="true" />
+                <element signature="e#4666#4687#1" expanded="true" />
+                <element signature="e#4713#4730#1" expanded="true" />
+                <element signature="e#5150#5179#1" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/currentplan/CurrentPlanFragment.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="251">
+              <caret line="83" column="60" lean-forward="true" selection-start-line="83" selection-start-column="60" selection-end-line="83" selection-end-column="60" />
+              <folding>
+                <element signature="e#46#1190#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/PlanFragment.kt">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/currentplan/PlanFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="434">
               <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
@@ -89,37 +109,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/network/ResponseModel.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="24" column="46" lean-forward="true" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="670">
-              <caret line="91" column="45" lean-forward="true" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="978">
-              <caret line="131" column="39" selection-start-line="131" selection-start-column="39" selection-end-line="131" selection-end-column="39" />
+            <state relative-caret-position="1242">
+              <caret line="55" column="65" selection-start-line="55" selection-start-column="65" selection-end-line="55" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -127,8 +120,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListRowFactoryWidget.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1452">
-              <caret line="76" column="4" lean-forward="true" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
+            <state relative-caret-position="340">
+              <caret line="78" column="16" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="16" />
               <folding>
                 <element signature="e#1780#1831#0" expanded="true" />
                 <element signature="e#1892#1945#0" expanded="true" />
@@ -140,32 +133,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/widget_row.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListViewWidgetService.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-              <folding>
-                <element signature="e#1507#1533#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="391">
+              <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
             </state>
           </provider>
-          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanRepository.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1628">
-              <caret line="87" column="51" lean-forward="true" selection-start-line="87" selection-start-column="51" selection-end-line="87" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/GlobalViewModel.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
+            <state relative-caret-position="1702">
+              <caret line="87" column="51" selection-start-line="87" selection-start-column="51" selection-end-line="87" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -204,6 +184,8 @@
       <find>action_back</find>
       <find>R.string.error</find>
       <find>Drawable</find>
+      <find>Component</find>
+      <find>EXTRA_APPWIDGET_ID</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -212,14 +194,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanEntities.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/EntityConvertion.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanRoomDatabase.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_edit_lesson.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_timetable_tv_day.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_timetable_tv_lesson.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_timetable_tv_subject.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Timetable.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/expandable_list_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/HostActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/TimetableActivity.kt" />
@@ -249,7 +223,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_host.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/widget/AdaptivColorToolbar.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/widget/AdaptiveColorToolbar.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ListActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/UtilFun.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/network/GetHtml.kt" />
@@ -258,11 +231,20 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanRepository.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/ChildFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/GlobalViewModel.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListRowFactoryWidget.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/VerPlanWidgetProvider.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/BootReciver.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/BootReceiver.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListViewWidgetService.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListRowFactoryWidget.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/CurrentPlanFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/editlesson/EditLessonFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/VerPlanWidgetProvider.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/currentplan/CurrentPlanFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/editlesson/CurrentPlanViewModel.kt" />
       </list>
     </option>
   </component>
@@ -338,6 +320,22 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="vertretungsplan" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="currentplan" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Vertretungsplan" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="vertretungsplan" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="editlesson" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Vertretungsplan" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="vertretungsplan" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -374,6 +372,12 @@
               <item name="Vertretungsplan" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="navigation" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="Vertretungsplan" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
               <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
@@ -403,7 +407,7 @@
     <property name="DEBUGGABLE_DEVICE" value="oneplus-oneplus_a6013-9e617a55" />
     <property name="DEBUGGABLE_PROCESS" value="com.example.eloem.vertretungsplan" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="9e617a55" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-09-04T12:20:53.915Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-09-15T11:03:39.920Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="ToolWindowGradle.ShowToolbar" value="false" />
@@ -420,6 +424,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Eloem\StudioProjects\Vertretungsplan\app\src\main\java\com\example\eloem\vertretungsplan\ui\currentplan" />
       <recent name="C:\Users\Eloem\StudioProjects\Vertretungsplan\app\src\main\java\com\example\eloem\vertretungsplan\ui" />
       <recent name="C:\Users\Eloem\StudioProjects\Vertretungsplan\app\src\main\java\com\example\eloem\vertretungsplan\network" />
     </key>
@@ -432,6 +437,7 @@
       <recent name="com.example.eloem.vertretungsplan" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.example.eloem.vertretungsplan.ui.editlesson" />
       <recent name="com.example.eloem.vertretungsplan.helperClasses" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -759,7 +765,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568486459048</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="cleanup, toolbar icon and text color fix and added appwidget again">
+      <created>1568539641624</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1568539641624</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -805,6 +818,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-2814" y="-1459" width="2576" height="1456" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49712312" visible="true" weight="0.1236089" />
       <window_info id="Structure" order="1" sideWeight="0.5028769" side_tool="true" weight="0.14467409" />
@@ -822,9 +836,9 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32879817" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49960256" weight="0.25547996" />
+      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.49960256" visible="true" weight="0.25547996" />
       <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.32955405" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="9" sideWeight="0.50039744" side_tool="true" visible="true" weight="0.32804233" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50039744" side_tool="true" weight="0.32804233" />
       <window_info anchor="bottom" id="Logcat" order="10" weight="0.3121693" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32955405" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.32879817" />
@@ -858,7 +872,8 @@
     <MESSAGE value="complete database backend and drak theme" />
     <MESSAGE value="fixed bug where rows without teacher would shop at at my plan.&#10;fixed bug where &amp;nbsp; would show up in cells" />
     <MESSAGE value="v1 done (migration to architecture components and coroutines)" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1 done (migration to architecture components and coroutines)" />
+    <MESSAGE value="cleanup, toolbar icon and text color fix and added appwidget again" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup, toolbar icon and text color fix and added appwidget again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -908,159 +923,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_timetable_overview.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="44" lean-forward="true" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_edit_text.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/AndroidUtil.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="138" column="5" lean-forward="true" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
-          <folding>
-            <element signature="e#48#436#0" expanded="true" />
-            <element signature="e#4784#4842#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_star.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_timetable_overview.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/options_timetable_overview.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
-          <folding>
-            <element signature="e#415#440#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/ContextOwner.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/recyclerView/ContextAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="15" column="75" lean-forward="true" selection-start-line="15" selection-start-column="75" selection-end-line="15" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Timetable.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="768">
-          <caret line="51" column="80" lean-forward="true" selection-start-line="51" selection-start-column="80" selection-end-line="51" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/TimetableOverviewFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="59" column="51" lean-forward="true" selection-start-line="59" selection-start-column="51" selection-end-line="59" selection-end-column="51" />
-          <folding>
-            <element signature="e#47#1039#0" expanded="true" />
-            <element signature="e#2371#2408#0" expanded="true" />
-            <element signature="e#2500#2537#0" expanded="true" />
-            <element signature="e#2665#2702#0" expanded="true" />
-            <element signature="e#2935#2959#0" expanded="true" />
-            <element signature="e#5074#5126#1" expanded="true" />
-            <element signature="e#6429#6466#0" expanded="true" />
-            <element signature="e#6598#6629#0" expanded="true" />
-            <element signature="e#6803#6840#0" expanded="true" />
-            <element signature="e#7153#7177#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="835">
-          <caret line="97" column="12" selection-start-line="97" selection-start-column="12" selection-end-line="97" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/recyclerView/FirstSmallerSpanLookup.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/TimetableFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="47" column="20" selection-start-line="47" selection-start-column="20" selection-end-line="47" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.core/core/1.2.0-alpha03/d258d559a3753f0fd956c44cdf068feeb0ed43e/core-1.2.0-alpha03-sources.jar!/androidx/core/view/GravityCompat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/ColorUtil.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.1.0-alpha10/9c3b119abe18aec3b44b5c460e9cb9724b68ec4d/material-1.1.0-alpha10-sources.jar!/com/google/android/material/appbar/MaterialToolbar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="58" column="39" selection-start-line="58" selection-start-column="39" selection-end-line="58" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/graphics/drawable/ColorDrawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="88" column="48" selection-start-line="88" selection-start-column="48" selection-end-line="88" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/graphics/drawable/Drawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="1128" column="5" lean-forward="true" selection-start-line="1128" selection-start-column="5" selection-end-line="1128" selection-end-column="5" />
-          <folding>
-            <element signature="e#43133#43134#0" expanded="true" />
-            <element signature="e#43160#43161#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/view/PointerIcon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -1119,14 +981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-581">
           <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1199,13 +1053,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="978">
-          <caret line="131" column="39" selection-start-line="131" selection-start-column="39" selection-end-line="131" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="670">
@@ -1224,13 +1071,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
           <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/EditLessonFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="136" column="27" lean-forward="true" selection-start-line="136" selection-start-column="27" selection-end-line="136" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -1254,8 +1094,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/widget_row.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="373">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
           <folding>
             <element signature="e#1507#1533#0" expanded="true" />
           </folding>
@@ -1263,17 +1103,105 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanRepository.kt">
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/appwidget/AppWidgetProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1628">
-          <caret line="87" column="51" lean-forward="true" selection-start-line="87" selection-start-column="51" selection-end-line="87" selection-end-column="51" />
+        <state relative-caret-position="376">
+          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/content/BroadcastReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8832">
+          <caret line="46" column="37" lean-forward="true" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/content/ComponentName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="128" column="11" selection-start-line="128" selection-start-column="11" selection-end-line="128" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="766">
+          <caret line="38" column="60" lean-forward="true" selection-start-line="38" selection-start-column="60" selection-end-line="38" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/BootReceiver.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#50#151#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/content/SharedPreferences.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="336" column="33" lean-forward="true" selection-start-line="336" selection-start-column="33" selection-end-line="336" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/preference/PreferenceManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="526" column="51" lean-forward="true" selection-start-line="526" selection-start-column="51" selection-end-line="526" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.50/bc0c767786c4a3c042a364e69d3f3dd5ff5253a5/kotlin-stdlib-1.3.50-sources.jar!/kotlin/String.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/util/PrefUtil.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="725">
+          <caret line="107" column="9" selection-start-line="107" selection-start-column="9" selection-end-line="107" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="55" column="65" selection-start-line="55" selection-start-column="65" selection-end-line="55" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/network/ResponseModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="24" column="46" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/appwidget/AppWidgetManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="509" column="16" selection-start-line="509" selection-start-column="16" selection-end-line="509" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/content/Intent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="9763" column="18" selection-start-line="9763" selection-start-column="18" selection-end-line="9763" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListRowFactoryWidget.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1452">
-          <caret line="76" column="4" lean-forward="true" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
+        <state relative-caret-position="340">
+          <caret line="78" column="16" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="16" />
           <folding>
             <element signature="e#1780#1831#0" expanded="true" />
             <element signature="e#1892#1945#0" expanded="true" />
@@ -1283,37 +1211,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/VerPlanWidgetProvider.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/database/PlanRepository.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-          <folding>
-            <element signature="e#1518#1550#1" expanded="true" />
-            <element signature="e#4511#4532#1" expanded="true" />
-            <element signature="e#4558#4575#1" expanded="true" />
-            <element signature="e#5145#5174#1" expanded="true" />
-          </folding>
+        <state relative-caret-position="1702">
+          <caret line="87" column="51" selection-start-line="87" selection-start-column="51" selection-end-line="87" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/PlanFragment.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/ListViewWidgetService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/currentplan/PlanFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="434">
           <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/network/ResponseModel.kt">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.navigation/navigation-runtime/2.2.0-alpha01/9b10a25420c1e2626e2240107cd9a96484bea937/navigation-runtime-2.2.0-alpha01-sources.jar!/androidx/navigation/NavDeepLinkBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="24" column="46" lean-forward="true" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+        <state relative-caret-position="586">
+          <caret line="256" column="9" lean-forward="true" selection-start-line="256" selection-start-column="9" selection-end-line="256" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/helperClasses/Vertretungsplan.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml">
+      <provider selected="true" editor-type-id="nav-designer" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0-beta01/d898001f8cf8d02ebbdf7d5f48a787deefae2be3/recyclerview-1.1.0-beta01-sources.jar!/androidx/recyclerview/widget/RecyclerView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+        <state relative-caret-position="702">
+          <caret line="1803" column="13" lean-forward="true" selection-start-line="1803" selection-start-column="13" selection-end-line="1803" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.viewpager2/viewpager2/1.0.0-beta03/8900b6ce0b57df1bb3aa90829669750d6fa7d423/viewpager2-1.0.0-beta03-sources.jar!/androidx/viewpager2/widget/ViewPager2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="857">
+          <caret line="649" column="43" selection-start-line="649" selection-start-column="42" selection-end-line="649" selection-end-column="43" />
+          <folding>
+            <element signature="e#22998#22999#0" expanded="true" />
+            <element signature="e#23040#23041#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/navigation-args/debug/com/example/eloem/vertretungsplan/ui/editlesson/EditLessonFragmentArgs.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/widget/VerPlanWidgetProvider.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="820">
+          <caret line="98" column="42" lean-forward="true" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="42" />
+          <folding>
+            <element signature="e#50#787#0" expanded="true" />
+            <element signature="e#1518#1550#1" expanded="true" />
+            <element signature="e#4666#4687#1" expanded="true" />
+            <element signature="e#4713#4730#1" expanded="true" />
+            <element signature="e#5150#5179#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-runtime-ktx/2.2.0-alpha03/130f41e65c879609aef4d5626cbe5abc6946985/lifecycle-runtime-ktx-2.2.0-alpha03-sources.jar!/androidx/lifecycle/Lifecycle.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="34" column="11" lean-forward="true" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/editlesson/EditLessonFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/editlesson/CurrentPlanViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/eloem/vertretungsplan/ui/currentplan/CurrentPlanFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="83" column="60" lean-forward="true" selection-start-line="83" selection-start-column="60" selection-end-line="83" selection-end-column="60" />
+          <folding>
+            <element signature="e#46#1190#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,4 +1,4 @@
-package com.example.eloem.vertretungsplan.ui
+package com.example.eloem.vertretungsplan.ui.currentplan
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

@@ -99,37 +99,22 @@ private fun readDownloadAllPlans(context: Context): Boolean = PreferenceManager
 
 const val CURRENTLY_MY_PLAN_ID = "com.example.eloem.vertretungsplan.currentlyMyPlan"
 
-private fun writeCurrentlyMyPLan(context: Context?, isMyPlan: Boolean) {
-    PreferenceManager.getDefaultSharedPreferences(context).edit {
-        putBoolean(CURRENTLY_MY_PLAN_ID, isMyPlan)
-    }
-}
-
-private fun readCurrentlyMyPlan(context: Context?): Boolean{
-    try {
-        val preference = PreferenceManager.getDefaultSharedPreferences(context)
-        val bool = preference.getBoolean(CURRENTLY_MY_PLAN_ID, true)
-        return bool
-    }catch (e: java.lang.IllegalStateException){
-        writeCurrentlyMyPLan(context, true)
-    }
-    return true
-}
-
-class WidgetPreferences(private val ctx: Context) {
+class WidgetPreferences(private val ctx: Context, private val appwidgetId: Int) {
     var isMyPlan: Boolean
         set(value) {
-            writeCurrentlyMyPLan(ctx, value)
+            ctx.defaultSharedPreferences.edit {
+                putBoolean(CURRENTLY_MY_PLAN_ID + appwidgetId, value)
+            }
         }
-        get() = readCurrentlyMyPlan(ctx)
+        get() = ctx.defaultSharedPreferences.getBoolean(CURRENTLY_MY_PLAN_ID + appwidgetId, true)
 }
 
-inline fun <T> ContextOwner.widgetPreferences(block: WidgetPreferences.() -> T): T {
-    return block(WidgetPreferences(ctx))
+inline fun <T> ContextOwner.widgetPreferences(appwidgetId: Int, block: WidgetPreferences.() -> T): T {
+    return block(WidgetPreferences(ctx, appwidgetId))
 }
 
-inline fun <T> Context.widgetPreferences(block: WidgetPreferences.() -> T): T {
-    return block(WidgetPreferences(this))
+inline fun <T> Context.widgetPreferences(appwidgetId: Int, block: WidgetPreferences.() -> T): T {
+    return block(WidgetPreferences(this, appwidgetId))
 }
 
 const val FILTER_EF_ENABLED_KEY = "filterEfEnabledKey"

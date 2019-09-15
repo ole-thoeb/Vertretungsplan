@@ -1,4 +1,4 @@
-package com.example.eloem.vertretungsplan.ui
+package com.example.eloem.vertretungsplan.ui.currentplan
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -4,6 +4,8 @@
     package="com.example.eloem.vertretungsplan">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Permission to receive boot completed intent or broadcast -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".CustomApplication"
@@ -26,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
- <!-- widget Stuff -->
+        <!-- widget Stuff -->
         <receiver android:name=".widget.VerPlanWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -35,6 +37,13 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/verplan_appwidget" />
+        </receiver>
+
+        <!-- Broadcast receiver that responds when phone successfully boots -->
+        <receiver android:name=".widget.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
         </receiver>
 
         <service
