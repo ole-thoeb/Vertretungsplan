@@ -3,6 +3,8 @@ package com.example.eloem.vertretungsplan.util
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.NoSuchElementException
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 
 fun normaliseDateString(date: String): String{
     var day = date.removeRange(date.indexOf('.'), date.length)
@@ -181,3 +183,19 @@ fun String.toIntCharByChar(): Int = fold(0) {_, c -> c.toInt()}
 infix fun Int.divides(that: Int): Boolean = that % this == 0
 
 fun CharSequence?.orEmpty(): String = this?.toString() ?: ""
+
+fun IntArray?.isEmptyOrNull(): Boolean {
+    return this == null || isEmpty()
+}
+
+fun IntArray?.isNotEmptyOrNull(): Boolean {
+    return !isEmptyOrNull()
+}
+
+//fun <T> List<T>.forEachReversedWithIndex(action: (Int, T) -> Unit) {
+//    var i = size - 1
+//    while (i >= 0) {
+//        action(i, this[i])
+//        i--;
+//    }
+//}

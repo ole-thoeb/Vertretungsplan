@@ -3,11 +3,8 @@ package com.example.eloem.vertretungsplan.ui.editlesson
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
@@ -35,6 +32,8 @@ class EditLessonFragment : ChildFragment() {
     private val args: EditLessonFragmentArgs by navArgs()
     
     private val editViewModel: EditLessonViewModel by viewModels()
+    
+    private var timetableToEdit: Timetable? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +88,7 @@ class EditLessonFragment : ChildFragment() {
                 Log.e(TAG, "timetable with id ${args.timetableId} does not exist. Can't edit nothing")
                 return@launch
             }
+            timetableToEdit = timetable
         
             //setup autocomplete text view
             val distinctLessons = timetable.distinctLessons
@@ -151,6 +151,27 @@ class EditLessonFragment : ChildFragment() {
                 toolbar.setBackgroundColor(newColor)
             }
         }
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_actions_edit_lesson, menu)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.delete -> {
+            timetableToEdit?.let { timetable ->
+                globalViewModel.updateTimetableLesson(Timetable19_20.Lesson(), WeekDay.values()[args.day], args.lesson, timetable)
+            }
+            editViewModel.apply {
+                subject = ""
+                teacher = ""
+                room = ""
+                color = Timetable.Lesson.DEFAULT_COLOR
+            }
+            findNavController().navigateUp()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
     
     companion object {

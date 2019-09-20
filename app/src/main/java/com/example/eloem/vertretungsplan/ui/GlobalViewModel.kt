@@ -20,10 +20,13 @@ class GlobalViewModel(application: Application): AndroidViewModel(application), 
     
     override val ctx: Context get() = getApplication()
     
+    private var favTimetableChanged = false
+    
     suspend fun currentPlan(forceRefresh: Boolean): Result<Vertretungsplan, ResponseModel.Error> = withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
         generalPreferences {
-            if (forceRefresh) {
+            if (forceRefresh || favTimetableChanged) {
                 Log.d(TAG, "updating because it was forced")
+                favTimetableChanged = false
                 repository.updateVerPlan(grade, ctx)
             } else {
                 repository.currentVerPlan(grade, ctx)
@@ -65,13 +68,21 @@ class GlobalViewModel(application: Application): AndroidViewModel(application), 
     }
     
     fun deleteTimetable(timetable: Timetable) = viewModelScope.launch(Dispatchers.IO) {
+        generalPreferences {
+            if (favoriteTimetableId == timetable.id) {
+                favTimetableChanged = true
+            }
+        }
         repository.deleteTimetable(timetable)
     }
     
     fun updateTimetableLesson(lesson: Timetable.Lesson, day: WeekDay, lessonNr: Int, timetable: Timetable) = viewModelScope.launch(Dispatchers.IO) {
-        val newId = repository.updateLesson(ctx, lesson, timetable, day, lessonNr) ?: return@launch
-        timetableIdMap[timetable.id] = newId
         generalPreferences {
+            if (favoriteTimetableId == timetable.id) {
+                favTimetableChanged = true
+            }
+            val newId = repository.updateLesson(ctx, lesson, timetable, day, lessonNr) ?: return@launch
+            timetableIdMap[timetable.id] = newId
             if (favoriteTimetableId == timetable.id) {
                 favoriteTimetableId = newId
             }

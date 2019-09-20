@@ -9,11 +9,4 @@
         app:showAsAction= "never">
     </item>
 
-    <item
-        android:id="@+id/deleteTimetable"
-        android:icon="@drawable/ic_delete"
-        android:title="@string/action_deleteTimetable"
-        app:showAsAction="never">
-    </item>
-
 </menu>

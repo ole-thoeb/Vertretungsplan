@@ -2,21 +2,21 @@ package com.example.eloem.vertretungsplan.helperClasses
 
 import java.util.*
 
-class JustTime(val hour: Int, val minute: Int): Comparable<JustTime> {
+data class JustTime(val hour: Int, val minute: Int): Comparable<JustTime> {
     
-    val minutes = hour * 60 * minute
+    val minutes = hour * 60 + minute
     
     override operator fun compareTo(other: JustTime): Int {
         return minutes - other.minutes
     }
     
     override fun toString(): String{
-        return "$hour:$minute"
+        return "${String.format("%02d", hour)}:${String.format("%02d", minute)}"
     }
     
     companion object {
         fun fromCalender(calendar: Calendar): JustTime {
-            val hour = calendar[Calendar.HOUR]
+            val hour = calendar[Calendar.HOUR_OF_DAY]
             val minute = calendar[Calendar.MINUTE]
             return JustTime(hour, minute)
         }

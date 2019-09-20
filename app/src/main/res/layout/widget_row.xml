@@ -32,7 +32,9 @@
                 android:text="ABCD"
                 android:textAlignment="center"
                 android:textSize="@dimen/appWidgetTextSize"
-                android:paddingHorizontal="3dp"/>
+                android:letterSpacing="-0.04"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"/>
 
             <TextView
                 android:id="@+id/verTeacherTV"
@@ -41,7 +43,8 @@
                 android:text="EFGH"
                 android:textAlignment="center"
                 android:textSize="@dimen/appWidgetTextSize"
-                android:paddingHorizontal="3dp"/>
+                android:letterSpacing="-0.04"
+                android:paddingStart="3dp"/>
 
             <TextView
                 android:id="@+id/roomTV"

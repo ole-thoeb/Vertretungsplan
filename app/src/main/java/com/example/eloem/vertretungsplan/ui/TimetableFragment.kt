@@ -3,11 +3,10 @@ package com.example.eloem.vertretungsplan.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +21,8 @@ import org.jetbrains.anko.attr
 class TimetableFragment : ChildFragment() {
     
     private val args: TimetableFragmentArgs by navArgs()
+    
+    private var timetable: Timetable? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +57,7 @@ class TimetableFragment : ChildFragment() {
         }
         globalViewModel.getTimetableLive(args.timetableId).observeNotNull(viewLifecycleOwner) { tTable ->
             Log.d(TAG, "updated timetable $tTable")
+            timetable = tTable
             
             timetableAdapter.timetable = tTable
             spanLookup.columns = tTable.days + 1
@@ -66,6 +68,25 @@ class TimetableFragment : ChildFragment() {
                 title = tTable.name.ifBlank { resources.getString(R.string.title_timetable) }
             }
         }
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_actions_timetable, menu)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.deleteTimetable -> {
+            timetable?.let {
+                globalViewModel.deleteTimetable(it)
+            }
+            findNavController().navigateUp()
+            true
+        }
+        R.id.settings -> {
+            findNavController().navigate(TimetableFragmentDirections.actionGlobalSettingsFragment())
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
     
     private class TableAdapter(var timetable: Timetable) : ContextAdapter<TableAdapter.TextViewViewHolder>() {

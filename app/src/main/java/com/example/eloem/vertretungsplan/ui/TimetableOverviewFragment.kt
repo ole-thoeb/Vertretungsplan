@@ -2,9 +2,7 @@ package com.example.eloem.vertretungsplan.ui
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -82,6 +80,18 @@ class TimetableOverviewFragment : ChildFragment() {
                 notifyDataSetChanged()
             }
         }
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_actions_timetable_overview, menu)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.settings -> {
+            findNavController().navigate(TimetableFragmentDirections.actionGlobalSettingsFragment())
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
     
     class TimetableAdapter(

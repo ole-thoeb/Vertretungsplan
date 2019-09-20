@@ -36,13 +36,13 @@ class CurrentPlanFragment: ChildFragment(), PlanResponseHolder {
     
     private val pages = PlanPair(MyPlanFragment(), GeneralPlanFragment())
     
-    private val _generalPlan = MutableLiveData<Result<Vertretungsplan.Plan, ResponseModel.Error>>()
-    private val _customPlan = MutableLiveData<Result<Vertretungsplan.Plan, ResponseModel.Error>>()
+    private val _generalPlan = MutableLiveData<Result<Vertretungsplan.Plan, ResponseStatus>>()
+    private val _customPlan = MutableLiveData<Result<Vertretungsplan.Plan, ResponseStatus>>()
     
-    override val customPlan: LiveData<Result<Vertretungsplan.Plan, ResponseModel.Error>>
+    override val customPlan: LiveData<Result<Vertretungsplan.Plan, ResponseStatus>>
         get() = _customPlan
     
-    override val generalPlan: LiveData<Result<Vertretungsplan.Plan, ResponseModel.Error>>
+    override val generalPlan: LiveData<Result<Vertretungsplan.Plan, ResponseStatus>>
         get() = _generalPlan
     
     private var curPlan: Vertretungsplan? = null
@@ -98,10 +98,14 @@ class CurrentPlanFragment: ChildFragment(), PlanResponseHolder {
     private fun refresh(force: Boolean) {
         Log.d(TAG, "refreshing current plan")
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            if (!force) { //if forced the swiperefresh is already spinning
+                _customPlan.postValue(Result.Failure(ResponseStatus.REFRESHING))
+                _generalPlan.postValue(Result.Failure(ResponseStatus.REFRESHING))
+            }
             val result = globalViewModel.currentPlan(force)
             //Log.d(TAG, "done refreshing got result: $result")
-            _customPlan.postValue(result.withSuccess { it.customPlan })
-            _generalPlan.postValue(result.withSuccess { it.generalPlan })
+            _customPlan.postValue(result.withSuccess { it.customPlan }.withFailure { it.asResponseStaus() })
+            _generalPlan.postValue(result.withSuccess { it.generalPlan }.withFailure { it.asResponseStaus() })
             swiperefresh.isRefreshing = false
             configureSupportActionBar {
                 title = when (result) {

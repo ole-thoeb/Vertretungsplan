@@ -6,6 +6,7 @@ import androidx.annotation.ColorInt
 import com.example.eloem.vertretungsplan.util.WeekDay
 import com.example.eloem.vertretungsplan.util.flatIterable
 import com.example.eloem.vertretungsplan.util.newTimetableId
+import org.jetbrains.anko.collections.forEachReversedWithIndex
 import org.jetbrains.anko.collections.forEachWithIndex
 
 class Timetable19_20(
@@ -42,8 +43,8 @@ class Timetable19_20(
         get() = table.flatIterable().distinctBy { it.subject }
     
     override fun endOfDay(weekDay: WeekDay): JustTime{
-        table[weekDay.ordinal].reversed().forEachWithIndex { i, lesson ->
-            if(lesson.subject != ""){
+        table[weekDay.ordinal].toList().forEachReversedWithIndex { i, lesson ->
+            if(lesson.subject.isNotBlank()){
                 return LESSON_TIMES[weekDay.ordinal][i].endInclusive
             }
         }

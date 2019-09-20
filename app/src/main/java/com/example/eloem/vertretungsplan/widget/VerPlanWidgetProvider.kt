@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.eloem.vertretungsplan.R
 import com.example.eloem.vertretungsplan.database.PlanRepository
-import com.example.eloem.vertretungsplan.ui.HostActivity
 import com.example.eloem.vertretungsplan.ui.currentplan.CurrentPlanFragmentArgs
 import com.example.eloem.vertretungsplan.util.*
 import kotlinx.coroutines.CoroutineScope
@@ -25,30 +24,35 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
     
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray) {
         Log.d(TAG, "current appWidgetIds are ${appWidgetIds.joinToString()}")
-        context?.let {  ctx ->
-            Log.d(TAG, "updating app widget")
-            CoroutineScope(Dispatchers.IO).launch {
-                when (PlanRepository.create(ctx).updateVerPlan(ctx.generalPreferences { grade }, ctx)) {
-                    is Result.Success -> withContext(Dispatchers.Main) {
-                        Log.d(TAG, "successfuly updated verPlan")
-                        updateRest(ctx, appWidgetManager, appWidgetIds)
-                    }
-                    is Result.Failure -> withContext(Dispatchers.Main) {
-                        Log.e(TAG, "failed to update VerPlan")
-                        Toast.makeText(ctx, R.string.appwidget_refreshFailed, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+        if (context != null && appWidgetManager != null) {
+            onRefresh(context, appWidgetManager, appWidgetIds, false)
         }
     }
     
-     private fun updateRest(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray){
-         if (context == null) {
-             Log.e(TAG, "cant update appwidgets [${appWidgetIds.joinToString()}], without context")
-             return
-         }
+    private fun onRefresh(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray, byUser: Boolean) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (PlanRepository.create(context).updateVerPlan(context.generalPreferences { grade }, context, true)) {
+                is Result.Success -> withContext(Dispatchers.Main) {
+                    Log.d(TAG, "successfuly updated verPlan")
+                }
+                is Result.Failure -> withContext(Dispatchers.Main) {
+                    Log.e(TAG, "failed to update VerPlan")
+                    if (byUser) {
+                        Toast.makeText(context, R.string.appwidget_refreshFailed, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            updateRest(context, appWidgetManager, appWidgetIds)
+        }
+    }
+    
+    private fun updateRest(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray){
+        if (context == null) {
+            Log.e(TAG, "cant update appwidgets [${appWidgetIds.joinToString()}], without context")
+            return
+        }
         for (id in appWidgetIds) {
-            Log.d(TAG, "Updating Widget $id")
+             Log.d(TAG, "Updating Widget $id")
             val views = RemoteViews(context.packageName, R.layout.appwidget)
             
             val svcIntent = Intent(context, ListViewWidgetService::class.java)
@@ -115,20 +119,15 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
     
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.d(TAG, "received Intent: $intent")
+        if (context == null) return
         when(intent?.action){
             ACTION_REFRESH -> {
             
                 val appWidgetManager = AppWidgetManager.getInstance(context)
-                val appWidgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS).let {
-                    if (it.isEmpty() && context != null) {
-                        appWidgetManager.getAppWidgetIds(ComponentName(context, VerPlanWidgetProvider::class.java))
-                    } else {
-                        it
-                    }
-                }
+                val appWidgetIds = intent.getAppwidgetIds(context)
                 
                 Toast.makeText(context, R.string.appwidget_refreshing, Toast.LENGTH_SHORT).show()
-                onUpdate(context, appWidgetManager, appWidgetIds)
+                onRefresh(context, appWidgetManager, appWidgetIds, true)
             }
             ACTION_SWITCH -> {
                 val appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID)
@@ -140,13 +139,30 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
     
                 switchPlans(context, AppWidgetManager.getInstance(context), appWidgetId)
             }
+            ACTION_UPDATE -> {
+                val appWidgetIds = intent.getAppwidgetIds(context)
+                updateRest(context, AppWidgetManager.getInstance(context), appWidgetIds)
+            }
             else -> super.onReceive(context, intent)
+        }
+    }
+    
+    private fun Intent.getAppwidgetIds(context: Context): IntArray {
+        //some things are null even if compiler doesn't think so
+        val idsFromIntent = getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS)
+        return if (idsFromIntent.isEmptyOrNull()) {
+            AppWidgetManager
+                    .getInstance(context)
+                    .getAppWidgetIds(ComponentName(context, VerPlanWidgetProvider::class.java)) ?: intArrayOf()
+        } else {
+            idsFromIntent
         }
     }
     
     companion object {
         const val ACTION_REFRESH = "MY.ACTION_REFRESH"
         const val ACTION_SWITCH = "MY.ACTION_SWITCH"
+        const val ACTION_UPDATE = "MY.ACTION_UPDATE"
         const val IS_MY_PLAN_BOOLEAN = "IS.MY.PLAN"
         
         const val INVALID_APPWIDGET_ID = -1

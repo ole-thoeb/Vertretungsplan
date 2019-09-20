@@ -45,9 +45,9 @@ abstract class PlanFragment : Fragment() {
         planResponse.observe(viewLifecycleOwner) { updateContent(it) }
     }
     
-    abstract val planResponse: LiveData<Result<Vertretungsplan.Plan, ResponseModel.Error>>
+    abstract val planResponse: LiveData<Result<Vertretungsplan.Plan, ResponseStatus>>
     
-    private fun updateContent(verPlanResult: Result<Vertretungsplan.Plan, ResponseModel.Error>) {
+    private fun updateContent(verPlanResult: Result<Vertretungsplan.Plan, ResponseStatus>) {
         when(verPlanResult) {
             is Result.Success -> {
                 val plan = verPlanResult.value
@@ -64,13 +64,18 @@ abstract class PlanFragment : Fragment() {
             }
             is Result.Failure -> {
                 errorTV.text = when (verPlanResult.error) {
-                    ResponseModel.Error.NO_INTERNET -> resources.getString(R.string.error_message_no_connection)
-                    ResponseModel.Error.PARSE_ERROR -> resources.getString(R.string.error_message_pars)
+                    ResponseStatus.NO_INTERNET -> resources.getString(R.string.error_message_no_connection)
+                    ResponseStatus.PARSE_ERROR -> resources.getString(R.string.error_message_pars)
+                    ResponseStatus.REFRESHING -> ""
                 }
             
                 planAdapter.values = Vertretungsplan.Plan.EMPTY
                 planAdapter.notifyDataSetChanged()
-                progressBar.visibility = ProgressBar.GONE
+                progressBar.visibility = if (verPlanResult.error == ResponseStatus.REFRESHING) {
+                    ProgressBar.VISIBLE
+                } else {
+                    ProgressBar.GONE
+                }
             }
         }.exhaustive()
     }
@@ -112,12 +117,12 @@ abstract class PlanFragment : Fragment() {
 }
 
 class MyPlanFragment : PlanFragment() {
-    override val planResponse: LiveData<Result<Vertretungsplan.Plan, ResponseModel.Error>>
+    override val planResponse: LiveData<Result<Vertretungsplan.Plan, ResponseStatus>>
         get() = (requireParentFragment() as PlanResponseHolder).customPlan
 }
 
 
 class GeneralPlanFragment : PlanFragment() {
-    override val planResponse: LiveData<Result<Vertretungsplan.Plan, ResponseModel.Error>>
+    override val planResponse: LiveData<Result<Vertretungsplan.Plan, ResponseStatus>>
         get() = (requireParentFragment() as PlanResponseHolder).generalPlan
 }

@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class PlanRepository(private val planDao: PlanDao, private val planService: VerPlanNetworkService) {
-    private val TAG = "PlanRepository"
 
     val allVerPlans: LiveData<List<Vertretungsplan>> = liveData(Dispatchers.IO) {
         emitSource(CombinedLiveData(planDao.getAllVerPlans(), planDao.getAllPlans()) { verPlans, plansWithRows ->
@@ -54,10 +53,10 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
         return toVerPlan(gPlan.toPlan(), cPlan.toPlan())
     }
     
-    suspend fun currentVerPlan(grade: Vertretungsplan.Grade, context: Context): Result<Vertretungsplan, ResponseModel.Error> {
+    suspend fun currentVerPlan(grade: Vertretungsplan.Grade, context: Context, fromAppwidget: Boolean = false): Result<Vertretungsplan, ResponseModel.Error> {
         val lastPlan = getLatestLocalPlan(grade) ?: run {
             Log.d(TAG, "Updating because last was null")
-            return updateVerPlan(grade, context)
+            return updateVerPlan(grade, context, fromAppwidget)
         }
         val lastTime = lastPlan.fetchedTime
         val currentTime = System.currentTimeMillis()
@@ -65,7 +64,7 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
         
         return if (!upToDate) {
             Log.d(TAG, "Fetching because of time last: ${lastTime.toDate()}, currentTime: ${currentTime.toDate()}")
-            updateVerPlan(grade, context)
+            updateVerPlan(grade, context, fromAppwidget)
 //            planService.planForGrade(grade).withSuccess {  plan ->
 //                plan.toVertretungsplan(ctx).also { updateDatabaseWithPlan(it, lastPlan) }
 //            }
@@ -75,7 +74,7 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
         }
     }
     
-    suspend fun updateVerPlan(grade: Vertretungsplan.Grade, context: Context): Result<Vertretungsplan, ResponseModel.Error> {
+    suspend fun updateVerPlan(grade: Vertretungsplan.Grade, context: Context, fromAppwidget: Boolean = false): Result<Vertretungsplan, ResponseModel.Error> {
         val otherGrades = if (context.generalPreferences { downloadAllPlansEnabled }) {
             Vertretungsplan.Grade.values().toMutableList().apply { remove(grade) }
         } else {
@@ -88,7 +87,9 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
                     updateVerPlanSlave(it, context)
                 }
             }
-            updateVerPlanSlave(grade, context)
+            updateVerPlanSlave(grade, context).also {
+                if (!fromAppwidget && it is Result.Success) context.updateVerPlanWidget()
+            }
         }
     }
     
@@ -190,5 +191,8 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
             val verPlanService = VolleyVerPlanService(context)
             return PlanRepository(planDao, verPlanService)
         }
+    
+    
+        private const val TAG = "PlanRepository"
     }
 }

@@ -3,6 +3,7 @@ package com.example.eloem.vertretungsplan.util
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.example.eloem.vertretungsplan.R
+import com.example.eloem.vertretungsplan.widget.VerPlanWidgetProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.dialog_edit_text.view.*
 
@@ -163,4 +165,16 @@ fun Context.getAttribute(resourceId: Int, resolveRef: Boolean): TypedValue {
     val tv = TypedValue()
     theme.resolveAttribute(resourceId, tv, resolveRef)
     return tv
+}
+
+fun Context.refreshVerPlanWidget() {
+    sendBroadcast(Intent(this, VerPlanWidgetProvider::class.java).apply {
+        action = VerPlanWidgetProvider.ACTION_REFRESH
+    })
+}
+
+fun Context.updateVerPlanWidget() {
+    sendBroadcast(Intent(this, VerPlanWidgetProvider::class.java).apply {
+        action = VerPlanWidgetProvider.ACTION_UPDATE
+    })
 }
