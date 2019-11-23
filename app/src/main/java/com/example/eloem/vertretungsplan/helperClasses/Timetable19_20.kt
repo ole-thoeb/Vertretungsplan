@@ -26,6 +26,7 @@ class Timetable19_20(
             override var room: String = "",
             @ColorInt override var color: Int = DEFAULT_COLOR
     ) : EditTimetable.EditLesson{
+    
         companion object {
             const val DEFAULT_COLOR = Color.TRANSPARENT
         }
@@ -63,6 +64,8 @@ class Timetable19_20(
         })
     }
     
+    override val lessonTimes: List<List<ClosedRange<JustTime>>> get() = LESSON_TIMES
+    
     companion object {
         fun newDefaultInstance(id: Long): EditTimetable = Timetable19_20(
                 id,
@@ -74,6 +77,7 @@ class Timetable19_20(
         const val DAYS = 5
         const val LESSONS = 7
     
+        private val FILL_TIME = JustTime(0, 0)..JustTime(0, 0)
         //after http://www.europaschule-bornheim.de/contao/index.php/stundenplan.html
         val LESSON_TIMES = listOf(
                 listOf( //monday
@@ -90,7 +94,9 @@ class Timetable19_20(
                         JustTime(9, 5)..JustTime(10, 10),
                         JustTime(10, 30)..JustTime(11, 35),
                         JustTime(11, 40)..JustTime(12, 45),
-                        JustTime(12, 50)..JustTime(13, 25)
+                        JustTime(12, 50)..JustTime(13, 25),
+                        FILL_TIME,
+                        FILL_TIME
                 ),
                 listOf( //wednesday
                         JustTime(7, 55)..JustTime(9, 0),

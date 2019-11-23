@@ -16,6 +16,8 @@
 
     <color name="highlightSelectDark">#3A3A3A</color>
 
+    <color name="lighterGray">#3A3A3A</color>
+
     <color name="red">#F6402C</color>
     <color name="deep_red">#D10000</color>
     <color name="dark_red">#990505</color>

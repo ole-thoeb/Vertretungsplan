@@ -14,6 +14,7 @@
     <string name="title_timetable_overview">Stundenpläne</string>
     <string name="title_settings">Einstellungen</string>
     <string name="title_edit_lesson">%1$s %2$d. Stunde</string>
+    <string name="title_plan_list">Vertretungsplanliste</string>
 
     <string name="timetable_monday">Mo.</string>
     <string name="timetable_tuesday">Di.</string>
@@ -42,6 +43,7 @@
     <string name="action_delete">Löschen</string>
     <string name="action_currentPlan">Momentaner Plan</string>
     <string name="action_filterList">Filter</string>
+    <string name="action_refresh">Aktualisieren</string>
 
     <string name="actionbar_time_info">%1s <b>↻</b> %2s <b>↧</b></string>
     <string name="dialog_deleteLesson_message">Willst du diese Stunde löschen?</string>
@@ -89,6 +91,10 @@
     <string name="tab_text_myPlan">Mein Plan</string>
     <string name="tab_text_Plan">Vertretungsplan</string>
 
+    <!-- String related to shortcuts -->
+    <string name="shortcutTimetableLabelShort">Stundenplan</string>
+    <string name="shortcutTimetableLabelLong">Favorisierter Stundenplan</string>
+
     <!-- Strings related to the Appwidget -->
     <string name="appwidget_refreshing">Aktualisieren…</string>
     <string name="appwidget_refreshFailed">Konnte den Vertretungsplan nicht Aktualisieren!</string>
@@ -120,7 +126,6 @@
     <string name="allPlansOffSummery">Nur der Plan deiner Stufe wird gespeichert</string>
 
     <string name="allPlansOnSummery">Die Pläne aller Stufen werden gespeichert</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="themes">
         <item>@string/lightTheme</item>
         <item>@string/darkTheme</item>
@@ -142,6 +147,11 @@
         <item>@string/gradeQ1</item>
         <item>@string/gradeQ2</item>
     </string-array>
+
+    <string name="settingsTimetableTimeTitle">Stundenzeiten</string>
+    <string name="settingsTimetableTimeSummaryOn">Zeigt die Stundenzeiten im Stundenplan an</string>
+    <string name="settingsTimetableTimeSummaryOff">Versteckt die Stundenzeiten im Stundenplan</string>
+
     <string-array name="sort_plan_entries">
         <item>1,1,1,2,2,2(nach Stunde)</item>
         <item>1,2,1,2,1,2(nach Doppelstunde)</item>

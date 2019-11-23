@@ -55,7 +55,9 @@ class TimetableFragment : ChildFragment() {
             table.adapter = timetableAdapter
             table.layoutManager = tableLayoutManager
         }
-        globalViewModel.getTimetableLive(args.timetableId).observeNotNull(viewLifecycleOwner) { tTable ->
+        
+        val timetableId = if (args.timetableId == -1L) generalPreferences { favoriteTimetableId } else args.timetableId
+        globalViewModel.getTimetableLive(timetableId).observeNotNull(viewLifecycleOwner) { tTable ->
             Log.d(TAG, "updated timetable $tTable")
             timetable = tTable
             
@@ -136,13 +138,14 @@ class TimetableFragment : ChildFragment() {
                     val day = dayFromAdapterPos(position)
                     val lessonNr =  lessonFromAdapterPos(position)
                     val lesson = timetable[day][lessonNr]
+    
+                    val textColor = if (lesson.color == Timetable.Lesson.DEFAULT_COLOR) {
+                        ctx.attr(R.attr.colorOnBackground).data
+                    } else {
+                        textColorOn(lesson.color)
+                    }
                     holder.textView.apply {
                         text = lesson.subject
-                        val textColor = if (lesson.color == Timetable.Lesson.DEFAULT_COLOR) {
-                            attr(R.attr.colorOnBackground).data
-                        } else {
-                            textColorOn(lesson.color)
-                        }
                         setTextColor(textColor)
                     }
                     holder.root.apply {
@@ -158,6 +161,22 @@ class TimetableFragment : ChildFragment() {
                                     .actionTimetableFragmentToEditLessonFragment(currentDay, currentLessonNr, timetable.id)
                             )
                         }
+                    }
+                    if (generalPreferences { showLessonTimes } && lesson.subject.isNotBlank()) {
+                        val time = timetable.lessonTimes[day][lessonNr]
+                        holder.root.findViewById<TextView>(R.id.timeFromTV).apply {
+                            visibility = View.VISIBLE
+                            text = time.start.toString()
+                            setTextColor(textColor)
+                        }
+                        holder.root.findViewById<TextView>(R.id.timeToTV).apply {
+                            visibility = View.VISIBLE
+                            text = time.endInclusive.toString()
+                            setTextColor(textColor)
+                        }
+                    } else {
+                        holder.root.findViewById<TextView>(R.id.timeFromTV).visibility = View.GONE
+                        holder.root.findViewById<TextView>(R.id.timeToTV).visibility = View.GONE
                     }
                 }
                 else -> Log.e(TAG, "Unknown itemViewType: ${holder.itemViewType}")
@@ -176,5 +195,6 @@ class TimetableFragment : ChildFragment() {
     
     companion object {
         private const val TAG = "TimetableFragment"
+        const val ACTION_SHORTCUT_TIMETABLE = "com.example.eloem.vertretungsplan.SHORTCUT_TIMETABLE"
     }
 }

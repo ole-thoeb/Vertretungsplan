@@ -8,10 +8,10 @@
         android:title="@string/action_settings"
         app:showAsAction= "never"/>
 
-    <item
-        android:id="@+id/deleteTimetable"
-        android:title="@string/action_deleteTimetable"
-        app:showAsAction="never"/>
+<!--    <item-->
+<!--        android:id="@+id/deleteTimetable"-->
+<!--        android:title="@string/action_deleteTimetable"-->
+<!--        app:showAsAction="never"/>-->
 
     <item
         android:id="@+id/metaData"
@@ -27,6 +27,11 @@
     <item
         android:id="@+id/listVerplan"
         android:title="@string/action_verplanList"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/refresh"
+        android:title="@string/action_refresh"
         app:showAsAction="never"/>
 
 </menu>

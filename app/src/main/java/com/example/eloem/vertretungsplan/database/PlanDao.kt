@@ -41,11 +41,17 @@ interface PlanDao {
     @Query("SELECT * FROM SqlPlan")
     fun getAllPlans(): LiveData<List<PlanWithRows>>
     
+    @Query("SELECT * FROM SqlVerPlan WHERE grade IN (:grades) AND fetchedTime > :notBefore")
+    fun getPlansWith(grades: List<Int>, notBefore: Long): LiveData<List<SqlVerPlan>>
+    
     @Query("SELECT * FROM SqlVerPlan WHERE grade = :grade ORDER BY fetchedTime DESC LIMIT 1")
     fun getLatestVerPlanLive(grade: Int) : LiveData<SqlVerPlan?>
     
     @Query("SELECT * FROM SqlVerPlan WHERE grade = :grade ORDER BY fetchedTime DESC LIMIT 1")
     suspend fun getLatestVerPlan(grade: Int) : SqlVerPlan?
+    
+    @Query("SELECT * FROM SqlVerPlan WHERE id = :verPlanId")
+    suspend fun getVerPlan(verPlanId: Long): SqlVerPlan?
     
     //TODO make suspend -> split into single queries and map in a transaction
     @Transaction
@@ -54,6 +60,27 @@ interface PlanDao {
     
     @Query("SELECT fetchedTime FROM SqlVerPlan WHERE grade = :grade ORDER BY fetchedTime DESC LIMIT 1")
     suspend fun lastUpdateTime(grade: Int): Long
+    
+    @Transaction
+    suspend fun deleteVerPlan(verPlan: Vertretungsplan) {
+        deletePlan(verPlan.customPlan.id)
+        deletePlanRows(verPlan.customPlan.id)
+        
+        deletePlan(verPlan.generalPlan.id)
+        deletePlanRows(verPlan.generalPlan.id)
+    
+        deleteVerPlan(verPlan.id)
+    }
+    
+    @Query("DELETE FROM SqlVerPlan WHERE id = :verPlanId")
+    suspend fun deleteVerPlan(verPlanId: Long)
+    
+    @Query("DELETE FROM SqlPlan WHERE id = :planId")
+    suspend fun deletePlan(planId: Long)
+    
+    @Query("DELETE FROM SqlPlanRow WHERE planId = :planId")
+    suspend fun deletePlanRows(planId: Long)
+    
     
     
     /**

@@ -28,5 +28,8 @@
 
         <item name="alertDialogTheme">@style/DialogStyleDark</item>
         <item name="materialAlertDialogTheme">@style/DialogStyleDark</item>
+
+        <item name="internalCardBackgroundColor">@color/lighterGray</item>
+        <item name="materialCardViewStyle">@style/CardStyle</item>
     </style>
 </resources>

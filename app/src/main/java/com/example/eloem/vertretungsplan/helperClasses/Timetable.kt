@@ -46,6 +46,8 @@ interface Timetable : Iterable<Timetable.Day> {
         }
     }
     
+    val lessonTimes: List<List<ClosedRange<JustTime>>>
+    
     companion object {
         fun newDefaultInstance(context: Context) = newDefaultInstance(newTimetableId(context))
         

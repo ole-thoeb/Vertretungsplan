@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="customAttrs">
 <!--        <attr name="highlightSelect" format="reference"/>-->
-<!--        <attr name="internalCardBackgroundColor" format="reference"/>-->
+        <attr name="internalCardBackgroundColor" format="reference"/>
 <!--        <attr name="textHighlightColor" format="reference"/>-->
 <!--        <attr name="cardBoarder" format="reference"/>-->
         <attr name="toolbarIconColor" format="reference"/>

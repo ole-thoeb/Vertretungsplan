@@ -1,23 +1,17 @@
 package com.example.eloem.vertretungsplan.ui
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.findNavController
-import androidx.room.RoomDatabase
 import com.example.eloem.vertretungsplan.R
 import com.example.eloem.vertretungsplan.database.PlanRoomDatabase
 import com.example.eloem.vertretungsplan.helperClasses.AnimatedIconFab
 import com.example.eloem.vertretungsplan.util.removeOnClickListener
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_host.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.jetbrains.anko.defaultSharedPreferences
 
 class HostActivity : AppCompatActivity() {
 

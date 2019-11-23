@@ -35,4 +35,11 @@
         app:defaultValue="@string/defaultThemeValue"
         app:useSimpleSummaryProvider="true"/>
 
+    <androidx.preference.SwitchPreference
+        app:key="settingsLessonTimes"
+        app:title="@string/settingsTimetableTimeTitle"
+        app:summaryOn="@string/settingsTimetableTimeSummaryOn"
+        app:summaryOff="@string/settingsTimetableTimeSummaryOff"
+        app:defaultValue="false"/>
+
 </androidx.preference.PreferenceScreen>

@@ -22,7 +22,9 @@ class GlobalViewModel(application: Application): AndroidViewModel(application), 
     
     private var favTimetableChanged = false
     
-    suspend fun currentPlan(forceRefresh: Boolean): Result<Vertretungsplan, ResponseModel.Error> = withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+    private val contextIO = viewModelScope.coroutineContext + Dispatchers.IO
+    
+    suspend fun currentPlan(forceRefresh: Boolean): Result<Vertretungsplan, ResponseModel.Error> = withContext(contextIO) {
         generalPreferences {
             if (forceRefresh || favTimetableChanged) {
                 Log.d(TAG, "updating because it was forced")
@@ -42,6 +44,10 @@ class GlobalViewModel(application: Application): AndroidViewModel(application), 
     
     fun currentLocalPlan(grade: Vertretungsplan.Grade): LiveData<Vertretungsplan?> = livePlans[grade.ordinal]
     
+    suspend fun getVerPlan(verPlanId: Long) = withContext(contextIO) {
+        repository.getVerPlan(verPlanId)
+    }
+    
     val timetables: LiveData<List<Timetable>> = liveData(Dispatchers.IO) {
         emitSource(repository.getAllActiveTimeTables())
     }
@@ -55,7 +61,7 @@ class GlobalViewModel(application: Application): AndroidViewModel(application), 
         }.onNull { Log.e(TAG, "timetable with id $id not found") }
     }
     
-    suspend fun getTimetable(id: Long): Timetable? = withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+    suspend fun getTimetable(id: Long): Timetable? = withContext(contextIO) {
         repository.getTimetable(id)
     }
     

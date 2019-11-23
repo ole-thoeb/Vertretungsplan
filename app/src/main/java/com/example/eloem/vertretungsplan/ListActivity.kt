@@ -1,19 +1,17 @@
 package com.example.eloem.vertretungsplan
 
 import android.annotation.SuppressLint
-import android.app.ActivityOptions
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import android.view.*
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.*
-import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.card_vertretungsplan.view.*
 import kotlinx.android.synthetic.main.dialog_filter.view.*
+import kotlinx.android.synthetic.main.fragment_plan_list.*
 import kotlinx.android.synthetic.main.plan_row.view.*
 import kotlin.math.log10
 

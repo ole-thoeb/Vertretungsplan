@@ -17,6 +17,9 @@
             android:name="calledFromAppwidget"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_currentPlanFragment_to_planListFragment"
+            app:destination="@id/planListFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -30,10 +33,14 @@
         tools:layout="@layout/fragment_timetable">
         <argument
             android:name="timetableId"
-            app:argType="long" />
+            app:argType="long"
+            android:defaultValue="-1L" />
         <action
             android:id="@+id/action_timetableFragment_to_editLessonFragment"
             app:destination="@id/editLessonFragment" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="vertretungsplan://open_timetable" />
     </fragment>
     <fragment
         android:id="@+id/timetableOverviewFragment"
@@ -58,5 +65,25 @@
         <argument
             android:name="timetableId"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/planListFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.planlist.PlanListFragment"
+        android:label="PlanListFragment" >
+        <action
+            android:id="@+id/action_planListFragment_to_displayPlanFragment"
+            app:destination="@id/displayPlanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayPlanFragment"
+        android:name="com.example.eloem.vertretungsplan.ui.currentplan.DisplayPlanFragment"
+        android:label="DisplayPlanFragment">
+        <argument
+            android:name="verPlanId"
+            app:argType="long" />
+        <argument
+            android:name="shouldStartWithGeneral"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

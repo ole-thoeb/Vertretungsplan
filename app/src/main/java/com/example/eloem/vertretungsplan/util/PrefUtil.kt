@@ -66,6 +66,7 @@ private fun readGrade(context: Context?): Vertretungsplan.Grade {
 }
 
 private const val FAVORITE_TIMETABLE_ID_KEY = "favoriteTimetableId"
+private const val LESSON_TIMES_KEY = "settingsLessonTimes"
 
 class GeneralPreferences(private val ctx: Context) {
     val grade: Vertretungsplan.Grade
@@ -80,6 +81,9 @@ class GeneralPreferences(private val ctx: Context) {
             ctx.defaultSharedPreferences.edit { putLong(FAVORITE_TIMETABLE_ID_KEY, value) }
         }
         get() =  ctx.defaultSharedPreferences.getLong(FAVORITE_TIMETABLE_ID_KEY, -1)
+    
+    val showLessonTimes: Boolean
+        get() = ctx.defaultSharedPreferences.getBoolean(LESSON_TIMES_KEY, false)
 }
 
 inline fun <T> ContextOwner.generalPreferences(block: GeneralPreferences.() -> T): T{
@@ -123,6 +127,52 @@ const val FILTER_Q2_ENABLED_KEY = "filterQ2EnabledKey"
 const val FILTER_FOR_ME_KEY = "filterForMeKey"
 const val FILTER_SEEKER_PROGRESS_KEY = "filterSeekerProgressKey"
 const val FILTER_LAST_OF_DAY_KEY = "filterLastOfDayKey"
+
+class PlanListPreferences(private val ctx: Context) {
+    var isEfEnabled : Boolean
+        get() = ctx.defaultSharedPreferences.getBoolean(FILTER_EF_ENABLED_KEY , true)
+        set(value) {
+            ctx.defaultSharedPreferences.edit { putBoolean(FILTER_EF_ENABLED_KEY, value) }
+        }
+    
+    var isQ1Enabled : Boolean
+        get() = ctx.defaultSharedPreferences.getBoolean(FILTER_Q1_ENABLED_KEY , true)
+        set(value) {
+            ctx.defaultSharedPreferences.edit { putBoolean(FILTER_Q1_ENABLED_KEY, value) }
+        }
+    
+    var isQ2Enabled : Boolean
+        get() = ctx.defaultSharedPreferences.getBoolean(FILTER_FOR_ME_KEY , true)
+        set(value) {
+            ctx.defaultSharedPreferences.edit { putBoolean(FILTER_FOR_ME_KEY, value) }
+        }
+    
+    var isFilterForMeActive: Boolean
+        get() = ctx.defaultSharedPreferences.getBoolean(FILTER_Q2_ENABLED_KEY , true)
+        set(value) {
+            ctx.defaultSharedPreferences.edit { putBoolean(FILTER_Q2_ENABLED_KEY, value) }
+        }
+    
+    var seekerProgress: Int
+        get() = ctx.defaultSharedPreferences.getInt(FILTER_SEEKER_PROGRESS_KEY , 100)
+        set(value) {
+            ctx.defaultSharedPreferences.edit { putInt(FILTER_SEEKER_PROGRESS_KEY, value) }
+        }
+    
+    var isFilterLastOfDayActive: Boolean
+        get() = ctx.defaultSharedPreferences.getBoolean(FILTER_LAST_OF_DAY_KEY , true)
+        set(value) {
+            ctx.defaultSharedPreferences.edit { putBoolean(FILTER_LAST_OF_DAY_KEY, value) }
+        }
+}
+
+inline fun <T> ContextOwner.planListPreferences(block: PlanListPreferences.() -> T): T {
+    return block(PlanListPreferences(ctx))
+}
+
+inline fun <T> Context.planListPreferences(block: PlanListPreferences.() -> T): T {
+    return block(PlanListPreferences(this))
+}
 
 const val SETTINGS_THEME_KEY = "preference_theme"
 const val RECREATE_PARENT_KEY = "recreateParentKey"

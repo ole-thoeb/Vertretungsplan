@@ -5,7 +5,7 @@ import com.example.eloem.vertretungsplan.util.Result.Success
 import java.lang.RuntimeException
 import java.util.ArrayList
 
-sealed class Result<T, E: Any> {
+sealed class Result<out T, out E: Any> {
 
     data class Success<T, E: Any>(val value: T): Result<T, E>()
 
@@ -86,9 +86,11 @@ fun <T, E: Any> Result<T, E>.ifSuccess(action: (T) -> Unit): Result<T, E> = when
     }
 }
 
-data class tryResult<T>(val tryBlock: () -> T)
+data class TryResult<T>(val tryBlock: () -> T)
 
-inline fun <T, E: Any>tryResult<T>.catchResult(catchBlock: (Exception) -> E): Result<T, E> {
+fun <T> tryResult(tryBlock: () -> T) = TryResult(tryBlock)
+
+inline fun <T, E: Any>TryResult<T>.catchResult(catchBlock: (Exception) -> E): Result<T, E> {
     return try {
         Success(tryBlock())
     } catch (e: Exception) {
@@ -96,7 +98,7 @@ inline fun <T, E: Any>tryResult<T>.catchResult(catchBlock: (Exception) -> E): Re
     }
 }
 
-fun <T>tryResult<T>.catchDefault(): Result<T, Exception> {
+fun <T>TryResult<T>.catchDefault(): Result<T, Exception> {
     return try {
         Success(tryBlock())
     } catch (e: Exception) {
@@ -143,4 +145,4 @@ inline fun <T, R, E: Any>List<T>.mapOptional(transform: (T) -> Result<R, E>): Re
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun Any.exhaustive() = Unit
+inline fun Any?.exhaustive() = Unit

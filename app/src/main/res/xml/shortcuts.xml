@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:shortcutId="shortcutOpenTimetable"
+        android:icon="@drawable/shortcut_icon_timetable"
+        android:shortcutLongLabel="@string/shortcutTimetableLabelShort"
+        android:shortcutShortLabel="@string/shortcutTimetableLabelShort">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.example.eloem.vertretungsplan.ui.HostActivity"
+            android:targetPackage="com.example.eloem.vertretungsplan"
+            android:data="vertretungsplan://open_timetable"/>
+    </shortcut>
+</shortcuts>

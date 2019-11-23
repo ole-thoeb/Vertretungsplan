@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/shortcut_icon_background"/>
+    <item android:drawable="@drawable/ic_timetable"
+        android:gravity="center"
+        android:height="22dp"
+        android:width="30dp" />
+</layer-list>

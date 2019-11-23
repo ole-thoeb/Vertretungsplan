@@ -154,4 +154,10 @@
         <item name="rippleColor">?attr/colorConfirm</item>
     </style>
 
+    <!-- Card styles -->
+    <style name="CardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?internalCardBackgroundColor</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
 </resources>

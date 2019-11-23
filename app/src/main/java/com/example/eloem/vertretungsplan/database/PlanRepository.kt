@@ -32,6 +32,26 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
         })
     }
     
+    suspend fun getVerPlans(enabledGrades: List<Vertretungsplan.Grade> = Vertretungsplan.Grade.values().asList(), notBefore: Long = 0, forMe: Boolean = false, lastOfDay: Boolean = false): LiveData<List<Vertretungsplan>> {
+        return planDao.getPlansWith(enabledGrades.map { it.ordinal }, notBefore).switchMap { list ->
+            liveData(Dispatchers.IO) {
+                val plans = list.mapNotNull {
+                    val verPlan = it.toVerPlan()
+                    if (forMe && verPlan.customPlan.plan.isEmpty()) null
+                    else verPlan
+                }
+                val filterPlans = if (lastOfDay) {
+                    plans.groupBy { it.grade.ordinal.toLong() + it.targetDay }
+                            .values
+                            .map { it.maxBy { plan -> plan.fetchedTime }!! }
+                } else {
+                    plans
+                }
+                emit(filterPlans)
+            }
+        }
+    }
+    
     suspend fun getLatestLocalPlan(grade: Vertretungsplan.Grade): Vertretungsplan? {
         return planDao.getLatestVerPlan(grade.ordinal)
                 .ifNull { return null }
@@ -72,6 +92,12 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
             Log.d(TAG, "Last plan was up to date. resume with last plan")
             Result.Success(lastPlan)
         }
+    }
+    
+    suspend fun getVerPlan(verPlanId: Long): Vertretungsplan? {
+        return planDao.getVerPlan(verPlanId)
+                .ifNull { return null }
+                .toVerPlan()
     }
     
     suspend fun updateVerPlan(grade: Vertretungsplan.Grade, context: Context, fromAppwidget: Boolean = false): Result<Vertretungsplan, ResponseModel.Error> {
@@ -119,6 +145,13 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
         planDao.insertVertretungsplan(verPlan)
     }
     
+    suspend fun deleteVerPlan(verPlan: Vertretungsplan) {
+        planDao.deleteVerPlan(verPlan)
+        if (planDao.getPlansComputedWithTimetable(verPlan.computedWith).isEmpty()) {
+            deleteTimetable(verPlan.computedWith)
+        }
+    }
+    
     /**
      * ##################### TIMETABLE STUFF ################################
      */
@@ -128,11 +161,15 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
     }
     
     suspend fun deleteTimetable(timetable: Timetable) {
-        if (planDao.getPlansComputedWithTimetable(timetable.id).isNotEmpty()) {
-            archive(timetable)
+        deleteTimetable(timetable.id)
+    }
+    
+    private suspend fun deleteTimetable(timetableId: Long) {
+        if (planDao.getPlansComputedWithTimetable(timetableId).isNotEmpty()) {
+            archive(timetableId)
         } else {
-            planDao.deleteTimetable(timetable.id)
-            planDao.deleteLessonsFromTimetable(timetable.id)
+            planDao.deleteTimetable(timetableId)
+            planDao.deleteLessonsFromTimetable(timetableId)
         }
     }
     
@@ -159,7 +196,7 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
     
     suspend fun updateLesson(context: Context, lesson: Timetable.Lesson, timetable: Timetable, day: WeekDay, lessonNr: Int): Long? {
         if (planDao.getPlansComputedWithTimetable(timetable.id).isNotEmpty()) {
-            archive(timetable)
+            archive(timetable.id)
             val newId = newTimetableId(context)
             val copy = timetable.editable(newId)
             copy[day][lessonNr] = lesson.editable()
@@ -174,9 +211,9 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
         planDao.updateTimetableName(timetable.id, newName)
     }
     
-    private suspend fun archive(timetable: Timetable) {
-        Log.d(TAG, "archiving timetable $timetable")
-        planDao.archiveTimetable(timetable.id)
+    private suspend fun archive(timetableId: Long) {
+        Log.d(TAG, "archiving timetable $timetableId")
+        planDao.archiveTimetable(timetableId)
     }
     
     suspend fun noActiveTimetableIsPresent(): Boolean {

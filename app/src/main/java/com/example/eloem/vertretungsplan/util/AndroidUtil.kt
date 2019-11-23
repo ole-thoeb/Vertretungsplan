@@ -161,7 +161,7 @@ inline fun Context.editDialog(
 }
 
 
-fun Context.getAttribute(resourceId: Int, resolveRef: Boolean): TypedValue {
+fun Context.getAttribute(resourceId: Int, resolveRef: Boolean = true): TypedValue {
     val tv = TypedValue()
     theme.resolveAttribute(resourceId, tv, resolveRef)
     return tv

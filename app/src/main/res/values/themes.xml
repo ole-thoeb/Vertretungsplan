@@ -28,5 +28,8 @@
 <!--        <item name="materialAlertDialogTheme">@style/Theme.MaterialComponents.Light.Dialog</item>-->
         <item name="alertDialogTheme">@style/DialogStyleLight</item>
         <item name="materialAlertDialogTheme">@style/DialogStyleLight</item>
+
+        <item name="internalCardBackgroundColor">?colorSurface</item>
+        <item name="materialCardViewStyle">@style/CardStyle</item>
     </style>
 </resources>
