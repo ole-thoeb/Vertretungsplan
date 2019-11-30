@@ -1,5 +1,6 @@
 <resources>
 
+    <style name="ThemeOverlay"/>
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
@@ -98,9 +99,9 @@
         <item name="android:tint">?attr/toolbarIconColor</item>
     </style>
 
-    <style name="OverflowButtonColor" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">?colorOnPrimary</item>
-    </style>
+<!--    <style name="OverflowButtonColor" parent="Widget.AppCompat.ActionButton.Overflow">-->
+<!--        <item name="android:tint">?colorOnPrimary</item>-->
+<!--    </style>-->
 
     <!--Toolbar Styles-->
 
@@ -137,7 +138,7 @@
     <style name="DialogStyleDark" parent="@style/Theme.MaterialComponents.Dialog.Alert">
         <item name="buttonBarNegativeButtonStyle">@style/NegDialogButton</item>
         <item name="buttonBarPositiveButtonStyle">@style/PosDialogButton</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondary">@color/yellow600</item>
     </style>
 
     <style name="BaseDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
@@ -157,7 +158,22 @@
     <!-- Card styles -->
     <style name="CardStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">?internalCardBackgroundColor</item>
-        <item name="cardElevation">8dp</item>
+        <item name="cardElevation">4dp</item>
     </style>
+
+    <!-- TextInputStyles -->
+
+    <style name="TextInputLayout.OutlinedBox.SecondaryVariant" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">?colorSecondaryVariant</item>
+        <item name="hintTextColor">?colorSecondaryVariant</item>
+    </style>
+
+    <style name="ThemeOverlay.TextCursor"/>
+
+    <style name="ThemeOverlay.TextCursor.SecondaryVariant">
+        <item name="android:textCursorDrawable">@drawable/text_courser_secondary_variant</item>
+        <item name="android:colorControlActivated">?colorSecondaryVariant</item>
+    </style>
+
 
 </resources>

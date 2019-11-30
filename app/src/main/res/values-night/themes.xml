@@ -3,17 +3,16 @@
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <item name="colorOnBackground">@color/white</item>
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorPrimary">@color/navyBlue500</item>
+        <item name="colorPrimaryDark">@color/navyBlue600</item>
+        <item name="colorPrimaryVariant">@color/navyBlue400</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <item name="colorAccent">@color/colorSecondary</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryLight</item>
+        <item name="colorSecondary">@color/yellow400</item>
+        <item name="colorSecondaryVariant">@color/yellow300</item>
         <item name="colorOnSecondary">@color/black</item>
 
-        <item name="colorConfirm">@color/colorConfirm</item>
+        <item name="colorConfirm">@color/brightGreen</item>
 
         <item name="android:windowLightStatusBar">false</item>
         <item name="statusBarColor">?colorSurface</item>
@@ -22,7 +21,7 @@
 
         <item name="toolbarIconColor">@color/white</item>
         <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
-        <item name="actionOverflowButtonStyle">@style/OverflowButtonColor</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonDefault</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="toolbarStyle">@style/AppToolbar</item>
 

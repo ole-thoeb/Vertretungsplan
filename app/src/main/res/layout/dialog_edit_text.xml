@@ -11,7 +11,8 @@
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/TextInputLayout.OutlinedBox.SecondaryVariant"
+        android:theme="@style/ThemeOverlay.TextCursor.SecondaryVariant">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/valueET"

@@ -11,7 +11,8 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayout.OutlinedBox.SecondaryVariant"
+            android:theme="@style/ThemeOverlay.TextCursor.SecondaryVariant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -28,7 +29,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayout.OutlinedBox.SecondaryVariant"
+            android:theme="@style/ThemeOverlay.TextCursor.SecondaryVariant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -48,7 +50,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayout.OutlinedBox.SecondaryVariant"
+            android:theme="@style/ThemeOverlay.TextCursor.SecondaryVariant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -63,7 +66,7 @@
                 android:hint="@string/edit_lesson_room"
                 android:inputType="textCapSentences"
                 android:text=""
-                app:layout_constraintTop_toBottomOf="@+id/teacher" />
+                app:layout_constraintTop_toBottomOf="@+id/teacher"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

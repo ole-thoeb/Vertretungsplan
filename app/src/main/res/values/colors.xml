@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#11469b</color>
-    <color name="colorPrimaryDark">#0a3272</color>
-    <color name="colorPrimaryVariant">#06253D</color>
+    <color name="navyBlue400">#4a65a0</color>
+    <color name="navyBlue500">#254c92</color>
+    <color name="navyBlue600">#1e4489</color>
+    <color name="navyBlue800">#0a3272</color>
+    <color name="navyBlue900">#00225c</color>
 
     <color name="colorAccent">#FF5505</color>
     <color name="lightAccentColor">#FF6921</color>
     <color name="darkAccentColor">#D84800</color>
 
-    <color name="colorSecondary">#fdd835</color>
-    <color name="colorSecondaryDark">#FFBE00</color>
-    <color name="colorSecondaryLight">#ffff6b</color>
+    <color name="yellow200">#ffdf81</color>
+    <color name="yellow300">#ffd44d</color>
+    <color name="yellow400">#ffc825</color>
+    <color name="yellow500">#FFBE00</color>
+    <color name="yellow600">#ffb100</color>
+    <color name="yellow700">#ffb100</color>
 
-    <color name="colorConfirm">#23B40B</color>
+    <color name="brightGreen">#23B40B</color>
 
     <color name="highlightSelectDark">#3A3A3A</color>
 
