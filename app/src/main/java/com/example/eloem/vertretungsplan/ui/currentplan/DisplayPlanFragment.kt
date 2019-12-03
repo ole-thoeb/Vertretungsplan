@@ -69,11 +69,11 @@ class DisplayPlanFragment: ChildFragment(), PlanResponseHolder {
                 verPlan = plan
                 _generalPlan.postValue(Result.Success(plan.generalPlan))
                 _customPlan.postValue(Result.Success(plan.customPlan))
-                configureSupportActionBar {
-                    title = plan.targetDay.toDate().toWeekdayDateString()
-                }
                 
                 withContext(Dispatchers.Main) {
+                    configureSupportActionBar {
+                        title = plan.targetDay.toDate().toWeekdayDateString()
+                    }
                     if (!displayPlanViewModel.appliedStartingScreenSwitch) {
                         container.currentItem = if (args.shouldStartWithGeneral) 1 else 0
                         displayPlanViewModel.appliedStartingScreenSwitch = true

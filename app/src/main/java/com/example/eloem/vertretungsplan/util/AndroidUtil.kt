@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -159,6 +160,11 @@ inline fun Context.editDialog(
             .setCancelable(false)
             .show()
 }
+
+val Context.isInDarkMode get() = resources.configuration.uiMode and
+        Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+
+val ContextOwner.isInDarkMode get() = ctx.isInDarkMode
 
 
 fun Context.getAttribute(resourceId: Int, resolveRef: Boolean = true): TypedValue {

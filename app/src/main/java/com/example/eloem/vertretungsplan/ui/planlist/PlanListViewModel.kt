@@ -35,21 +35,7 @@ class PlanListViewModel(application: Application): AndroidViewModel(application)
     
             val latestTime = if (seekerProgress == 100) 0
             else System.currentTimeMillis() - progressToDays(seekerProgress) * 1000 * 60 * 60 * 24
-    
-//        val filteredPlans = getAllVerPlans(this).filter {
-//            (!forMe || it.customPlan.plan.isNotEmpty()) &&
-//                    it.grade in enabledGrades && it.updateTime > latestTime
-//        }
-//        if (lastOfDay) {
-//            val groupedPlans = filteredPlans.groupBy {
-//                it.grade.toIntCharByChar().toLong() + it.targetDay
-//            }.values.toList()
-//            return List(groupedPlans.size) {
-//                groupedPlans[it].maxBy { plan ->
-//                    plan.fetchedTime
-//                }!!
-//            }
-//        }
+            
             val source = repository.getVerPlans(enabledGrades, latestTime, isFilterForMeActive, isFilterLastOfDayActive)
             withContext(Dispatchers.Main) {
                 cSource?.let { _plans.removeSource(it) }
@@ -67,4 +53,8 @@ class PlanListViewModel(application: Application): AndroidViewModel(application)
             repository.deleteVerPlan(it)
         }
     }
+    
+    var isCABActive = false
+    var numberOfSelectedViews = 0
+    val selectedViews: MutableMap<Int, Boolean> = mutableMapOf()
 }

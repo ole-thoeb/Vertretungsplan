@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eloem.vertretungsplan.R
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
-import com.example.eloem.vertretungsplan.network.ResponseModel
 import com.example.eloem.vertretungsplan.util.Result
 import com.example.eloem.vertretungsplan.util.exhaustive
 import kotlinx.android.synthetic.main.fragment_plan.*
