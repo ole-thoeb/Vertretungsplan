@@ -50,7 +50,7 @@ class TimetableFragment : ChildFragment() {
         val tableLayoutManager = GridLayoutManager(requireContext(), spanLookup.neededSpans)
         tableLayoutManager.spanSizeLookup = spanLookup
     
-        val timetableAdapter = TableAdapter(Timetable.newDefaultInstance(-1))
+        val timetableAdapter = TableAdapter(Timetable.newDefaultInstance(-1), false)
         table.apply {
             table.adapter = timetableAdapter
             table.layoutManager = tableLayoutManager
@@ -62,6 +62,7 @@ class TimetableFragment : ChildFragment() {
             timetable = tTable
             
             timetableAdapter.timetable = tTable
+            timetableAdapter.isEditable = args.isEditable
             spanLookup.columns = tTable.days + 1
             tableLayoutManager.spanCount = spanLookup.neededSpans
             timetableAdapter.notifyDataSetChanged()
@@ -91,7 +92,7 @@ class TimetableFragment : ChildFragment() {
         else -> super.onOptionsItemSelected(item)
     }
     
-    private class TableAdapter(var timetable: Timetable) : ContextAdapter<TableAdapter.TextViewViewHolder>() {
+    private class TableAdapter(var timetable: Timetable, var isEditable: Boolean) : ContextAdapter<TableAdapter.TextViewViewHolder>() {
         
         class TextViewViewHolder(layout: View) : RecyclerView.ViewHolder(layout) {
             val textView: TextView = layout.findViewById(R.id.textView)
@@ -154,6 +155,7 @@ class TimetableFragment : ChildFragment() {
                         setOnClickListener {
                             //real timetable was not yet set
                             if (timetable.id == -1L) return@setOnClickListener
+                            if (!isEditable) return@setOnClickListener
                             val currentPos = holder.adapterPosition
                             val currentDay = dayFromAdapterPos(currentPos)
                             val currentLessonNr =  lessonFromAdapterPos(currentPos)

@@ -41,6 +41,10 @@
         <deepLink
             android:id="@+id/deepLink"
             app:uri="vertretungsplan://open_timetable" />
+        <argument
+            android:name="isEditable"
+            app:argType="boolean"
+            android:defaultValue="true" />
     </fragment>
     <fragment
         android:id="@+id/timetableOverviewFragment"
@@ -85,5 +89,8 @@
             android:name="shouldStartWithGeneral"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_displayPlanFragment_to_timetableFragment"
+            app:destination="@id/timetableFragment" />
     </fragment>
 </navigation>

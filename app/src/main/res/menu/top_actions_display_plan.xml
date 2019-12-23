@@ -4,4 +4,8 @@
     <item android:id="@+id/metaData"
         android:title="@string/action_metaData"
         app:showAsAction="never"/>
+
+    <item android:id="@+id/relatedTimetable"
+        android:title="@string/action_relatedTimetable"
+        app:showAsAction="never"/>
 </menu>

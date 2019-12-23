@@ -22,7 +22,7 @@ import com.example.eloem.vertretungsplan.ui.ChildFragment
 import com.example.eloem.vertretungsplan.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.card_vertretungsplan.view.*
-import kotlinx.android.synthetic.main.dialog_filter.*
+import kotlinx.android.synthetic.main.dialog_filter.view.*
 import kotlinx.android.synthetic.main.fragment_plan_list.*
 import kotlinx.android.synthetic.main.plan_row.view.*
 import org.jetbrains.anko.attr
@@ -117,58 +117,56 @@ class PlanListFragment : ChildFragment() {
     
     @SuppressLint("InflateParams")
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
-        R.id.listFilter -> {
-            planListPreferences {
-                val custView = layoutInflater.inflate(R.layout.dialog_filter, null).apply {
-                    seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                            val days = listViewModel.progressToDays(progress)
-                            periodTV.text = if (progress == 100) resources.getString(R.string.periodDefault)
-                            else resources.getQuantityString(R.plurals.periodText, days, days)
-                        }
-            
-                        override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                        }
-            
-                        override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                        }
-                    })
-                    seekBar.progress = seekerProgress
-                    EFCB.isChecked = isEfEnabled
-                    Q1CB.isChecked = isQ1Enabled
-                    Q2CB.isChecked = isQ2Enabled
-                    forMeCB.isChecked = isFilterForMeActive
-                    lastOfDayCB.isChecked = isFilterLastOfDayActive
-                }
-                MaterialAlertDialogBuilder(ctx)
-                        .setView(custView)
-                        .setTitle(R.string.dialog_filterTitle)
-                        .setPositiveButton(R.string.dialog_filterPositive) { _, _->
-                            with(custView) {
-                                seekerProgress = seekBar.progress
-                                isEfEnabled = EFCB.isChecked
-                                isQ1Enabled = Q1CB.isChecked
-                                isQ2Enabled = Q2CB.isChecked
-                                isFilterForMeActive = forMeCB.isChecked
-                                isFilterLastOfDayActive = lastOfDayCB.isChecked
-                            }
-                            listViewModel.refreshPlans()
-                        }
-                        /*.setNeutralButton(R.string.cancel) { dialog, which ->
-                        
-                        }*/
-                        .setNegativeButton(R.string.dialog_filterNegative) { _, _ ->
-                            seekerProgress = 100
-                            isEfEnabled = true
-                            isQ1Enabled = true
-                            isQ2Enabled = true
-                            isFilterForMeActive = false
-                            isFilterLastOfDayActive = false
-                            listViewModel.refreshPlans()
-                        }
-                        .show()
-                true
+        R.id.listFilter -> planListPreferences {
+            val custView = layoutInflater.inflate(R.layout.dialog_filter, null).apply {
+                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                        val days = listViewModel.progressToDays(progress)
+                        periodTV.text = if (progress == 100) resources.getString(R.string.periodDefault)
+                        else resources.getQuantityString(R.plurals.periodText, days, days)
+                    }
+        
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    }
+        
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    }
+                })
+                seekBar.progress = seekerProgress
+                EFCB.isChecked = isEfEnabled
+                Q1CB.isChecked = isQ1Enabled
+                Q2CB.isChecked = isQ2Enabled
+                forMeCB.isChecked = isFilterForMeActive
+                lastOfDayCB.isChecked = isFilterLastOfDayActive
             }
+            MaterialAlertDialogBuilder(ctx)
+                    .setView(custView)
+                    .setTitle(R.string.dialog_filterTitle)
+                    .setPositiveButton(R.string.dialog_filterPositive) { _, _->
+                        with(custView) {
+                            seekerProgress = seekBar.progress
+                            isEfEnabled = EFCB.isChecked
+                            isQ1Enabled = Q1CB.isChecked
+                            isQ2Enabled = Q2CB.isChecked
+                            isFilterForMeActive = forMeCB.isChecked
+                            isFilterLastOfDayActive = lastOfDayCB.isChecked
+                        }
+                        listViewModel.refreshPlans()
+                    }
+                    /*.setNeutralButton(R.string.cancel) { dialog, which ->
+                    
+                    }*/
+                    .setNegativeButton(R.string.dialog_filterNegative) { _, _ ->
+                        seekerProgress = 100
+                        isEfEnabled = true
+                        isQ1Enabled = true
+                        isQ2Enabled = true
+                        isFilterForMeActive = false
+                        isFilterLastOfDayActive = false
+                        listViewModel.refreshPlans()
+                    }
+                    .show()
+            true
         }
         else -> super.onOptionsItemSelected(item)
     }

@@ -44,6 +44,7 @@
     <string name="action_currentPlan">Momentaner Plan</string>
     <string name="action_filterList">Filter</string>
     <string name="action_refresh">Aktualisieren</string>
+    <string name="action_relatedTimetable">Benutzer Stundenplan</string>
 
     <string name="actionbar_time_info">%1s <b>↻</b> %2s <b>↧</b></string>
     <string name="dialog_deleteLesson_message">Willst du diese Stunde löschen?</string>
@@ -72,6 +73,8 @@
     <string name="optionsFavorite">Favorisieren</string>
 
     <string name="timetableNamePlaceHolder">Kein Name</string>
+
+    <string name="noRelatedTimetable">Es wurde kein Stundenplan zur Berechnung genutzt</string>
 
     <!--related to Filter popup-->
     <string name="dialog_filterPositive">Anwenden</string>

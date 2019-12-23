@@ -1,19 +1,19 @@
 package com.example.eloem.vertretungsplan.ui.currentplan
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.eloem.vertretungsplan.R
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.ui.ChildFragment
 import com.example.eloem.vertretungsplan.util.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_current_plan.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,7 +50,7 @@ class DisplayPlanFragment: ChildFragment(), PlanResponseHolder {
     
         configureSupportActionBar {
             title = resources.getString(R.string.app_name)
-            setDisplayHomeAsUpEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
         }
         withHost {
             hideFab()
@@ -81,5 +81,28 @@ class DisplayPlanFragment: ChildFragment(), PlanResponseHolder {
                 }
             }
         }
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_actions_display_plan, menu)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.metaData -> {
+            showMetaData(verPlan)
+            true
+        }
+        R.id.relatedTimetable -> {
+            if (verPlan.computedWith == -1L) {
+                Snackbar.make(hostActivity.rootView, R.string.noRelatedTimetable, Snackbar.LENGTH_SHORT)
+                        .show()
+            } else {
+                findNavController().navigate(DisplayPlanFragmentDirections
+                        .actionDisplayPlanFragmentToTimetableFragment(verPlan.computedWith, false)
+                )
+            }
+            true
+        }
+        else -> false
     }
 }
