@@ -40,9 +40,9 @@ data class Vertretungsplan(
     }
     
     enum class Grade(val url: String) {
-        EF("http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_EF.htm"),
-        Q1("http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_Q1.htm"),
-        Q2("http://www.europaschule-bornheim.eu/fileadmin/vertretung/Ver_Kla_A_Q2.htm")
+        EF("http://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_EF.htm"),
+        Q1("http://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_Q1.htm"),
+        Q2("http://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_Q2.htm")
     }
     
     enum class PlanStatus { OK, WRONG_DAY, NO_PLAN, CALCULATION_ERROR, NO_TIMETABLE }

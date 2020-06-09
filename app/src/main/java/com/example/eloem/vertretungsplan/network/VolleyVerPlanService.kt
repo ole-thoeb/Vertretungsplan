@@ -33,7 +33,6 @@ class VolleyVerPlanService(context: Context) : VerPlanNetworkService {
         queue.add(stringRequest)
     }
     
-    @Suppress("IMPLICIT_CAST_TO_ANY")
     override suspend fun planForGrade(grade: Vertretungsplan.Grade): Result<ResponseModel.VerPlan, ResponseModel.Error> {
         
         /*if (readDownloadAllPlans(ctx)) {
@@ -61,8 +60,7 @@ class VolleyVerPlanService(context: Context) : VerPlanNetworkService {
         }*/
         return withContext(Dispatchers.IO) {
             val response = simpleRequest(grade.url)
-            response
-                    .withFailure { ResponseModel.Error.NO_INTERNET }
+            response.withFailure { ResponseModel.Error.NO_INTERNET }
                     .chainSuccess { ResponseModel.VerPlan.fromString(it) }
         }
     }

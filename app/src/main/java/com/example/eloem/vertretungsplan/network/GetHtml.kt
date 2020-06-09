@@ -124,10 +124,11 @@ fun extractWeekday(htmlString: String): WeekDay {
 }
 
 fun extractTargetDay(html: String): Long{
-    val dateString = html.retainMatches("""(?<=   )\d+.\d+.\d\d\d\d""".toRegex(), 0)
-    
+    val dateString = html.retainMatches("""\d+\.\d+\.""".toRegex(), 1)
+    val year = Calendar.getInstance()[Calendar.YEAR]
     val sdf = SimpleDateFormat("dd.MM.yyyy")
-    val dateObj = sdf.parse(dateString)
+    val dateObj = sdf.parse(dateString + year)
+    require(dateObj == dateObj.time.toDate())
     return dateObj.time
 }
 
