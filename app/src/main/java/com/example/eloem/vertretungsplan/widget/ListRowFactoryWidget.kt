@@ -60,7 +60,7 @@ class ListRowFactoryWidget(override val ctx: Context, private val appwidgetId: I
         setText(row, R.id.teacherTV, verPlanRow.teacher)
         setText(row, R.id.verTeacherTV, verPlanRow.verTeacher)
         setText(row, R.id.roomTV, verPlanRow.room)
-        setText(row, R.id.verRoomTV, verPlanRow.verRoom)
+        setText(row, R.id.typeTV, verPlanRow.type)
         setText(row, R.id.verTextTV, verPlanRow.verText)
         
         row.setOnClickFillInIntent(R.id.root, Intent())

@@ -16,7 +16,7 @@ data class Vertretungsplan(
 ) {
     
     data class Row(val lesson: Int, val teacher: String, val verTeacher: String, val room: String,
-                   val verRoom: String, val verText: String)
+                   val type: String, val verText: String)
     
     data class Plan(val id: Long, val plan: List<Row> = mutableListOf(), var status: PlanStatus = PlanStatus.OK) {
         fun contentEquals(other: Plan) = other.plan == plan && status == other.status
@@ -40,9 +40,9 @@ data class Vertretungsplan(
     }
     
     enum class Grade(val url: String) {
-        EF("http://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_EF.htm"),
-        Q1("http://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_Q1.htm"),
-        Q2("http://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_Q2.htm")
+        EF("https://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_EF.htm"),
+        Q1("https://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_Q1.htm"),
+        Q2("https://www.europaschule-bornheim.de/fileadmin/vertretung/Ver_Kla_A_Q2.htm")
     }
     
     enum class PlanStatus { OK, WRONG_DAY, NO_PLAN, CALCULATION_ERROR, NO_TIMETABLE }

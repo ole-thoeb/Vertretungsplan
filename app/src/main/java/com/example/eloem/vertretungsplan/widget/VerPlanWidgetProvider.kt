@@ -155,7 +155,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
                     .getInstance(context)
                     .getAppWidgetIds(ComponentName(context, VerPlanWidgetProvider::class.java)) ?: intArrayOf()
         } else {
-            idsFromIntent
+            idsFromIntent!!
         }
     }
     

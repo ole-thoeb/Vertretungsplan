@@ -1,11 +1,13 @@
 package com.example.eloem.vertretungsplan.network
 
 import android.content.Context
+import android.util.Log
 import com.example.eloem.vertretungsplan.helperClasses.Timetable
 import com.example.eloem.vertretungsplan.helperClasses.Vertretungsplan
 import com.example.eloem.vertretungsplan.util.*
 import java.lang.Error
 import java.lang.Exception
+import java.util.logging.Logger
 
 object ResponseModel {
     data class VerPlan(
@@ -59,7 +61,9 @@ object ResponseModel {
                             targetDay,
                             grade
                     )
-                }.catchResult {
+                }.catchResult { error ->
+                    Log.e(TAG, "Error parsing VerPlan: $error")
+                    error.printStackTrace()
                     Error.PARSE_ERROR
                 }
             }
@@ -67,4 +71,6 @@ object ResponseModel {
     }
     
     enum class Error { NO_INTERNET, PARSE_ERROR }
+    
+    private const val TAG = "ResponseModel"
 }

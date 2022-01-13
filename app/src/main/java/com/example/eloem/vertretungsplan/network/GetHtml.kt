@@ -49,13 +49,23 @@ fun extractVerPlan(htmlString: String): List<Vertretungsplan.Row> {
     val table = parsTable(htmlString, 1).drop(1)//first row are just column names
     val plan = mutableListOf<Vertretungsplan.Row>()
     table.forEach {
-        if ("-" in it[0]) { //wenn mehrere Stunden (z.B 1 - 2)
-            val multLessons = it[0].split(""" *- *""".toRegex())
-            for (i in multLessons[0].toInt()..multLessons[1].toInt()) {
-                plan.add(Vertretungsplan.Row(i, it[1], it[2], it[6], it[4], it[7]))
-            }
+        val lessonField = it[1]
+        val lessons = if ("-" in lessonField) { //wenn mehrere Stunden (z.B 1 - 2)
+            val (start, end) = it[0].split(""" *- *""".toRegex())
+            start.toInt()..end.toInt()
         } else {
-            plan.add(Vertretungsplan.Row(it[0].toInt(), it[1], it[2], it[6], it[4], it[7]))
+            val lesson = lessonField.toInt()
+            lesson..lesson
+        }
+        for (lesson in lessons) {
+            plan.add(Vertretungsplan.Row(
+                lesson = lesson,
+                teacher = it[6],
+                verTeacher = it[2],
+                room = it[4],
+                type = it[5],
+                verText = it[7]
+            ))
         }
     }
     return plan

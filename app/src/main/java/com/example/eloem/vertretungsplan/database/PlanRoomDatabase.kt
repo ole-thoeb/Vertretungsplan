@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase
         SqlPlanRow::class,
         SqlTimetable::class,
         SqlTimetableLesson::class
-], version = 6, exportSchema = false)
+], version = 7, exportSchema = false)
 abstract class PlanRoomDatabase : RoomDatabase() {
     abstract fun planDao(): PlanDao
     
@@ -29,7 +29,7 @@ abstract class PlanRoomDatabase : RoomDatabase() {
                         context.applicationContext,
                         PlanRoomDatabase::class.java,
                         "plan_database")
-                        .fallbackToDestructiveMigration()
+                        .addMigrations(Migrations.MIGRATION_6_TO_7)
                         .build()
                 INSTANCE = instance
                 return instance

@@ -31,7 +31,7 @@ class SqlPlanRow(
         val teacher: String,
         val verTeacher: String,
         val room: String,
-        val verRoom: String,
+        val type: String,
         val verText: String,
         val planId: Long
 ) {

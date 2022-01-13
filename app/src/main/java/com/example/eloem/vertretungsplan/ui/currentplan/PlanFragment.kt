@@ -86,7 +86,7 @@ abstract class PlanFragment : Fragment() {
             val teacher: TextView = layout.findViewById(R.id.teacherTV)
             val verTeacher: TextView = layout.findViewById(R.id.verTeacherTV)
             val room: TextView = layout.findViewById(R.id.roomTV)
-            val verRoom: TextView = layout.findViewById(R.id.verRoomTV)
+            val verRoom: TextView = layout.findViewById(R.id.typeTV)
             val verText: TextView = layout.findViewById(R.id.verTextTV)
         }
     
@@ -101,7 +101,7 @@ abstract class PlanFragment : Fragment() {
             holder.teacher.text = row.teacher
             holder.verTeacher.text = row.verTeacher
             holder.room.text = row.room
-            holder.verRoom.text = row.verRoom
+            holder.verRoom.text = row.type
             holder.verText.text = row.verText
         }
     

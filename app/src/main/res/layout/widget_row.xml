@@ -56,7 +56,7 @@
                 android:textSize="@dimen/appWidgetTextSize" />
 
             <TextView
-                android:id="@+id/verRoomTV"
+                android:id="@+id/typeTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

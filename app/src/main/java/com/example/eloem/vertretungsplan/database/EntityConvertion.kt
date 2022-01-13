@@ -9,7 +9,7 @@ import kotlinx.coroutines.internal.LockFreeLinkedListNode
 
 fun PlanWithRows.toPlan() : Vertretungsplan.Plan {
     val planRows = rows!!
-            .map { Vertretungsplan.Row(it.lesson, it.teacher, it.verTeacher, it.room, it.verRoom, it.verText) }
+            .map { Vertretungsplan.Row(it.lesson, it.teacher, it.verTeacher, it.room, it.type, it.verText) }
     
     return Vertretungsplan.Plan(plan!!.id, planRows, Vertretungsplan.PlanStatus.values()[plan!!.status])
 }
@@ -44,7 +44,7 @@ fun Vertretungsplan.toSqlType(): SqlVerPlan {
 
 fun Vertretungsplan.Plan.toSqlType(): Pair<SqlPlan, List<SqlPlanRow>> {
     return SqlPlan(id, status.ordinal) to plan.map {
-        SqlPlanRow(it.lesson, it.teacher, it.verTeacher, it.room, it.verRoom, it.verText, id)
+        SqlPlanRow(it.lesson, it.teacher, it.verTeacher, it.room, it.type, it.verText, id)
     }
 }
 

@@ -253,7 +253,7 @@ class PlanListFragment : ChildFragment() {
                         teacherTV.text = verRow.teacher
                         verTeacherTV.text = verRow.verTeacher
                         roomTV.text = verRow.room
-                        verRoomTV.text = verRow.verRoom
+                        typeTV.text = verRow.type
                         verTextTV.text = verRow.verText
                         visibility = View.VISIBLE
                     }
