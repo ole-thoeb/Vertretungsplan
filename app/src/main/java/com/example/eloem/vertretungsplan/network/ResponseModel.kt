@@ -61,9 +61,7 @@ object ResponseModel {
                             targetDay,
                             grade
                     )
-                }.catchResult { error ->
-                    Log.e(TAG, "Error parsing VerPlan: $error")
-                    error.printStackTrace()
+                }.catchResult {
                     Error.PARSE_ERROR
                 }
             }
