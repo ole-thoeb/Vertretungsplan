@@ -34,7 +34,9 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <!-- widget Stuff -->
-        <receiver android:name=".widget.VerPlanWidgetProvider">
+        <receiver
+            android:name=".widget.VerPlanWidgetProvider"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -50,7 +52,9 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- Broadcast receiver that responds when phone successfully boots -->
-        <receiver android:name=".widget.BootReceiver" >
+        <receiver
+            android:name=".widget.BootReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

@@ -3,8 +3,11 @@ package com.example.eloem.vertretungsplan.database
 import androidx.room.*
 import javax.security.auth.Subject
 
-@Entity(primaryKeys = ["id"])
-@ForeignKey(entity = SqlPlan::class, parentColumns = ["id, id"], childColumns = ["generalPlan", "customPlan"])
+@Entity(primaryKeys = ["id"], foreignKeys = [
+    ForeignKey(entity = SqlPlan::class, parentColumns = ["id"], childColumns = ["customPlan"]),
+    ForeignKey(entity = SqlPlan::class, parentColumns = ["id"], childColumns = ["generalPlan"]),
+    ForeignKey(entity = SqlTimetable::class, parentColumns = ["id"], childColumns = ["computedWith"])
+])
 class SqlVerPlan(
         val id: Long,
         val fetchedTime: Long ,
@@ -14,7 +17,6 @@ class SqlVerPlan(
         val updateTime: Long,
         val targetDay: Long,
         val grade: Int,
-        @ForeignKey(entity = SqlTimetable::class, parentColumns = ["id"], childColumns = ["computedWith"])
         val computedWith: Long
 )
 
@@ -24,8 +26,7 @@ class SqlPlan(
         val status: Int
 )
 
-@Entity
-@ForeignKey(entity = SqlPlan::class, parentColumns = ["id"], childColumns = ["planId"])
+@Entity(foreignKeys = [ForeignKey(entity = SqlPlan::class, parentColumns = ["id"], childColumns = ["planId"])])
 class SqlPlanRow(
         val lesson: Int,
         val teacher: String,
@@ -49,8 +50,9 @@ class SqlTimetable(
         val isArchived: Boolean
 )
 
-@Entity(primaryKeys = ["day", "lesson", "timetableId"])
-@ForeignKey(entity = SqlTimetable::class, parentColumns = ["id"], childColumns = ["timetableId"])
+@Entity(primaryKeys = ["day", "lesson", "timetableId"], foreignKeys = [
+    ForeignKey(entity = SqlTimetable::class, parentColumns = ["id"], childColumns = ["timetableId"])
+])
 class SqlTimetableLesson(
         val subject: String,
         val teacher: String,

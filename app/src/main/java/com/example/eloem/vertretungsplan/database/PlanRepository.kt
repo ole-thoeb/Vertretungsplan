@@ -43,7 +43,7 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
                 val filterPlans = if (lastOfDay) {
                     plans.groupBy { it.grade.ordinal.toLong() + it.targetDay }
                             .values
-                            .map { it.maxBy { plan -> plan.fetchedTime }!! }
+                            .map { it.maxByOrNull { plan -> plan.fetchedTime }!! }
                 } else {
                     plans
                 }
