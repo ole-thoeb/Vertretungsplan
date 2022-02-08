@@ -67,7 +67,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
             val refreshIntent = Intent(context, VerPlanWidgetProvider::class.java)
             refreshIntent.action = ACTION_REFRESH
             refreshIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
-            val pRefreshIntent = PendingIntent.getBroadcast(context, 0, refreshIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val pRefreshIntent = PendingIntent.getBroadcast(context, 0, refreshIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.buttonRefresh, pRefreshIntent)
             
             //switcher Text view
@@ -75,7 +75,7 @@ class VerPlanWidgetProvider: AppWidgetProvider() {
             switchIntent.action = ACTION_SWITCH
             switchIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
             switchIntent.data = Uri.parse(switchIntent.toUri(Intent.URI_INTENT_SCHEME))
-            val pSwitchIntent = PendingIntent.getBroadcast(context, 0, switchIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val pSwitchIntent = PendingIntent.getBroadcast(context, 0, switchIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.informationTV, pSwitchIntent)
             
             views.setTextViewText(R.id.informationTV, context.resources?.getString(

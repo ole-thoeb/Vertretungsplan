@@ -147,9 +147,6 @@ class PlanRepository(private val planDao: PlanDao, private val planService: VerP
     
     suspend fun deleteVerPlan(verPlan: Vertretungsplan) {
         planDao.deleteVerPlan(verPlan)
-        if (planDao.getPlansComputedWithTimetable(verPlan.computedWith).isEmpty()) {
-            deleteTimetable(verPlan.computedWith)
-        }
     }
     
     /**

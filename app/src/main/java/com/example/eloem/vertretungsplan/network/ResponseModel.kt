@@ -41,7 +41,7 @@ object ResponseModel {
                     updateTime,
                     targetDay,
                     grade,
-                    timetable?.id ?: -1
+                    timetable?.id
             )
         }
         

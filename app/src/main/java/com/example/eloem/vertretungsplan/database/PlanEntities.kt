@@ -17,7 +17,7 @@ class SqlVerPlan(
         val updateTime: Long,
         val targetDay: Long,
         val grade: Int,
-        val computedWith: Long
+        val computedWith: Long?
 )
 
 @Entity(primaryKeys = ["id"])

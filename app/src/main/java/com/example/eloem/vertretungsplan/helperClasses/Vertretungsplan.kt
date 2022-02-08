@@ -12,7 +12,7 @@ data class Vertretungsplan(
         val updateTime: Long = 0,
         val targetDay: Long = 0,
         val grade: Grade = Grade.Q1,
-        val computedWith: Long
+        val computedWith: Long?
 ) {
     
     data class Row(val lesson: Int, val teacher: String, val verTeacher: String, val room: String,

@@ -93,12 +93,13 @@ class DisplayPlanFragment: ChildFragment(), PlanResponseHolder {
             true
         }
         R.id.relatedTimetable -> {
-            if (verPlan.computedWith == -1L) {
+            val computedWith = verPlan.computedWith
+            if (computedWith == null) {
                 Snackbar.make(hostActivity.rootView, R.string.noRelatedTimetable, Snackbar.LENGTH_SHORT)
                         .show()
             } else {
                 findNavController().navigate(DisplayPlanFragmentDirections
-                        .actionDisplayPlanFragmentToTimetableFragment(verPlan.computedWith, false)
+                        .actionDisplayPlanFragmentToTimetableFragment(computedWith, false)
                 )
             }
             true

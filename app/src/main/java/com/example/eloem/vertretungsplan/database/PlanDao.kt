@@ -12,11 +12,12 @@ interface PlanDao {
     @Transaction
     suspend fun insertVertretungsplan(verPlan: Vertretungsplan) {
         Log.d(TAG, "inserting Vertretungsplan. id = ${verPlan.id} grade = ${verPlan.grade}")
-        insertVerPlan(verPlan.toSqlType())
         val (gPlan, gRows) = verPlan.generalPlan.toSqlType()
         val (cPlan, cRows) = verPlan.customPlan.toSqlType()
         insertPlan(gPlan)
         insertPlan(cPlan)
+        
+        insertVerPlan(verPlan.toSqlType())
     
         insertPlanRows(gRows)
         insertPlanRows(cRows)

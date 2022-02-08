@@ -49,9 +49,9 @@ fun extractVerPlan(htmlString: String): List<Vertretungsplan.Row> {
     val table = parsTable(htmlString, 1).drop(1)//first row are just column names
     val plan = mutableListOf<Vertretungsplan.Row>()
     table.forEach {
-        val lessonField = it[1]
+        val lessonField = it[0]
         val lessons = if ("-" in lessonField) { //wenn mehrere Stunden (z.B 1 - 2)
-            val (start, end) = it[0].split(""" *- *""".toRegex())
+            val (start, end) = lessonField.split(""" *- *""".toRegex())
             start.toInt()..end.toInt()
         } else {
             val lesson = lessonField.toInt()
@@ -60,11 +60,11 @@ fun extractVerPlan(htmlString: String): List<Vertretungsplan.Row> {
         for (lesson in lessons) {
             plan.add(Vertretungsplan.Row(
                 lesson = lesson,
-                teacher = it[6],
-                verTeacher = it[2],
-                room = it[4],
-                type = it[5],
-                verText = it[7]
+                teacher = it[5],
+                verTeacher = it[1],
+                room = it[3],
+                type = it[4],
+                verText = it[6]
             ))
         }
     }
